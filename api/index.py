@@ -33,4 +33,3 @@ from apps.api.app.main import app  # noqa: E402
 
 # Vercel serverless ASGI handler
 __all__ = ["app"]
-

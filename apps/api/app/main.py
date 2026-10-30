@@ -25,6 +25,12 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
         f"Starting {settings.APP_NAME} v{settings.APP_VERSION} "
         f"[env={settings.ENVIRONMENT}, ai_provider={settings.AI_PROVIDER_TYPE}]"
     )
+    try:
+        from apps.api.app.db.init_db import ensure_schema_initialized
+
+        await ensure_schema_initialized()
+    except Exception as e:
+        logger.warning(f"Database auto-init notice: {e}")
     yield
     logger.info(f"Shutting down {settings.APP_NAME}...")
 
