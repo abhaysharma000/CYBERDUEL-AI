@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberDuel AI — Navigation Guard Alert</title>
+  <link rel="stylesheet" href="./src/warning/warning.css">
+</head>
+<body class="theme-dark">
+  <div class="alert-container">
+    <div class="alert-card" id="alertCard">
+      <div class="header">
+        <div class="shield-icon" id="shieldIcon">🛡️</div>
+        <div class="title-wrap">
+          <span class="badge" id="alertBadge">SECURITY ALERT</span>
+          <h1 id="alertTitle">Suspicious Destination Intercepted</h1>
+        </div>
+      </div>
+
+      <div class="threat-summary">
+        <p class="description" id="alertReason">Evaluating destination risk profile...</p>
+      </div>
+
+      <div class="details-panel">
+        <div class="detail-row">
+          <span class="label">Destination URL:</span>
+          <span class="value url-value" id="targetUrlText">loading...</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Decision Classification:</span>
+          <span class="value" id="decisionText">Analyzing...</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Calibrated Risk Score:</span>
+          <span class="value" id="riskScoreText">0.00</span>
+        </div>
+        <div class="detail-row">
+          <span class="label">Enforcing Policy Version:</span>
+          <span class="value" id="policyVersionText">2026.10.1</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="goBackBtn" class="btn btn-primary">Safe Return (Recommended)</button>
+        <button id="proceedBtn" class="btn btn-danger" style="display: none;">Proceed Anyway (Unsafe)</button>
+        <button id="reportFpBtn" class="btn btn-secondary">Report False Positive</button>
+      </div>
+
+      <div class="feedback-panel" id="feedbackPanel" style="display: none;">
+        <h3>Dispute Classification</h3>
+        <p>Your feedback is submitted to the CyberDuel research laboratory for triage.</p>
+        <textarea id="fpReasonText" placeholder="Explain why this destination is benign..."></textarea>
+        <div class="feedback-actions">
+          <button id="submitFpBtn" class="btn btn-primary btn-sm">Submit Report</button>
+          <button id="cancelFpBtn" class="btn btn-secondary btn-sm">Cancel</button>
+        </div>
+        <div id="fpStatusText" class="status-msg"></div>
+      </div>
+
+      <div class="footer-note">
+        Protected by <strong>CyberDuel AI</strong>. Zero executable updates, deterministic policy engine.
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/warning/warning.ts"></script>
+</body>
+</html>
+

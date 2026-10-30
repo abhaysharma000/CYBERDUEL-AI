@@ -1,0 +1,63 @@
+# CyberDuel AI — Qwen2.5 Parameter-Efficient Fine-Tuning (PEFT/LoRA) Configuration
+# Hardware Target: Single NVIDIA GPU with >= 16GB VRAM (e.g., RTX 4080/4090, A10G, L4)
+# Framework: Hugging Face TRL (SFTTrainer), PEFT, BitsAndBytes 4-bit NF4 Quantization
+
+model:
+  base_model_name_or_path: "Qwen/Qwen2.5-7B-Instruct"
+  torch_dtype: "bfloat16"
+  trust_remote_code: true
+  use_cache: false
+  quantization:
+    load_in_4bit: true
+    bnb_4bit_quant_type: "nf4"
+    bnb_4bit_compute_dtype: "bfloat16"
+    bnb_4bit_use_double_quant: true
+
+lora:
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+training_arguments:
+  output_dir: "artifacts/training/qwen2.5_7b_cyberduel_lora"
+  num_train_epochs: 3
+  per_device_train_batch_size: 4
+  per_device_eval_batch_size: 4
+  gradient_accumulation_steps: 4
+  learning_rate: 0.0002
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.05
+  weight_decay: 0.01
+  max_seq_length: 2048
+  logging_steps: 10
+  eval_strategy: "epoch"
+  save_strategy: "epoch"
+  save_total_limit: 2
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  bf16: true
+  fp16: false
+  optim: "paged_adamw_8bit"
+  seed: 42
+
+dataset_policy:
+  strict_held_out_isolation: true
+  train_sources:
+    - "datasets/sft/classification_sft.jsonl"
+    - "datasets/sft/blue_defense_sft.jsonl"
+    - "datasets/sft/red_adversary_sft.jsonl"
+  validation_sources:
+    - "datasets/splits/val.jsonl"
+  forbidden_sources:
+    - "datasets/splits/test_held_out.jsonl"
+

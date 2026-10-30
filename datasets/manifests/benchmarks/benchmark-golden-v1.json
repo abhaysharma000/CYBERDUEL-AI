@@ -1,0 +1,379 @@
+{
+  "manifest_id": "benchmark-golden-v1",
+  "name": "CyberDuel Golden Benchmark Suite v1",
+  "version": "1.0.0",
+  "description": "Verified multi-split benchmark suite with strict group isolation and zero label leakage",
+  "created_at": "2026-10-29T05:42:05.494694Z",
+  "split_counts": {
+    "benign_control": 5,
+    "regression": 5,
+    "development": 5,
+    "validation": 4,
+    "held_out": 6
+  },
+  "family_counts": {
+    "whitelist_control": 5,
+    "ip_host": 3,
+    "suspicious_port": 2,
+    "homograph_mimicry": 3,
+    "brand_impersonation": 5,
+    "phishing_keywords": 3,
+    "double_encoding": 1,
+    "subdomain_flooding": 1,
+    "dga_entropy": 2
+  },
+  "scenario_count": 25,
+  "scenarios": [
+    {
+      "scenario_id": "3874ea58-66cb-519a-9b0d-fb90ae178dfb",
+      "url": "https://www.google.com/search?q=cybersecurity",
+      "expected_class": "benign",
+      "expected_decision": "allow",
+      "scenario_family": "whitelist_control",
+      "split": "benign_control",
+      "group_id": "group_benign_google",
+      "difficulty": "intermediate",
+      "tags": [
+        "whitelist_control",
+        "benign_control"
+      ]
+    },
+    {
+      "scenario_id": "f0aac9b5-be6f-5df0-ab8d-9a91d5d6b75f",
+      "url": "https://github.com/torvalds/linux",
+      "expected_class": "benign",
+      "expected_decision": "allow",
+      "scenario_family": "whitelist_control",
+      "split": "benign_control",
+      "group_id": "group_benign_github",
+      "difficulty": "intermediate",
+      "tags": [
+        "whitelist_control",
+        "benign_control"
+      ]
+    },
+    {
+      "scenario_id": "b5f1186c-1e0f-533b-80fe-f4e897824ce4",
+      "url": "https://docs.python.org/3/library/urllib.parse.html",
+      "expected_class": "benign",
+      "expected_decision": "allow",
+      "scenario_family": "whitelist_control",
+      "split": "benign_control",
+      "group_id": "group_benign_python",
+      "difficulty": "intermediate",
+      "tags": [
+        "whitelist_control",
+        "benign_control"
+      ]
+    },
+    {
+      "scenario_id": "0b4069a7-d631-5ce4-b5e8-c018d8437b20",
+      "url": "https://en.wikipedia.org/wiki/Transport_Layer_Security",
+      "expected_class": "benign",
+      "expected_decision": "allow",
+      "scenario_family": "whitelist_control",
+      "split": "benign_control",
+      "group_id": "group_benign_wiki",
+      "difficulty": "intermediate",
+      "tags": [
+        "whitelist_control",
+        "benign_control"
+      ]
+    },
+    {
+      "scenario_id": "94b34148-6859-5972-9ae8-a9d3f2082af3",
+      "url": "https://stackoverflow.com/questions/11227809/why-is-processing-a-sorted-array-faster-than-processing-an-unsorted-array",
+      "expected_class": "benign",
+      "expected_decision": "allow",
+      "scenario_family": "whitelist_control",
+      "split": "benign_control",
+      "group_id": "group_benign_so",
+      "difficulty": "intermediate",
+      "tags": [
+        "whitelist_control",
+        "benign_control"
+      ]
+    },
+    {
+      "scenario_id": "fa8abbbc-8ca3-53fc-9461-e0de8dd77145",
+      "url": "http://192.168.1.1/admin/login.php",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "ip_host",
+      "split": "regression",
+      "group_id": "group_reg_ip_private",
+      "difficulty": "intermediate",
+      "tags": [
+        "ip_host",
+        "regression"
+      ]
+    },
+    {
+      "scenario_id": "d8db3044-3454-5530-90c0-7cd53ab90fe4",
+      "url": "http://203.0.113.15:8080/secure/banking/update",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "suspicious_port",
+      "split": "regression",
+      "group_id": "group_reg_ip_port",
+      "difficulty": "intermediate",
+      "tags": [
+        "suspicious_port",
+        "regression"
+      ]
+    },
+    {
+      "scenario_id": "9023ac92-7cca-506e-823d-4e8ebc289e69",
+      "url": "https://p\u0430ypal.com/signin/verify-identity",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "homograph_mimicry",
+      "split": "regression",
+      "group_id": "group_reg_homograph_paypal",
+      "difficulty": "intermediate",
+      "tags": [
+        "homograph_mimicry",
+        "regression"
+      ]
+    },
+    {
+      "scenario_id": "bbd82fd0-8c90-5b65-b63d-d595f88fc4cc",
+      "url": "https://login-microsoft-online.com/auth/login",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "brand_impersonation",
+      "split": "regression",
+      "group_id": "group_reg_brand_ms",
+      "difficulty": "intermediate",
+      "tags": [
+        "brand_impersonation",
+        "regression"
+      ]
+    },
+    {
+      "scenario_id": "d2fe1544-7030-5bc7-9ce5-7a3f003e7840",
+      "url": "https://chase-bank-verify-account-credential-portal.com/login",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "phishing_keywords",
+      "split": "regression",
+      "group_id": "group_reg_phish_chase",
+      "difficulty": "intermediate",
+      "tags": [
+        "phishing_keywords",
+        "regression"
+      ]
+    },
+    {
+      "scenario_id": "f8c04e80-99a5-51a9-a994-d119cc2b32a2",
+      "url": "http://198.51.100.42/payload.bin",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "ip_host",
+      "split": "development",
+      "group_id": "group_dev_ip_payload",
+      "difficulty": "intermediate",
+      "tags": [
+        "ip_host",
+        "development"
+      ]
+    },
+    {
+      "scenario_id": "77202780-bdfb-57ee-b058-a3789222c338",
+      "url": "https://g\u043e\u043egle.com/accounts/recovery",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "homograph_mimicry",
+      "split": "development",
+      "group_id": "group_dev_homograph_google",
+      "difficulty": "intermediate",
+      "tags": [
+        "homograph_mimicry",
+        "development"
+      ]
+    },
+    {
+      "scenario_id": "ad90ae32-5d63-5f5a-b7a5-5db269eff447",
+      "url": "https://apple-id-verify.support-desk99.com/unlock",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "brand_impersonation",
+      "split": "development",
+      "group_id": "group_dev_brand_apple",
+      "difficulty": "intermediate",
+      "tags": [
+        "brand_impersonation",
+        "development"
+      ]
+    },
+    {
+      "scenario_id": "642bd2b4-0168-538f-8b4a-1e1cf92bad62",
+      "url": "https://secure-auth-portal.com%252flogin?session=admin",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "double_encoding",
+      "split": "development",
+      "group_id": "group_dev_double_encoding",
+      "difficulty": "intermediate",
+      "tags": [
+        "double_encoding",
+        "development"
+      ]
+    },
+    {
+      "scenario_id": "958f01a5-87d7-5a56-984a-25a351281f1c",
+      "url": "https://a.b.c.d.e.f.g.h.subdomain-flood.org/page.html",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "subdomain_flooding",
+      "split": "development",
+      "group_id": "group_dev_subdomain_flood",
+      "difficulty": "intermediate",
+      "tags": [
+        "subdomain_flooding",
+        "development"
+      ]
+    },
+    {
+      "scenario_id": "8ca4e595-d05c-5376-b696-30b4d218139d",
+      "url": "http://198.51.100.89:8443/cmd.exe",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "suspicious_port",
+      "split": "validation",
+      "group_id": "group_val_port_cmd",
+      "difficulty": "intermediate",
+      "tags": [
+        "suspicious_port",
+        "validation"
+      ]
+    },
+    {
+      "scenario_id": "2c961c45-31c2-56f3-984c-9ccc27c9352f",
+      "url": "https://netflix-account-reactivation-alert.net/billing",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "brand_impersonation",
+      "split": "validation",
+      "group_id": "group_val_brand_netflix",
+      "difficulty": "intermediate",
+      "tags": [
+        "brand_impersonation",
+        "validation"
+      ]
+    },
+    {
+      "scenario_id": "2ade6eef-6aa9-5304-8e51-968d2e8042f4",
+      "url": "https://zkjdf98723kjnvd98234-dga-test.xyz/sync",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "dga_entropy",
+      "split": "validation",
+      "group_id": "group_val_dga",
+      "difficulty": "intermediate",
+      "tags": [
+        "dga_entropy",
+        "validation"
+      ]
+    },
+    {
+      "scenario_id": "249f1f56-77fa-5942-9eac-7028a5e188ae",
+      "url": "https://wellsfargo-secure-login-portal-credential.online/auth",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "phishing_keywords",
+      "split": "validation",
+      "group_id": "group_val_phish_wf",
+      "difficulty": "intermediate",
+      "tags": [
+        "phishing_keywords",
+        "validation"
+      ]
+    },
+    {
+      "scenario_id": "78348288-78d0-51b7-a927-fe326f1faba6",
+      "url": "http://203.0.113.99/unseen/malware.exe",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "ip_host",
+      "split": "held_out",
+      "group_id": "group_held_out_ip_exe",
+      "difficulty": "intermediate",
+      "tags": [
+        "ip_host",
+        "held_out"
+      ]
+    },
+    {
+      "scenario_id": "e89045b6-40ea-5b16-8d6a-46a819cb3193",
+      "url": "https://\u0430mazon.com/ap/signin/order-status",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "homograph_mimicry",
+      "split": "held_out",
+      "group_id": "group_held_out_homograph_amazon",
+      "difficulty": "intermediate",
+      "tags": [
+        "homograph_mimicry",
+        "held_out"
+      ]
+    },
+    {
+      "scenario_id": "f9a36493-952c-5cc7-9feb-d0548d98418e",
+      "url": "https://dropbox-shared-document-download-center.top/file",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "brand_impersonation",
+      "split": "held_out",
+      "group_id": "group_held_out_brand_dropbox",
+      "difficulty": "intermediate",
+      "tags": [
+        "brand_impersonation",
+        "held_out"
+      ]
+    },
+    {
+      "scenario_id": "7be346c9-a60d-5cd5-ae80-ec7d33033bff",
+      "url": "https://qwx999plm888zxc111kjh444.biz/callback",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "dga_entropy",
+      "split": "held_out",
+      "group_id": "group_held_out_dga_biz",
+      "difficulty": "intermediate",
+      "tags": [
+        "dga_entropy",
+        "held_out"
+      ]
+    },
+    {
+      "scenario_id": "7a65cec2-89dc-52fd-96e1-596ac6135a77",
+      "url": "https://verified-bank-security-notice.com/confirm",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "phishing_keywords",
+      "split": "held_out",
+      "group_id": "group_held_out_phish_bank",
+      "difficulty": "intermediate",
+      "tags": [
+        "phishing_keywords",
+        "held_out"
+      ]
+    },
+    {
+      "scenario_id": "aa5cbd70-81ae-5181-8e13-266120d1724f",
+      "url": "https://internal-employee-vpn-portal.network/session",
+      "expected_class": "malicious",
+      "expected_decision": "block",
+      "scenario_family": "brand_impersonation",
+      "split": "held_out",
+      "group_id": "group_held_out_vpn",
+      "difficulty": "intermediate",
+      "tags": [
+        "brand_impersonation",
+        "held_out"
+      ]
+    }
+  ],
+  "integrity_hash": "100a28a80a6cd300c0dbe6243ef1f90cdb22e9452eeb457358d24bf5e8184d41"
+}

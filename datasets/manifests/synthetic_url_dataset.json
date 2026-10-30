@@ -1,0 +1,78 @@
+[
+  {
+    "url": "https://www.google.com/search?q=cybersecurity+threats",
+    "label": "benign",
+    "source": "curated_ground_truth_v1"
+  },
+  {
+    "url": "https://github.com/torvalds/linux",
+    "label": "benign",
+    "source": "curated_ground_truth_v1"
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Computer_security",
+    "label": "benign",
+    "source": "curated_ground_truth_v1"
+  },
+  {
+    "url": "https://www.python.org/downloads/release/python-3120/",
+    "label": "benign",
+    "source": "curated_ground_truth_v1"
+  },
+  {
+    "url": "https://www.cloudflare.com/learning/security/what-is-cybersecurity/",
+    "label": "benign",
+    "source": "curated_ground_truth_v1"
+  },
+  {
+    "url": "https://www.apple.com/macos/sequoia/",
+    "label": "benign",
+    "source": "curated_ground_truth_v1"
+  },
+  {
+    "url": "https://www.microsoft.com/en-us/security",
+    "label": "benign",
+    "source": "curated_ground_truth_v1"
+  },
+  {
+    "url": "https://paypal.com@secure-login-account-update.attacker-domain.com/signin",
+    "label": "malicious",
+    "source": "synthetic_phish_lure_v1"
+  },
+  {
+    "url": "http://192.168.1.100:8080/chase-online-banking/verify-login.html",
+    "label": "malicious",
+    "source": "synthetic_phish_lure_v1"
+  },
+  {
+    "url": "https://xn--pypal-4ve.com/account/security-check",
+    "label": "malicious",
+    "source": "synthetic_phish_lure_v1"
+  },
+  {
+    "url": "http://microsoft-verify-account.top/confirm-identity",
+    "label": "malicious",
+    "source": "synthetic_phish_lure_v1"
+  },
+  {
+    "url": "https://secure-apple-id-verify.buzz/login?user=test%2525admin",
+    "label": "malicious",
+    "source": "synthetic_phish_lure_v1"
+  },
+  {
+    "url": "http://amazon-account-billing.work/password-reset",
+    "label": "malicious",
+    "source": "synthetic_phish_lure_v1"
+  },
+  {
+    "url": "https://unusual-portal.xyz:8888/internal/dashboard",
+    "label": "suspicious",
+    "source": "synthetic_boundary_v1"
+  },
+  {
+    "url": "https://sub1.sub2.sub3.deeply-nested-domain.rest/landing",
+    "label": "suspicious",
+    "source": "synthetic_boundary_v1"
+  }
+]
+

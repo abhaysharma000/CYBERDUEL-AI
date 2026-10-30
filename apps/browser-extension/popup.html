@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberDuel AI</title>
+  <link rel="stylesheet" href="./src/popup/popup.css">
+</head>
+<body class="theme-dark">
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <span class="brand-icon">🛡️</span>
+        <div>
+          <div class="brand-title">CyberDuel AI</div>
+          <div class="brand-subtitle">Navigation Guard Edge</div>
+        </div>
+      </div>
+      <div class="status-indicator">
+        <span class="status-dot" id="statusDot"></span>
+        <span class="status-label" id="statusLabel">PROTECTED</span>
+      </div>
+    </header>
+
+    <!-- Main Switch -->
+    <div class="protection-switch-card">
+      <div class="switch-info">
+        <div class="switch-title">Active Defense</div>
+        <div class="switch-subtitle" id="switchSubtitle">Synchronous DNR & Link Guard</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="protectionToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <!-- Quick Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-label">Policy Ver</div>
+        <div class="stat-value" id="policyVerVal">...</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Sequence</div>
+        <div class="stat-value" id="policySeqVal">...</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">DNR Rules</div>
+        <div class="stat-value" id="dnrRulesVal">...</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">Cloud Sync</div>
+        <div class="stat-value" id="cloudSyncVal">Live</div>
+      </div>
+    </div>
+
+    <!-- Manual URL Checker Section -->
+    <div class="section-card">
+      <div class="section-header">
+        <span>Target URL Inspection</span>
+        <button id="inspectCurrentTabBtn" class="link-btn" title="Inspect Current Tab URL">Use Active Tab</button>
+      </div>
+      <div class="input-group">
+        <input type="text" id="urlInput" placeholder="Enter or paste destination URL..." />
+        <button id="evaluateBtn" class="btn btn-primary btn-sm">Inspect</button>
+      </div>
+
+      <!-- Evaluation Result Container -->
+      <div id="evalResultContainer" class="eval-result" style="display: none;">
+        <div class="eval-header">
+          <span class="eval-decision-badge" id="evalDecisionBadge">ALLOW</span>
+          <span class="eval-score" id="evalScore">Risk: 0.00</span>
+        </div>
+        <div class="eval-explanation" id="evalExplanation">Explanation goes here.</div>
+        <div class="eval-provenance" id="evalProvenance">Provenance: Heuristic Engine</div>
+      </div>
+    </div>
+
+    <!-- Actions & Footer -->
+    <div class="actions-card">
+      <button id="checkUpdateBtn" class="btn btn-secondary btn-block">
+        <span id="updateBtnText">Check for Policy Updates</span>
+      </button>
+      <div id="updateStatusMsg" class="update-msg"></div>
+    </div>
+
+    <footer class="footer">
+      <button id="openOptionsBtn" class="footer-link">Advanced Settings & Privacy</button>
+      <span class="footer-sep">•</span>
+      <span class="footer-meta" id="lastCheckMeta">Checked: Today</span>
+    </footer>
+  </div>
+
+  <script type="module" src="./src/popup/popup.ts"></script>
+</body>
+</html>
+

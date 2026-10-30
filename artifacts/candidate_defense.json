@@ -1,0 +1,50 @@
+{
+  "defense_id": "e8657d41-b8ef-4d23-8afd-06b5ee5e567d",
+  "version": "v1.0.0-blue.001",
+  "author_agent": "BlueAI-v1",
+  "description": "Candidate defense v1.0.0-blue.001: Mitigation for homoglyph_spoofing (homograph_mimicry)",
+  "rule_spec": {
+    "baseline_version": "1.0.0",
+    "rules": [
+      {
+        "rule_id": "RULE-BLUE-HOMOGLYPH-SPOOFING-95315E",
+        "rule_version": "1.0.0",
+        "description": "Auto-synthesized rule targeting homoglyph_spoofing",
+        "author": "BlueAI-DefenseEngine",
+        "purpose": "Intercepts punycode brand spoofing with zero impact on standard ASCII URLs.",
+        "target_family": "homograph_mimicry",
+        "feature_names": [
+          "is_punycode",
+          "phish_keyword_count"
+        ],
+        "predicates": [
+          {
+            "field": "is_punycode",
+            "operator": "eq",
+            "value": 1
+          },
+          {
+            "field": "phish_keyword_count",
+            "operator": "gte",
+            "value": 1
+          }
+        ],
+        "logical_operator": "AND",
+        "action": "block",
+        "severity": "high",
+        "weight": 0.85,
+        "false_positive_risk": "low",
+        "source_hypothesis_id": "135a1ef4-032a-431c-b74e-f62cf47951be",
+        "created_at": "2026-10-28T19:42:31.881082Z"
+      }
+    ],
+    "tuning": {},
+    "digest": "720ebedb2011d9707512c01ac689b91a9c2f32d73af514e187a1fb01214126ea",
+    "proposal_ids": [
+      "95315e52-0e4c-4a19-bb97-1118fb2ed468"
+    ],
+    "timestamp": "2026-10-28T19:42:31.881082+00:00"
+  },
+  "status": "candidate",
+  "created_at": "2026-10-28T19:42:31.881082Z"
+}

@@ -1,0 +1,168 @@
+services:
+  # ----------------------------------------------------------------------------
+  # PostgreSQL 16 Persistence Database
+  # ----------------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    container_name: cyberduel_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-cyberduel}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cyberduel_dev_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-cyberduel_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infrastructure/docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - backend_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cyberduel} -d ${POSTGRES_DB:-cyberduel_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    # Security: Database port is NOT exposed publicly on host by default.
+    # To debug locally, developers can optionally forward 127.0.0.1:5432:5432.
+    ports:
+      - "127.0.0.1:5432:5432"
+
+  # ----------------------------------------------------------------------------
+  # Redis 7 Background Cache & Task Broker
+  # ----------------------------------------------------------------------------
+  redis:
+    image: redis:7-alpine
+    container_name: cyberduel_redis
+    restart: unless-stopped
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    volumes:
+      - ./infrastructure/docker/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - redis_data:/data
+    networks:
+      - backend_net
+      - lab_internal_net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  # ----------------------------------------------------------------------------
+  # CyberDuel AI Core API Service
+  # ----------------------------------------------------------------------------
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: cyberduel_api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      - ENVIRONMENT=${ENVIRONMENT:-development}
+      - DEBUG=${DEBUG:-false}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - LOG_JSON=${LOG_JSON:-false}
+      - API_PORT=${API_PORT:-8000}
+      - DATABASE_URL=postgresql+asyncpg://${POSTGRES_USER:-cyberduel}:${POSTGRES_PASSWORD:-cyberduel_dev_secret}@postgres:5432/${POSTGRES_DB:-cyberduel_db}
+      - DATABASE_URL_SYNC=postgresql+psycopg://${POSTGRES_USER:-cyberduel}:${POSTGRES_PASSWORD:-cyberduel_dev_secret}@postgres:5432/${POSTGRES_DB:-cyberduel_db}
+      - REDIS_URL=redis://redis:6379/0
+      - AI_PROVIDER_TYPE=${AI_PROVIDER_TYPE:-mock}
+      - AI_MODEL_NAME=${AI_MODEL_NAME:-deterministic-mock-v1}
+      - SECRET_KEY=${SECRET_KEY:-dev_secret_key_at_least_32_characters_long_for_security}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000,http://localhost:8000}
+      - RATE_LIMIT_ENABLED=${RATE_LIMIT_ENABLED:-true}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - release_storage:/app/storage/releases
+    networks:
+      - backend_net
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1024M
+
+  # ----------------------------------------------------------------------------
+  # CyberDuel Command Center Dashboard (Production React SPA)
+  # ----------------------------------------------------------------------------
+  dashboard:
+    build:
+      context: apps/dashboard
+      dockerfile: Dockerfile
+    container_name: cyberduel_dashboard
+    restart: unless-stopped
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${DASHBOARD_PORT:-3000}:80"
+    networks:
+      - backend_net
+    security_opt:
+      - no-new-privileges:true
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+
+  # ----------------------------------------------------------------------------
+  # CyberDuel Sandboxed Laboratory Worker Skeleton
+  # ----------------------------------------------------------------------------
+  lab-worker:
+    build:
+      context: .
+      dockerfile: services/lab-worker/Dockerfile
+    container_name: cyberduel_lab_worker
+    restart: unless-stopped
+    depends_on:
+      redis:
+        condition: service_healthy
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+      - SANDBOX_STRICT=true
+      - ALLOW_EXTERNAL_NETWORK=false
+      - MAX_CONCURRENT_EXPERIMENTS=2
+      - EXECUTION_TIMEOUT_SECONDS=60
+    networks:
+      # Isolated network: Lab worker can ONLY communicate with redis broker on internal subnet
+      - lab_internal_net
+    # Security isolation constraints:
+    # 1. No host Docker socket mount
+    # 2. Dropped capabilities
+    # 3. Read-only root filesystem where supported
+    # 4. Strict CPU and memory limits
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+networks:
+  backend_net:
+    driver: bridge
+    internal: false
+  lab_internal_net:
+    driver: bridge
+    internal: true  # Completely closed to outbound internet traffic
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  release_storage:
+    driver: local
+

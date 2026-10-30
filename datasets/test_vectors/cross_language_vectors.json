@@ -1,0 +1,162 @@
+{
+  "crypto_vector": {
+    "public_key_pem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAIVVxSe7/pHu3HANqpQRvKRloZVl62fJX6glvxPiX4uE=\n-----END PUBLIC KEY-----\n",
+    "private_key_pem": "-----BEGIN PRIVATE KEY-----\nMC4CAQAwBQYDK2VwBCIEIDnqd7ZBhYih5jyOwzNpg2UM/jASB38+5WIo5XG7pfJd\n-----END PRIVATE KEY-----\n",
+    "full_manifest": {
+      "release_id": "88888888-4444-4444-4444-121212121212",
+      "policy_version": "2026.10.5",
+      "sequence_number": 42,
+      "channel": "stable",
+      "status": "published",
+      "published_at": "2026-10-29T12:00:00Z",
+      "expires_at": "2028-12-31T23:59:59Z",
+      "min_client_version": "0.1.0",
+      "max_client_version": null,
+      "min_engine_version": "1.0.0",
+      "supported_platforms": [
+        "browser_extension",
+        "mobile_app"
+      ],
+      "artifact_digest": "4356859d0e9111ce8c8bbeda426ab024008bcf0aa76f7ba0819c0bd01fa7347a",
+      "artifact_size_bytes": 26,
+      "artifact_url": "/api/v1/updates/artifacts/4356859d0e9111ce8c8bbeda426ab024008bcf0aa76f7ba0819c0bd01fa7347a",
+      "publisher_key_id": "test-key-01",
+      "is_mandatory": false,
+      "is_rollback": false,
+      "rollback_target_version": null,
+      "release_notes": "Verified production release",
+      "metadata": {},
+      "signature": "fda8d430d379a305cb85a650c34d4392944fa9c77f46fefd863b881cabf52cc56ccf125e46d2ec2b611f6881fe73f81b78aa3d23b339343d156dc19b9a5d4901"
+    },
+    "payload": {
+      "release_id": "88888888-4444-4444-4444-121212121212",
+      "policy_version": "2026.10.5",
+      "sequence_number": 42,
+      "channel": "stable",
+      "status": "published",
+      "published_at": "2026-10-29T12:00:00Z",
+      "expires_at": "2028-12-31T23:59:59Z",
+      "min_client_version": "0.1.0",
+      "max_client_version": null,
+      "min_engine_version": "1.0.0",
+      "supported_platforms": [
+        "browser_extension",
+        "mobile_app"
+      ],
+      "artifact_digest": "4356859d0e9111ce8c8bbeda426ab024008bcf0aa76f7ba0819c0bd01fa7347a",
+      "artifact_size_bytes": 26,
+      "artifact_url": "/api/v1/updates/artifacts/4356859d0e9111ce8c8bbeda426ab024008bcf0aa76f7ba0819c0bd01fa7347a",
+      "publisher_key_id": "test-key-01",
+      "is_mandatory": false,
+      "is_rollback": false,
+      "rollback_target_version": null,
+      "release_notes": "Verified production release",
+      "metadata": {}
+    },
+    "canonical_json_str": "{\"artifact_digest\":\"4356859d0e9111ce8c8bbeda426ab024008bcf0aa76f7ba0819c0bd01fa7347a\",\"artifact_size_bytes\":26,\"artifact_url\":\"/api/v1/updates/artifacts/4356859d0e9111ce8c8bbeda426ab024008bcf0aa76f7ba0819c0bd01fa7347a\",\"channel\":\"stable\",\"expires_at\":\"2028-12-31T23:59:59Z\",\"is_mandatory\":false,\"is_rollback\":false,\"max_client_version\":null,\"metadata\":{},\"min_client_version\":\"0.1.0\",\"min_engine_version\":\"1.0.0\",\"policy_version\":\"2026.10.5\",\"published_at\":\"2026-10-29T12:00:00Z\",\"publisher_key_id\":\"test-key-01\",\"release_id\":\"88888888-4444-4444-4444-121212121212\",\"release_notes\":\"Verified production release\",\"rollback_target_version\":null,\"sequence_number\":42,\"status\":\"published\",\"supported_platforms\":[\"browser_extension\",\"mobile_app\"]}",
+    "signature_hex": "fda8d430d379a305cb85a650c34d4392944fa9c77f46fefd863b881cabf52cc56ccf125e46d2ec2b611f6881fe73f81b78aa3d23b339343d156dc19b9a5d4901",
+    "artifact_digest": "4356859d0e9111ce8c8bbeda426ab024008bcf0aa76f7ba0819c0bd01fa7347a",
+    "sample_raw_artifact": "test policy bundle content"
+  },
+  "normalization_vectors": [
+    {
+      "raw_input": "http://example.com/path?foo=bar#frag",
+      "scheme": "http",
+      "host": "example.com",
+      "canonical_url": "http://example.com/path?foo=bar",
+      "domain": "example.com",
+      "url_sha256": "011e811b83fb365ed990b53dd46867076cc82653d9bc9fd777198f04aba2c665",
+      "domain_sha256": "a379a6f6eeafb9a55e378c118034e2751e682fab9f2d30ab13d2125586ce1947",
+      "has_embedded_credentials": false,
+      "is_ip_literal": false
+    },
+    {
+      "raw_input": "https://example.com:443/test/",
+      "scheme": "https",
+      "host": "example.com",
+      "canonical_url": "https://example.com/test/",
+      "domain": "example.com",
+      "url_sha256": "b97e293009b8694a60570a1fc7169293eb1fdfbd9584e97178ea5d93e8177aee",
+      "domain_sha256": "a379a6f6eeafb9a55e378c118034e2751e682fab9f2d30ab13d2125586ce1947",
+      "has_embedded_credentials": false,
+      "is_ip_literal": false
+    },
+    {
+      "raw_input": "http://example.com:80/",
+      "scheme": "http",
+      "host": "example.com",
+      "canonical_url": "http://example.com/",
+      "domain": "example.com",
+      "url_sha256": "2a1b402420ef46577471cdc7409b0fa2c6a204db316e59ade2d805435489a067",
+      "domain_sha256": "a379a6f6eeafb9a55e378c118034e2751e682fab9f2d30ab13d2125586ce1947",
+      "has_embedded_credentials": false,
+      "is_ip_literal": false
+    },
+    {
+      "raw_input": "http://example.com:8080/api",
+      "scheme": "http",
+      "host": "example.com",
+      "canonical_url": "http://example.com:8080/api",
+      "domain": "example.com",
+      "url_sha256": "ec216db4bdd49321ee6e8de32acefe73cc04162364bc61df830253fec0d0320e",
+      "domain_sha256": "a379a6f6eeafb9a55e378c118034e2751e682fab9f2d30ab13d2125586ce1947",
+      "has_embedded_credentials": false,
+      "is_ip_literal": false
+    },
+    {
+      "raw_input": "HTTPS://EXAMPLE.COM./",
+      "scheme": "https",
+      "host": "example.com",
+      "canonical_url": "https://example.com/",
+      "domain": "example.com",
+      "url_sha256": "0f115db062b7c0dd030b16878c99dea5c354b49dc37b38eb8846179c7783e9d7",
+      "domain_sha256": "a379a6f6eeafb9a55e378c118034e2751e682fab9f2d30ab13d2125586ce1947",
+      "has_embedded_credentials": false,
+      "is_ip_literal": false
+    },
+    {
+      "raw_input": "https://example.com/a/b/../c/./d",
+      "scheme": "https",
+      "host": "example.com",
+      "canonical_url": "https://example.com/a/c/d",
+      "domain": "example.com",
+      "url_sha256": "ed550e401b1cd8092fdfebd37be4921742e1daa5ca977ee7b7c40ed780abd163",
+      "domain_sha256": "a379a6f6eeafb9a55e378c118034e2751e682fab9f2d30ab13d2125586ce1947",
+      "has_embedded_credentials": false,
+      "is_ip_literal": false
+    },
+    {
+      "raw_input": "https://example.com/login?token=secret123&user=alice",
+      "scheme": "https",
+      "host": "example.com",
+      "canonical_url": "https://example.com/login?token=%5BREDACTED%5D&user=alice",
+      "domain": "example.com",
+      "url_sha256": "a7a927031f4e51de66cb63e1dc784baf44ba86d5756f061298a9967ed78dc2be",
+      "domain_sha256": "a379a6f6eeafb9a55e378c118034e2751e682fab9f2d30ab13d2125586ce1947",
+      "has_embedded_credentials": false,
+      "is_ip_literal": false
+    },
+    {
+      "raw_input": "https://alice:pass123@example.com/account",
+      "scheme": "https",
+      "host": "example.com",
+      "canonical_url": "https://example.com/account",
+      "domain": "example.com",
+      "url_sha256": "7df3842fae8f57b45c815f51f8e94b8bf5a2ef8bebbbfb9feba3fe388ec5deea",
+      "domain_sha256": "a379a6f6eeafb9a55e378c118034e2751e682fab9f2d30ab13d2125586ce1947",
+      "has_embedded_credentials": true,
+      "is_ip_literal": false
+    },
+    {
+      "raw_input": "http://192.168.1.1:8000/admin",
+      "scheme": "http",
+      "host": "192.168.1.1",
+      "canonical_url": "http://192.168.1.1:8000/admin",
+      "domain": "192.168.1.1",
+      "url_sha256": "dd3f35832608ee50ff9a91a92f693e8e71c8da960f2b083211cc60542ac38271",
+      "domain_sha256": "c5eb5a4cc76a5cdb16e79864b9ccd26c3553f0c396d0a21bafb7be71c1efcd8c",
+      "has_embedded_credentials": false,
+      "is_ip_literal": true
+    }
+  ]
+}

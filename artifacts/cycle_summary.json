@@ -1,0 +1,126 @@
+{
+  "summary": {
+    "task_id": "42ff5be6-30f6-442d-993e-e079a0673355",
+    "candidate_id": "61294d26-dedb-4b39-b471-6e213aa4bdb7",
+    "candidate_version": "v1.0.0-blue.001",
+    "target_category": "homoglyph_spoofing",
+    "sandbox_verdict": "inconclusive",
+    "evaluator_verdict": "pass",
+    "failures_resolved": 0,
+    "regressions": 0,
+    "candidate_fpr": 0.0,
+    "completed_at": "2026-10-28T19:42:34.673859+00:00"
+  },
+  "evidence_dossier": {
+    "dossier_version": "1.0.0",
+    "compiled_at": "2026-10-28T19:42:34.673859+00:00",
+    "candidate": {
+      "defense_id": "61294d26-dedb-4b39-b471-6e213aa4bdb7",
+      "version": "v1.0.0-blue.001",
+      "author_agent": "BlueAI-v1",
+      "description": "Candidate defense v1.0.0-blue.001: Mitigation for homoglyph_spoofing (homograph_mimicry)",
+      "rules_digest": "0544f93a8bc619531efef94e9377078e8a190f7643cd5d0f8e1425ed9db27f3c",
+      "baseline_version": "1.0.0"
+    },
+    "provenance": {
+      "originating_experiment_id": "7c471ab7-041b-492f-ac2e-2b6841f06639",
+      "proposing_agent": "BlueAI-v1",
+      "generation_timestamp": "2026-10-28T19:42:34.669859+00:00"
+    },
+    "hypotheses": [
+      {
+        "hypothesis_id": "a0cabe14-36ad-40d5-8989-6ad25de6757c",
+        "failure_category": "homoglyph_spoofing",
+        "target_family": "homograph_mimicry",
+        "observed_behavior": "Baseline detector assigned FALSE_NEGATIVE to 2 scenarios in category 'homoglyph_spoofing'.",
+        "expected_behavior": "Expected BLOCK decision with confidence >= 0.75.",
+        "explanation": "The baseline detector failed to detect internationalized domain name (IDN) punycode evasion because standard lexical heuristic rules only inspect ASCII surface strings without evaluating punycode prefixes or homoglyph risk.",
+        "confidence": 0.88,
+        "supporting_evidence_count": 2,
+        "counterexamples_count": 5,
+        "predicted_benefit": "Intercepts punycode brand spoofing with zero impact on standard ASCII URLs.",
+        "potential_risks": "May increase warnings on legitimate internationalized domains lacking reputational history.",
+        "test_plan": "Run candidate sandbox evaluation against failure fixtures, benign controls, and regression benchmarks."
+      }
+    ],
+    "proposals": [
+      {
+        "proposal_id": "ca76c1a9-7fe4-4783-b25f-cdcdaf7dcaf0",
+        "hypothesis_id": "a0cabe14-36ad-40d5-8989-6ad25de6757c",
+        "proposal_type": "declarative_rule",
+        "title": "Mitigation for homoglyph_spoofing (homograph_mimicry)",
+        "rationale": "Synthesized from hypothesis a0cabe14-36ad-40d5-8989-6ad25de6757c: The baseline detector failed to detect internationalized domain name (IDN) punycode evasion because standard lexical heuristic rules only inspect ASCII surface strings without evaluating punycode prefixes or homoglyph risk.",
+        "declarative_rule": {
+          "rule_id": "RULE-BLUE-HOMOGLYPH-SPOOFING-CA76C1",
+          "rule_version": "1.0.0",
+          "description": "Auto-synthesized rule targeting homoglyph_spoofing",
+          "author": "BlueAI-DefenseEngine",
+          "purpose": "Intercepts punycode brand spoofing with zero impact on standard ASCII URLs.",
+          "target_family": "homograph_mimicry",
+          "feature_names": [
+            "is_punycode",
+            "phish_keyword_count"
+          ],
+          "predicates": [
+            {
+              "field": "is_punycode",
+              "operator": "eq",
+              "value": 1
+            },
+            {
+              "field": "phish_keyword_count",
+              "operator": "gte",
+              "value": 1
+            }
+          ],
+          "logical_operator": "AND",
+          "action": "block",
+          "severity": "high",
+          "weight": 0.85,
+          "false_positive_risk": "low",
+          "source_hypothesis_id": "a0cabe14-36ad-40d5-8989-6ad25de6757c",
+          "created_at": "2026-10-28T19:42:34.669859Z"
+        },
+        "tuning_spec": null
+      }
+    ],
+    "sandbox_audit": {
+      "comparison_id": "40ba16bb-80d9-4a59-9b5b-cc55af369d78",
+      "total_scenarios_evaluated": 14,
+      "baseline_accuracy": 0.7143,
+      "candidate_accuracy": 0.7143,
+      "baseline_recall": 0.8333,
+      "candidate_recall": 0.8333,
+      "baseline_fpr": 0.0,
+      "candidate_fpr": 0.0,
+      "original_failures_resolved": 0,
+      "new_regressions": 0,
+      "new_false_positives": 0,
+      "preliminary_verdict": "inconclusive",
+      "trade_off_analysis": "Candidate inconclusive: Fixed 0 failures, 0 regressions, candidate FPR=0.00%."
+    },
+    "safety_verification_checklist": {
+      "safe_declarative_rules_only": true,
+      "zero_arbitrary_code_execution": true,
+      "allowlisted_features_only": true,
+      "redos_safe": true,
+      "sandbox_regressions_zero": true,
+      "production_mutation_prohibited": true
+    },
+    "dossier_fingerprint": "4e220dc1b1ba57ff7e19c215bdbb2642add22e6c829c15569058eca5191bf7c4"
+  },
+  "evaluation_result": {
+    "evaluation_id": "a73bfaa5-bb94-4254-bbf9-233485a7604f",
+    "candidate_defense_id": "61294d26-dedb-4b39-b471-6e213aa4bdb7",
+    "scenario_suite_id": "curated-golden-v1",
+    "total_scenarios": 100,
+    "passed_scenarios": 99,
+    "detection_rate": 0.99,
+    "false_positive_rate": 0.008,
+    "regression_count": 0,
+    "resource_overhead_ms": 1.15,
+    "verdict": "pass",
+    "verdict_rationale": "Passed all benchmark checks. FPR: 0.80%, Regressions: 0.",
+    "evaluated_at": "2026-10-28T19:42:34.673859Z"
+  }
+}

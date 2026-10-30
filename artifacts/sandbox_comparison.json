@@ -1,0 +1,37 @@
+{
+  "comparison_id": "0c8b4213-0426-42b6-af51-a3f39f5cc6cb",
+  "candidate_id": "e8657d41-b8ef-4d23-8afd-06b5ee5e567d",
+  "candidate_version": "v1.0.0-blue.001",
+  "baseline_version": "1.0.0",
+  "total_scenarios_evaluated": 12,
+  "baseline_accuracy": 0.6667,
+  "candidate_accuracy": 0.6667,
+  "baseline_recall": 0.75,
+  "candidate_recall": 0.75,
+  "baseline_fpr": 0.0,
+  "candidate_fpr": 0.0,
+  "baseline_f1": 0.8571,
+  "candidate_f1": 0.8571,
+  "original_failures_resolved": 0,
+  "new_regressions": 0,
+  "new_false_positives": 0,
+  "family_breakdown": {
+    "benign_control": {
+      "total": 8,
+      "baseline_correct": 8,
+      "candidate_correct": 8,
+      "fixed": 0,
+      "regressions": 0
+    },
+    "regression_benchmark": {
+      "total": 4,
+      "baseline_correct": 0,
+      "candidate_correct": 0,
+      "fixed": 0,
+      "regressions": 0
+    }
+  },
+  "trade_off_analysis": "Candidate inconclusive: Fixed 0 failures, 0 regressions, candidate FPR=0.00%.",
+  "preliminary_verdict": "inconclusive",
+  "created_at": "2026-10-28T19:42:32.868381Z"
+}

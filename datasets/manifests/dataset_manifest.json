@@ -1,0 +1,63 @@
+{
+  "dataset_name": "CyberDuel-Pilot-URL-Fixture-v1",
+  "description": "Curated 50-record pilot research fixture for testing URL pipelines and defensive AST rule formulation. NOT a full upstream corpus.",
+  "provenance": {
+    "corpus_type": "Curated Pilot Research Fixture (50 records: 25 phishing, 25 benign, 49 unique domains)",
+    "sources": {
+      "iscx_url2016": {
+        "institution": "Canadian Institute for Cybersecurity (CIC) / University of New Brunswick (UNB)",
+        "citation": "A. H. Mamun et al., 'Detecting Malicious URLs Using Lexical Analysis', NSS 2016.",
+        "license": "Non-Commercial Academic & Research Use Only (Attribution Required)",
+        "public_domain": false,
+        "commercial_use_permitted": false
+      },
+      "openphish_community_feed": {
+        "provider": "OpenPhish Community Feed",
+        "license": "Limited Non-Commercial Research Inspection; Redistribution and Commercial Training Prohibited",
+        "public_domain": false,
+        "commercial_use_permitted": false,
+        "usage_constraint": "Restricted to pilot evaluation only; excluded from commercial product training claims."
+      },
+      "synthetic_control_vectors": {
+        "provider": "CyberDuel AI Laboratory Synthetic Generator",
+        "license": "Apache-2.0 / Internal Research",
+        "domain_standard": "RFC 2606 reserved domains (.test, .example, .invalid)"
+      }
+    },
+    "safety_protocol": "Inert text storage only; zero network resolution; defanged in reports.",
+    "upstream_ingestion_claim": "PILOT SUBSET ONLY: Contains 50 curated sample records. Does NOT represent full upstream corpus ingestion."
+  },
+  "splits": {
+    "train": {
+      "file": "datasets/splits/train.jsonl",
+      "record_count": 30,
+      "domain_count": 29,
+      "phishing_count": 17,
+      "benign_count": 13,
+      "sha256": "d2c66a3d61c2ac3ee5d3242242e914c82daabf213a1ead62d4fc9a94e330e2eb"
+    },
+    "validation": {
+      "file": "datasets/splits/val.jsonl",
+      "record_count": 10,
+      "domain_count": 10,
+      "phishing_count": 3,
+      "benign_count": 7,
+      "sha256": "8d5f7c9a85df16853eabf2c364d07733f59db5210bc9daf3b915d808d1d973e2"
+    },
+    "held_out_test": {
+      "file": "datasets/splits/test_held_out.jsonl",
+      "record_count": 10,
+      "domain_count": 10,
+      "phishing_count": 5,
+      "benign_count": 5,
+      "sha256": "92071081c1f75866dfd3364aa796803eddeae9ca657731036aa1b71c3db23e34",
+      "isolation_policy": "STRICTLY ISOLATED. Never exposed to model training, prompt context, or threshold tuning."
+    }
+  },
+  "integrity": {
+    "total_records": 50,
+    "total_unique_domains": 49,
+    "domain_overlap_check": "PASSED (Zero domain leakage across all split boundaries)",
+    "generated_at": "2026-10-29T18:32:22.170575+00:00"
+  }
+}

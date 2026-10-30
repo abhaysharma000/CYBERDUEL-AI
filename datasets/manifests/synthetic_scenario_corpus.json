@@ -1,0 +1,4879 @@
+[
+  {
+    "scenario_id": "26c64632-92ed-45fb-b7f0-9953175e2d1d",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic PayPal Homoglyph Mimicry",
+    "description": "Domain using Cyrillic small 'a' (U+0430) mimicking PayPal brand",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "homograph",
+      "punycode",
+      "brand_theft"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://xn--pypal-4ve.example.test/signin"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-HOMO-001",
+      "rationale": "Cyrillic homoglyph on unverified domain targeting credential harvest.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "a155ba22-b17a-4926-b79a-e5c9a25b6183",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Greek Google Homoglyph Mimicry",
+    "description": "Domain using Greek omicron mimicking Google brand",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "homograph",
+      "punycode",
+      "google"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://xn--gogle-l1a.example.test/accounts"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-HOMO-002",
+      "rationale": "Greek omicron substitution designed to bypass visual user inspection.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "9ec76177-a4d8-4228-8282-99cade8fbf63",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic Apple Homoglyph Portal",
+    "description": "Domain using Cyrillic small 'a' targeting Apple ID login",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "homograph",
+      "apple",
+      "punycode"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://xn--pple-43d.example.test/id/login"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-HOMO-003",
+      "rationale": "Homoglyph variation on consumer brand portal.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "366e5d5f-8202-4d47-8431-e306d4663c8e",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic Microsoft Homoglyph Verification",
+    "description": "Domain using Cyrillic small 'o' (U+043E) mimicking Microsoft",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "advanced",
+    "tags": [
+      "homograph",
+      "microsoft",
+      "punycode"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://xn--micrsft-90a4j.example.test/auth"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-HOMO-004",
+      "rationale": "Multi-character homoglyph evasion attempt.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "04a7ce52-e038-4528-852a-8a32bfd306aa",
+    "schema_version": "1.0.0",
+    "scenario_family": "authority_spoofing",
+    "scenario_name": "PayPal Authority Userinfo Spoof",
+    "description": "URL userinfo disguises true destination server",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "basic",
+    "tags": [
+      "userinfo",
+      "authority_spoof",
+      "phishing"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://paypal.com@secure-account-center.example.test/login"
+    },
+    "expected_evidence": [
+      "authority_spoof",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-AUTH-001",
+      "rationale": "Classic RFC 3986 userinfo confusion attack.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "b7320ed6-029e-4f8b-aed8-c661e1b59fe7",
+    "schema_version": "1.0.0",
+    "scenario_family": "authority_spoofing",
+    "scenario_name": "Google Account Authority Userinfo Spoof",
+    "description": "URL userinfo credentials containing google.com account token",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "userinfo",
+      "credentials",
+      "google"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://google.com:auth-token@unverified-relay.example.test/session"
+    },
+    "expected_evidence": [
+      "authority_spoof",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-AUTH-002",
+      "rationale": "Authority credentials designed to mislead browser address bar parsing.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "2889f3c7-80fa-4db3-806e-1dd353e78554",
+    "schema_version": "1.0.0",
+    "scenario_family": "authority_spoofing",
+    "scenario_name": "Bank Verification Userinfo Spoof",
+    "description": "Authority section spoofing internal banking portal",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "userinfo",
+      "financial",
+      "spoof"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://internal-bank.com@gateway-proxy.example.test/transfer"
+    },
+    "expected_evidence": [
+      "authority_spoof"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-AUTH-003",
+      "rationale": "Disguises hostile gateway host behind trusted bank authority string.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "aaf0011c-13dd-459d-88cd-5539b48607e3",
+    "schema_version": "1.0.0",
+    "scenario_family": "ip_host",
+    "scenario_name": "IPv4 Documentation Address Host",
+    "description": "Direct connection to IPv4 documentation address without DNS",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "ipv4",
+      "direct_ip",
+      "network_anomaly"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "http://192.0.2.10/admin/panel"
+    },
+    "expected_evidence": [
+      "ip_address_host"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-IP-001",
+      "rationale": "Direct IP connection circumvents domain reputation checks.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "ed2a46ef-ab44-4ef7-88e0-8dc43a3d0fb5",
+    "schema_version": "1.0.0",
+    "scenario_family": "ip_host",
+    "scenario_name": "IPv4 Documentation Address with Non-standard Port",
+    "description": "Direct connection to IPv4 on port 8080 with login keyword",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "ipv4",
+      "port_8080",
+      "login_keywords"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "http://198.51.100.42:8080/secure/login"
+    },
+    "expected_evidence": [
+      "ip_address_host",
+      "network_anomaly",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-IP-002",
+      "rationale": "Compound threat: raw IP + alternative port + credential theft keyword.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "d1e8f981-c328-46e1-ad3a-0d0cc0a67d7e",
+    "schema_version": "1.0.0",
+    "scenario_family": "ip_host",
+    "scenario_name": "IPv6 Bracketed Documentation Address",
+    "description": "Bracketed IPv6 literal target using documentation prefix",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "ipv6",
+      "literal_host",
+      "rfc3849"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "http://[2001:db8::1]/command-center"
+    },
+    "expected_evidence": [
+      "ip_address_host"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-IP-003",
+      "rationale": "Direct IPv6 bypasses standard host reputation.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "b401a1ae-1c58-4972-b23d-1cf818a4e5ea",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "PayPal Deep Subdomain Impersonation",
+    "description": "High-value brand token placed as subdomain label",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "basic",
+    "tags": [
+      "brand",
+      "paypal",
+      "subdomain"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://paypal.account-recovery-system.example.test/verify"
+    },
+    "expected_evidence": [
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-BRAND-001",
+      "rationale": "Brand token on unregistered second-level domain.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "7c0c3777-98f0-4095-8e56-57ce74ad26f3",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "Microsoft Security Update Path Token",
+    "description": "Microsoft brand in path combined with urgency keywords",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "brand",
+      "microsoft",
+      "path_token"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://portal-notice.example.test/microsoft-office365-security/update"
+    },
+    "expected_evidence": [
+      "brand_impersonation",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-BRAND-002",
+      "rationale": "Path-level brand mimicry paired with software update deception.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "688f41ac-1d94-4203-a3cf-4d2960d355b9",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "Apple iCloud Verification Token",
+    "description": "iCloud brand label embedded in deceptive third-level domain",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "apple",
+      "icloud",
+      "brand_theft"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://apple.icloud-locate-device.example.test/map"
+    },
+    "expected_evidence": [
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-BRAND-003",
+      "rationale": "Leverages brand familiarity to induce credential submission.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "b0e2ddb4-1c2f-4f55-80ce-b162b5ee174b",
+    "schema_version": "1.0.0",
+    "scenario_family": "suspicious_port",
+    "scenario_name": "Proxy Port 3128 Anomaly",
+    "description": "Target server operating on standard proxy port 3128",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "port",
+      "proxy_3128",
+      "network_anomaly"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "http://auth-relay.example.test:3128/connect"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-PORT-001",
+      "rationale": "Traffic directed to common open proxy port.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "92bd20e0-490e-400c-80fe-85f12b96ac50",
+    "schema_version": "1.0.0",
+    "scenario_family": "suspicious_port",
+    "scenario_name": "High Alternate Port 8888 Admin Portal",
+    "description": "Web administration endpoint exposed on port 8888",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "port",
+      "port_8888",
+      "admin"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "http://infrastructure-node.example.test:8888/login"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-PORT-002",
+      "rationale": "Evasive deployment on non-standard administration port.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "6232f118-119f-4093-a9b4-73f2761f216b",
+    "schema_version": "1.0.0",
+    "scenario_family": "suspicious_port",
+    "scenario_name": "Port 9000 Microservice Endpoint",
+    "description": "Direct link to internal API listener on port 9000",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "port",
+      "port_9000"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "http://internal-telemetry.example.test:9000/api"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-PORT-003",
+      "rationale": "Direct link bypassing standard web application firewall ports.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "3fa3d04f-5eb8-4355-a269-5c7ed5986f55",
+    "schema_version": "1.0.0",
+    "scenario_family": "double_encoding",
+    "scenario_name": "Double Encoded Dot-Dot Slash Path",
+    "description": "Nested percent-encoding of path traversal tokens (%252e%252e)",
+    "expected_class": "malicious",
+    "expected_decision": "warn",
+    "difficulty": "advanced",
+    "tags": [
+      "encoding",
+      "traversal",
+      "evasion"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://secure-storage.example.test/files/%252e%252e/%252e%252e/config"
+    },
+    "expected_evidence": [
+      "evasion_technique"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-ENC-001",
+      "rationale": "Double percent encoding intended to bypass web server URL decoders.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "81c32457-5649-4b3f-95fc-230a7e4f473d",
+    "schema_version": "1.0.0",
+    "scenario_family": "double_encoding",
+    "scenario_name": "Double Encoded Query Parameter",
+    "description": "Nested percent-encoding inside redirection query parameter",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "advanced",
+    "tags": [
+      "encoding",
+      "open_redirect"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://redirect-service.example.test/bounce?dest=https%253A%252F%252Fbad.test"
+    },
+    "expected_evidence": [
+      "evasion_technique"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-ENC-002",
+      "rationale": "Hides destination target from naive single-pass inspection filters.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "99af8be0-bcc3-4239-930d-07d260f06816",
+    "schema_version": "1.0.0",
+    "scenario_family": "dga_entropy",
+    "scenario_name": "High Entropy DGA Hostname 1",
+    "description": "Pseudo-random domain name generated by algorithmic seeding",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "dga",
+      "entropy",
+      "algorithm"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://qzxwkjhgf9876lkjh.example.test/sync"
+    },
+    "expected_evidence": [
+      "domain_entropy"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-DGA-001",
+      "rationale": "Shannon entropy exceeds 3.8 bits/character.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "3ae097e5-bf53-4cc3-b0a6-67e653393214",
+    "schema_version": "1.0.0",
+    "scenario_family": "dga_entropy",
+    "scenario_name": "Compound DGA Subdomain",
+    "description": "Random alphanumeric subdomains stacked above registered domain",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "dga",
+      "entropy",
+      "subdomain"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://x89f72b9a4c1e03.dga-tracker.example.test/beacon"
+    },
+    "expected_evidence": [
+      "domain_entropy"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-DGA-002",
+      "rationale": "High-entropy label indicating automated botnet rendezvous.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "0188ab63-3580-4e5c-bd0e-8f98abfc43c9",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Deep Five-Label Subdomain Chain",
+    "description": "Domain nesting with 5 consecutive subdomain labels",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "subdomain",
+      "dns_nesting",
+      "obfuscation"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://a.b.c.d.e.gateway.example.test/index"
+    },
+    "expected_evidence": [
+      "dns_obfuscation"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-SUB-001",
+      "rationale": "Intended to push primary domain out of mobile or address bar display.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "2076c758-4130-455e-b649-b00202a55c4d",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Brand Stacked Deep Subdomain",
+    "description": "Deep subdomain chain embedding trusted brand label at the edge",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "subdomain",
+      "phishing_keywords"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://login.security.account.update.auth.example.test/session"
+    },
+    "expected_evidence": [
+      "dns_obfuscation",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-SUB-002",
+      "rationale": "Multiple levels of trust-inducing keywords masking origin.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "c84c8d8e-c4bf-4f56-b658-84db900c89fb",
+    "schema_version": "1.0.0",
+    "scenario_family": "length_anomaly",
+    "scenario_name": "Excessively Long URL with Repeated Tokens",
+    "description": "URL exceeding 280 characters with deep repeating path segments",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "length",
+      "structural_anomaly",
+      "deep_path"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://content-delivery.example.test/session/v1/auth/path/verification/client/token/redirect/action/state/identifier/payload/data/resource/item/element/node/leaf/status/complete/final/check?session_tracker_id=1234567890&tracking_source=email_campaign_newsletter_blast"
+    },
+    "expected_evidence": [
+      "structural_anomaly"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-LEN-001",
+      "rationale": "URL exceeds 255-character benchmark anomaly ceiling.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "130a4feb-b1f6-4db2-b89e-b83c561774fc",
+    "schema_version": "1.0.0",
+    "scenario_family": "phishing_keywords",
+    "scenario_name": "Multi-keyword Credential Harvesting Path",
+    "description": "Target URL combines multiple high-risk credential theft keywords",
+    "expected_class": "malicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "keywords",
+      "banking",
+      "login"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://account-verify-support.example.test/banking/secure/login/update-credentials"
+    },
+    "expected_evidence": [
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-KEYW-001",
+      "rationale": "Dense concentration of credential harvesting terminology.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "01ec610b-bf29-49e5-b589-36ff74fa7fd8",
+    "schema_version": "1.0.0",
+    "scenario_family": "phishing_keywords",
+    "scenario_name": "Wallet Password Reset Phishing Path",
+    "description": "Path combines wallet, password, and identity verification terms",
+    "expected_class": "malicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "keywords",
+      "wallet",
+      "crypto"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://crypto-portal-notice.example.test/wallet/password/verify-identity"
+    },
+    "expected_evidence": [
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-KEYW-002",
+      "rationale": "Financial asset access harvesting pattern.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "5138b7fc-abaa-4821-802c-05cb5595757f",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign PayPal Gift Shop",
+    "description": "Legitimate business containing paypal substring in a hyphenated domain",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "adversarial",
+    "tags": [
+      "benign_control",
+      "false_positive_test",
+      "substring"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://my-paypals-giftshop.example.test/catalog"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-LOOK-001",
+      "rationale": "Must not trigger false positive merely because domain has 'paypal' substring.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "a5a72246-819d-47d8-8955-dcff0306c286",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Documentation Update Guide",
+    "description": "Legitimate developer documentation with 'update' and 'login' in path",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "intermediate",
+    "tags": [
+      "benign_control",
+      "developer_docs",
+      "keywords"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://docs.development.example.test/guide/user-login/software-update"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-LOOK-002",
+      "rationale": "Educational/technical documentation referencing login mechanisms safely.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "cb573195-ceda-45e2-a588-9c90a7b5b3eb",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Engineering Port 8080 Test Server",
+    "description": "Legitimate internal engineering staging server on port 8080",
+    "expected_class": "benign",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "benign_control",
+      "port_8080",
+      "staging"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://engineering-staging.example.test:8080/health"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-LOOK-003",
+      "rationale": "Non-standard port is suspicious but within policy warning bounds.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "7d7ca7c2-b1e4-466b-911c-68d5ebdfdd6a",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Apple Fan Club News",
+    "description": "Third-party community fan blog discussing Apple updates",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "adversarial",
+    "tags": [
+      "benign_control",
+      "fan_club",
+      "editorial"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://apple-enthusiasts-club.example.test/articles/latest"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-LOOK-004",
+      "rationale": "Editorial brand reference on distinct registrable domain.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "46a1a726-580b-4342-a850-91328efd4bc4",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative Google Search Endpoint",
+    "description": "Authoritative whitelisted search endpoint",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "whitelist",
+      "authoritative",
+      "google"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://google.com/search?q=cybersecurity+defense"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-WHITE-001",
+      "rationale": "Authoritative domain override rule.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "1c2cdbb9-b37d-44ac-845e-09f2cd804ab7",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative GitHub Repository URL",
+    "description": "Authoritative whitelisted GitHub repository",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "whitelist",
+      "authoritative",
+      "github"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://github.com/cyberduel-ai/platform"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-WHITE-002",
+      "rationale": "Authoritative domain override rule.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "7d94071e-1c39-4a7f-932a-f39b726a1954",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative Microsoft TechNet Guide",
+    "description": "Authoritative Microsoft documentation guide",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "whitelist",
+      "authoritative",
+      "microsoft"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://microsoft.com/en-us/security/engineering"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-WHITE-003",
+      "rationale": "Authoritative domain override rule.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "9869c92f-9df3-41bf-9329-9020807e8b6d",
+    "schema_version": "1.0.0",
+    "scenario_family": "normalization_edge_case",
+    "scenario_name": "Mixed Casing and Default HTTPS Port",
+    "description": "Uppercase scheme, mixed case host, and explicit port 443",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "intermediate",
+    "tags": [
+      "normalization",
+      "casing",
+      "port_443"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "HTTPS://Docs.Example.TEST:443/API/V1/Resources"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-NORM-001",
+      "rationale": "Normalizer must canonicalize casing and strip default port.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "40d53798-bf51-4828-a652-78df28d3f4e7",
+    "schema_version": "1.0.0",
+    "scenario_family": "normalization_edge_case",
+    "scenario_name": "Dot-Segment Path Traversal Resolution",
+    "description": "Legitimate path with benign relative dot-segments /a/b/../c/./d",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "intermediate",
+    "tags": [
+      "normalization",
+      "dot_segments"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://content.example.test/static/css/../js/./bundle.js"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-NORM-002",
+      "rationale": "Normalizer must resolve dot-segments to canonical /static/js/bundle.js.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "5972782d-84c0-4630-84f5-31f2cbf2d0b6",
+    "schema_version": "1.0.0",
+    "scenario_family": "normalization_edge_case",
+    "scenario_name": "Sensitive Token Query Parameter Redaction",
+    "description": "URL containing cleartext auth token that must be redacted",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "normalization",
+      "privacy",
+      "redaction"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://api.example.test/v1/auth?token=supersecret12345&client=mobile"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-NORM-003",
+      "rationale": "Verify token is redacted in audit logs without altering classification.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "8a5af64a-1d4e-4eed-ba1c-e1b3f574ac05",
+    "schema_version": "1.0.0",
+    "scenario_family": "stale_intelligence",
+    "scenario_name": "Expired Threat Intelligence Indicator",
+    "description": "Domain previously associated with threat activity whose indicator has expired",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "adversarial",
+    "tags": [
+      "threat_intel",
+      "staleness",
+      "expiration"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://stale-threat-record.example.test/archive"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "origin": "ThreatPatternLibrary",
+      "template_id": "PAT-STALE-001",
+      "rationale": "Tests engine behavior when indicator expires from active verified pool.",
+      "goal": "general_exploration",
+      "seed": 42
+    },
+    "created_at": "2026-10-28T18:17:56.686038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "802f6529-e139-4ceb-bafd-8fd1645ac8e0",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic PayPal Homoglyph Mimicry (Mutated: punycode_unicode_swap)",
+    "description": "Mutated variation of Cyrillic PayPal Homoglyph Mimicry using punycode_unicode_swap",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "homograph",
+      "punycode",
+      "mutated:punycode_unicode_swap",
+      "brand_theft"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "26c64632-92ed-45fb-b7f0-9953175e2d1d",
+    "transformation_history": [
+      {
+        "operator": "punycode_unicode_swap",
+        "parameters": {
+          "operator": "punycode_unicode_swap",
+          "direction": "punycode_to_unicode",
+          "unicode": "p\u0430ypal.example.test"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://p\u0430ypal.example.test/signin"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "26c64632-92ed-45fb-b7f0-9953175e2d1d",
+      "mutation_operator": "punycode_unicode_swap",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.689038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "804c8042-7206-486b-8e34-8449af810f2d",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Greek Google Homoglyph Mimicry (Mutated: case_variation)",
+    "description": "Mutated variation of Greek Google Homoglyph Mimicry using case_variation",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "homograph",
+      "punycode",
+      "mutated:case_variation",
+      "google"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "a155ba22-b17a-4926-b79a-e5c9a25b6183",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "xn--gogle-l1a.example.test",
+          "mutated_netloc": "Xn--GoGlE-L1A.ExAmPlE.TeSt"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://Xn--GoGlE-L1A.ExAmPlE.TeSt/accounts"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "a155ba22-b17a-4926-b79a-e5c9a25b6183",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.689038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "453b1fa7-5d2e-4490-858e-b079fda43684",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic Apple Homoglyph Portal (Mutated: case_variation)",
+    "description": "Mutated variation of Cyrillic Apple Homoglyph Portal using case_variation",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "apple",
+      "homograph",
+      "punycode",
+      "mutated:case_variation"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "9ec76177-a4d8-4228-8282-99cade8fbf63",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "xn--pple-43d.example.test",
+          "mutated_netloc": "Xn--PpLe-43d.eXaMpLe.tEsT"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://Xn--PpLe-43d.eXaMpLe.tEsT/id/login"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "9ec76177-a4d8-4228-8282-99cade8fbf63",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.689038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "2aa7dc2f-3815-43e6-9cf0-73aea6631f40",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic Microsoft Homoglyph Verification (Mutated: punycode_unicode_swap)",
+    "description": "Mutated variation of Cyrillic Microsoft Homoglyph Verification using punycode_unicode_swap",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "advanced",
+    "tags": [
+      "homograph",
+      "punycode",
+      "mutated:punycode_unicode_swap",
+      "microsoft"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "366e5d5f-8202-4d47-8431-e306d4663c8e",
+    "transformation_history": [
+      {
+        "operator": "punycode_unicode_swap",
+        "parameters": {
+          "operator": "punycode_unicode_swap",
+          "direction": "punycode_to_unicode",
+          "unicode": "m\u00f6icr\u0103sft.example.test"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://m\u00f6icr\u0103sft.example.test/auth"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "366e5d5f-8202-4d47-8431-e306d4663c8e",
+      "mutation_operator": "punycode_unicode_swap",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.689038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "327f587c-7248-4b75-bec7-2259dc1c1a77",
+    "schema_version": "1.0.0",
+    "scenario_family": "authority_spoofing",
+    "scenario_name": "PayPal Authority Userinfo Spoof (Mutated: path_depth_variation)",
+    "description": "Mutated variation of PayPal Authority Userinfo Spoof using path_depth_variation",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "basic",
+    "tags": [
+      "phishing",
+      "authority_spoof",
+      "mutated:path_depth_variation",
+      "userinfo"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "04a7ce52-e038-4528-852a-8a32bfd306aa",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_4"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://paypal.com@secure-account-center.example.test/login/substep_4"
+    },
+    "expected_evidence": [
+      "authority_spoof",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "04a7ce52-e038-4528-852a-8a32bfd306aa",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.689038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "2e04a21d-fc70-40b8-b521-24eabe56688d",
+    "schema_version": "1.0.0",
+    "scenario_family": "authority_spoofing",
+    "scenario_name": "Google Account Authority Userinfo Spoof (Mutated: query_param_injection)",
+    "description": "Mutated variation of Google Account Authority Userinfo Spoof using query_param_injection",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "credentials",
+      "google",
+      "userinfo",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "b7320ed6-029e-4f8b-aed8-c661e1b59fe7",
+    "transformation_history": [
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_242"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://google.com:auth-token@unverified-relay.example.test/session?_lab_diag=lab_mut_242"
+    },
+    "expected_evidence": [
+      "authority_spoof",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "b7320ed6-029e-4f8b-aed8-c661e1b59fe7",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.689038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "68327b3a-19d4-43ee-b21e-6438b9a38276",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "PayPal Deep Subdomain Impersonation (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of PayPal Deep Subdomain Impersonation using port_explicit_injection",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "basic",
+    "tags": [
+      "brand",
+      "subdomain",
+      "paypal",
+      "mutated:port_explicit_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "b401a1ae-1c58-4972-b23d-1cf818a4e5ea",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8443
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://paypal.account-recovery-system.example.test:8443/verify"
+    },
+    "expected_evidence": [
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "b401a1ae-1c58-4972-b23d-1cf818a4e5ea",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "8df73941-bed2-4536-ba64-cdb136851357",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "Microsoft Security Update Path Token (Mutated: case_variation)",
+    "description": "Mutated variation of Microsoft Security Update Path Token using case_variation",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "brand",
+      "path_token",
+      "microsoft",
+      "mutated:case_variation"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "7c0c3777-98f0-4095-8e56-57ce74ad26f3",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "portal-notice.example.test",
+          "mutated_netloc": "PoRtAl-nOtIcE.ExAmPlE.TeSt"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://PoRtAl-nOtIcE.ExAmPlE.TeSt/microsoft-office365-security/update"
+    },
+    "expected_evidence": [
+      "brand_impersonation",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "parent_id": "7c0c3777-98f0-4095-8e56-57ce74ad26f3",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "69f9c067-401c-410c-a7fc-12881af35f4e",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "Apple iCloud Verification Token (Mutated: case_variation)",
+    "description": "Mutated variation of Apple iCloud Verification Token using case_variation",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "apple",
+      "mutated:case_variation",
+      "icloud",
+      "brand_theft"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "688f41ac-1d94-4203-a3cf-4d2960d355b9",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "apple.icloud-locate-device.example.test",
+          "mutated_netloc": "ApPlE.IcLoUd-lOcAtE-DeViCe.eXaMpLe.tEsT"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://ApPlE.IcLoUd-lOcAtE-DeViCe.eXaMpLe.tEsT/map"
+    },
+    "expected_evidence": [
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "688f41ac-1d94-4203-a3cf-4d2960d355b9",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "0e256c7f-a784-4a51-8393-573713f810e4",
+    "schema_version": "1.0.0",
+    "scenario_family": "suspicious_port",
+    "scenario_name": "Proxy Port 3128 Anomaly (Mutated: case_variation)",
+    "description": "Mutated variation of Proxy Port 3128 Anomaly using case_variation",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "network_anomaly",
+      "port",
+      "mutated:case_variation",
+      "proxy_3128"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "b0e2ddb4-1c2f-4f55-80ce-b162b5ee174b",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "auth-relay.example.test:3128",
+          "mutated_netloc": "AuTh-rElAy.eXaMpLe.tEsT:3128"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "http://AuTh-rElAy.eXaMpLe.tEsT:3128/connect"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "b0e2ddb4-1c2f-4f55-80ce-b162b5ee174b",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "ee604d49-6e01-4b16-8e9a-fa7249ad6576",
+    "schema_version": "1.0.0",
+    "scenario_family": "suspicious_port",
+    "scenario_name": "High Alternate Port 8888 Admin Portal (Mutated: query_param_injection)",
+    "description": "Mutated variation of High Alternate Port 8888 Admin Portal using query_param_injection",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "admin",
+      "port",
+      "port_8888",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "92bd20e0-490e-400c-80fe-85f12b96ac50",
+    "transformation_history": [
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_338"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "http://infrastructure-node.example.test:8888/login?_lab_diag=lab_mut_338"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "92bd20e0-490e-400c-80fe-85f12b96ac50",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "cc105a09-818c-4c4a-98f4-f281915fd093",
+    "schema_version": "1.0.0",
+    "scenario_family": "double_encoding",
+    "scenario_name": "Double Encoded Dot-Dot Slash Path (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of Double Encoded Dot-Dot Slash Path using port_explicit_injection",
+    "expected_class": "malicious",
+    "expected_decision": "warn",
+    "difficulty": "advanced",
+    "tags": [
+      "evasion",
+      "traversal",
+      "mutated:port_explicit_injection",
+      "encoding"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "3fa3d04f-5eb8-4355-a269-5c7ed5986f55",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://secure-storage.example.test:8080/files/%252e%252e/%252e%252e/config"
+    },
+    "expected_evidence": [
+      "evasion_technique"
+    ],
+    "provenance": {
+      "parent_id": "3fa3d04f-5eb8-4355-a269-5c7ed5986f55",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "cf0e9211-6728-4691-a3ca-2295d3c3adac",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Deep Five-Label Subdomain Chain (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of Deep Five-Label Subdomain Chain using port_explicit_injection",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "dns_nesting",
+      "subdomain",
+      "obfuscation",
+      "mutated:port_explicit_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "0188ab63-3580-4e5c-bd0e-8f98abfc43c9",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8443
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://a.b.c.d.e.gateway.example.test:8443/index"
+    },
+    "expected_evidence": [
+      "dns_obfuscation"
+    ],
+    "provenance": {
+      "parent_id": "0188ab63-3580-4e5c-bd0e-8f98abfc43c9",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "55c123b6-6ed9-477c-af8a-7a5722fd18e1",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Brand Stacked Deep Subdomain (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of Brand Stacked Deep Subdomain using port_explicit_injection",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "subdomain",
+      "phishing_keywords",
+      "mutated:port_explicit_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "2076c758-4130-455e-b649-b00202a55c4d",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://login.security.account.update.auth.example.test:8080/session"
+    },
+    "expected_evidence": [
+      "dns_obfuscation",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "parent_id": "2076c758-4130-455e-b649-b00202a55c4d",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "1b8a85a9-f730-40b1-be84-2af626bf6d42",
+    "schema_version": "1.0.0",
+    "scenario_family": "length_anomaly",
+    "scenario_name": "Excessively Long URL with Repeated Tokens (Mutated: param_reorder)",
+    "description": "Mutated variation of Excessively Long URL with Repeated Tokens using param_reorder",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "deep_path",
+      "mutated:param_reorder",
+      "length",
+      "structural_anomaly"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "c84c8d8e-c4bf-4f56-b658-84db900c89fb",
+    "transformation_history": [
+      {
+        "operator": "param_reorder",
+        "parameters": {
+          "operator": "param_reorder",
+          "reordered": true
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://content-delivery.example.test/session/v1/auth/path/verification/client/token/redirect/action/state/identifier/payload/data/resource/item/element/node/leaf/status/complete/final/check?tracking_source=email_campaign_newsletter_blast&session_tracker_id=1234567890"
+    },
+    "expected_evidence": [
+      "structural_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "c84c8d8e-c4bf-4f56-b658-84db900c89fb",
+      "mutation_operator": "param_reorder",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "df0c91e8-ee14-4740-a103-9aa9225c96e6",
+    "schema_version": "1.0.0",
+    "scenario_family": "phishing_keywords",
+    "scenario_name": "Wallet Password Reset Phishing Path (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Wallet Password Reset Phishing Path using subdomain_prefix",
+    "expected_class": "malicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "crypto",
+      "keywords",
+      "mutated:subdomain_prefix",
+      "wallet"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "01ec610b-bf29-49e5-b589-36ff74fa7fd8",
+    "transformation_history": [
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "preview"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://preview.crypto-portal-notice.example.test/wallet/password/verify-identity"
+    },
+    "expected_evidence": [
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "parent_id": "01ec610b-bf29-49e5-b589-36ff74fa7fd8",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "16e826eb-a5f4-4fd2-9e0f-29be25499018",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign PayPal Gift Shop (Mutated: path_depth_variation)",
+    "description": "Mutated variation of Benign PayPal Gift Shop using path_depth_variation",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "adversarial",
+    "tags": [
+      "mutated:path_depth_variation",
+      "false_positive_test",
+      "benign_control",
+      "substring"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "5138b7fc-abaa-4821-802c-05cb5595757f",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_3"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://my-paypals-giftshop.example.test/catalog/substep_3"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "parent_id": "5138b7fc-abaa-4821-802c-05cb5595757f",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "ff820635-08aa-4f60-919e-6f84a1e6c646",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Documentation Update Guide (Mutated: query_param_injection)",
+    "description": "Mutated variation of Benign Documentation Update Guide using query_param_injection",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "intermediate",
+    "tags": [
+      "developer_docs",
+      "keywords",
+      "benign_control",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "a5a72246-819d-47d8-8955-dcff0306c286",
+    "transformation_history": [
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_881"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://docs.development.example.test/guide/user-login/software-update?_lab_diag=lab_mut_881"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "parent_id": "a5a72246-819d-47d8-8955-dcff0306c286",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "0c36badf-5307-4ec8-a9de-5330b25c40be",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Engineering Port 8080 Test Server (Mutated: path_depth_variation)",
+    "description": "Mutated variation of Benign Engineering Port 8080 Test Server using path_depth_variation",
+    "expected_class": "benign",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "staging",
+      "port_8080",
+      "benign_control",
+      "mutated:path_depth_variation"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "cb573195-ceda-45e2-a588-9c90a7b5b3eb",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_2"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://engineering-staging.example.test:8080/health/substep_2"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "cb573195-ceda-45e2-a588-9c90a7b5b3eb",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "1d953324-12ff-4eb4-83aa-c8ef0e7f2b63",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Apple Fan Club News (Mutated: case_variation)",
+    "description": "Mutated variation of Benign Apple Fan Club News using case_variation",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "adversarial",
+    "tags": [
+      "fan_club",
+      "editorial",
+      "mutated:case_variation",
+      "benign_control"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "7d7ca7c2-b1e4-466b-911c-68d5ebdfdd6a",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "apple-enthusiasts-club.example.test",
+          "mutated_netloc": "ApPlE-EnThUsIaStS-ClUb.eXaMpLe.tEsT"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://ApPlE-EnThUsIaStS-ClUb.eXaMpLe.tEsT/articles/latest"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "parent_id": "7d7ca7c2-b1e4-466b-911c-68d5ebdfdd6a",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "a1c074da-30a6-4349-9775-5dc529b72b03",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative Google Search Endpoint (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Authoritative Google Search Endpoint using subdomain_prefix",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "mutated:subdomain_prefix",
+      "whitelist",
+      "google",
+      "authoritative"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "46a1a726-580b-4342-a850-91328efd4bc4",
+    "transformation_history": [
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "stage"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://stage.google.com/search?q=cybersecurity+defense"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "parent_id": "46a1a726-580b-4342-a850-91328efd4bc4",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "c6b64964-3e83-45b3-8658-13c8df6f7097",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative GitHub Repository URL (Mutated: path_depth_variation)",
+    "description": "Mutated variation of Authoritative GitHub Repository URL using path_depth_variation",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "mutated:path_depth_variation",
+      "whitelist",
+      "github",
+      "authoritative"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "1c2cdbb9-b37d-44ac-845e-09f2cd804ab7",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "truncate_segment",
+          "removed_segment": "platform"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://github.com/cyberduel-ai"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "parent_id": "1c2cdbb9-b37d-44ac-845e-09f2cd804ab7",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "423991f1-93ad-4a0a-bb75-f7cb76f9daf2",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative Microsoft TechNet Guide (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of Authoritative Microsoft TechNet Guide using port_explicit_injection",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "microsoft",
+      "mutated:port_explicit_injection",
+      "whitelist",
+      "authoritative"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "7d94071e-1c39-4a7f-932a-f39b726a1954",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": false,
+        "relabel_required": true,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://microsoft.com:8080/en-us/security/engineering"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "parent_id": "7d94071e-1c39-4a7f-932a-f39b726a1954",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": false,
+      "relabel_required": true,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "8713b2ba-2966-4b1c-84f3-cf07eba6a287",
+    "schema_version": "1.0.0",
+    "scenario_family": "normalization_edge_case",
+    "scenario_name": "Dot-Segment Path Traversal Resolution (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Dot-Segment Path Traversal Resolution using subdomain_prefix",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "intermediate",
+    "tags": [
+      "dot_segments",
+      "mutated:subdomain_prefix",
+      "normalization"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "40d53798-bf51-4828-a652-78df28d3f4e7",
+    "transformation_history": [
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "stage"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://stage.content.example.test/static/css/../js/./bundle.js"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "parent_id": "40d53798-bf51-4828-a652-78df28d3f4e7",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "a40bbe4b-5b31-4025-9e0d-72d3d52c54f8",
+    "schema_version": "1.0.0",
+    "scenario_family": "normalization_edge_case",
+    "scenario_name": "Sensitive Token Query Parameter Redaction (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Sensitive Token Query Parameter Redaction using subdomain_prefix",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "privacy",
+      "mutated:subdomain_prefix",
+      "redaction",
+      "normalization"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "5972782d-84c0-4630-84f5-31f2cbf2d0b6",
+    "transformation_history": [
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "stage"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://stage.api.example.test/v1/auth?token=supersecret12345&client=mobile"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "parent_id": "5972782d-84c0-4630-84f5-31f2cbf2d0b6",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "badece52-6ca2-44a3-b97a-ab7266b41233",
+    "schema_version": "1.0.0",
+    "scenario_family": "stale_intelligence",
+    "scenario_name": "Expired Threat Intelligence Indicator (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of Expired Threat Intelligence Indicator using port_explicit_injection",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "adversarial",
+    "tags": [
+      "staleness",
+      "mutated:port_explicit_injection",
+      "expiration",
+      "threat_intel"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "8a5af64a-1d4e-4eed-ba1c-e1b3f574ac05",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8888
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://stale-threat-record.example.test:8888/archive"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "parent_id": "8a5af64a-1d4e-4eed-ba1c-e1b3f574ac05",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "9b1d7996-7c96-42d3-9d61-edc658ce719a",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic PayPal Homoglyph Mimicry (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of Cyrillic PayPal Homoglyph Mimicry using port_explicit_injection",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "punycode",
+      "brand_theft",
+      "homograph",
+      "mutated:port_explicit_injection",
+      "mutated:punycode_unicode_swap"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "802f6529-e139-4ceb-bafd-8fd1645ac8e0",
+    "transformation_history": [
+      {
+        "operator": "punycode_unicode_swap",
+        "parameters": {
+          "operator": "punycode_unicode_swap",
+          "direction": "punycode_to_unicode",
+          "unicode": "p\u0430ypal.example.test"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      },
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "default"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://p\u0430ypal.example.test:443/signin"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "802f6529-e139-4ceb-bafd-8fd1645ac8e0",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "d24b03a5-b4ce-45e0-8fdf-8db91aaf7079",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Greek Google Homoglyph Mimicry (Mutated: path_depth_variation)",
+    "description": "Mutated variation of Greek Google Homoglyph Mimicry using path_depth_variation",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "punycode",
+      "mutated:case_variation",
+      "homograph",
+      "mutated:path_depth_variation",
+      "google"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "804c8042-7206-486b-8e34-8449af810f2d",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "xn--gogle-l1a.example.test",
+          "mutated_netloc": "Xn--GoGlE-L1A.ExAmPlE.TeSt"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_4"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://Xn--GoGlE-L1A.ExAmPlE.TeSt/accounts/substep_4"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "804c8042-7206-486b-8e34-8449af810f2d",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "f83cea16-6476-4f79-8da6-1ac271228f0e",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic Microsoft Homoglyph Verification (Mutated: case_variation)",
+    "description": "Mutated variation of Cyrillic Microsoft Homoglyph Verification using case_variation",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "advanced",
+    "tags": [
+      "punycode",
+      "microsoft",
+      "mutated:case_variation",
+      "homograph",
+      "mutated:punycode_unicode_swap"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "2aa7dc2f-3815-43e6-9cf0-73aea6631f40",
+    "transformation_history": [
+      {
+        "operator": "punycode_unicode_swap",
+        "parameters": {
+          "operator": "punycode_unicode_swap",
+          "direction": "punycode_to_unicode",
+          "unicode": "m\u00f6icr\u0103sft.example.test"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      },
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "m\u00f6icr\u0103sft.example.test",
+          "mutated_netloc": "M\u00f6IcR\u0103SfT.ExAmPlE.TeSt"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://M\u00f6IcR\u0103SfT.ExAmPlE.TeSt/auth"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "2aa7dc2f-3815-43e6-9cf0-73aea6631f40",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "7a1175bc-e949-42d1-ad58-b430d2e9312d",
+    "schema_version": "1.0.0",
+    "scenario_family": "authority_spoofing",
+    "scenario_name": "PayPal Authority Userinfo Spoof (Mutated: case_variation)",
+    "description": "Mutated variation of PayPal Authority Userinfo Spoof using case_variation",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "basic",
+    "tags": [
+      "phishing",
+      "mutated:case_variation",
+      "userinfo",
+      "authority_spoof",
+      "mutated:path_depth_variation"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "327f587c-7248-4b75-bec7-2259dc1c1a77",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_4"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      },
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "paypal.com@secure-account-center.example.test",
+          "mutated_netloc": "PaYpAl.cOm@sEcUrE-AcCoUnT-CeNtEr.eXaMpLe.tEsT"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://PaYpAl.cOm@sEcUrE-AcCoUnT-CeNtEr.eXaMpLe.tEsT/login/substep_4"
+    },
+    "expected_evidence": [
+      "authority_spoof",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "327f587c-7248-4b75-bec7-2259dc1c1a77",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "654c6e62-ff1d-41fd-81e7-6a8052e033db",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "PayPal Deep Subdomain Impersonation (Mutated: query_param_injection)",
+    "description": "Mutated variation of PayPal Deep Subdomain Impersonation using query_param_injection",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "basic",
+    "tags": [
+      "paypal",
+      "brand",
+      "subdomain",
+      "mutated:port_explicit_injection",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "68327b3a-19d4-43ee-b21e-6438b9a38276",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8443
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_891"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://paypal.account-recovery-system.example.test:8443/verify?_lab_diag=lab_mut_891"
+    },
+    "expected_evidence": [
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "68327b3a-19d4-43ee-b21e-6438b9a38276",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "e561a6b8-a68c-471c-9117-1a7262f91a18",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "Microsoft Security Update Path Token (Mutated: path_depth_variation)",
+    "description": "Mutated variation of Microsoft Security Update Path Token using path_depth_variation",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "microsoft",
+      "mutated:case_variation",
+      "brand",
+      "path_token",
+      "mutated:path_depth_variation"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "8df73941-bed2-4536-ba64-cdb136851357",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "portal-notice.example.test",
+          "mutated_netloc": "PoRtAl-nOtIcE.ExAmPlE.TeSt"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "truncate_segment",
+          "removed_segment": "update"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://PoRtAl-nOtIcE.ExAmPlE.TeSt/microsoft-office365-security"
+    },
+    "expected_evidence": [
+      "brand_impersonation",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "parent_id": "8df73941-bed2-4536-ba64-cdb136851357",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "8959ef45-1a7f-4d92-bc63-24bf35fb1100",
+    "schema_version": "1.0.0",
+    "scenario_family": "suspicious_port",
+    "scenario_name": "Proxy Port 3128 Anomaly (Mutated: query_param_injection)",
+    "description": "Mutated variation of Proxy Port 3128 Anomaly using query_param_injection",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "port",
+      "proxy_3128",
+      "mutated:case_variation",
+      "network_anomaly",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "0e256c7f-a784-4a51-8393-573713f810e4",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "auth-relay.example.test:3128",
+          "mutated_netloc": "AuTh-rElAy.eXaMpLe.tEsT:3128"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_987"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "http://AuTh-rElAy.eXaMpLe.tEsT:3128/connect?_lab_diag=lab_mut_987"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "0e256c7f-a784-4a51-8393-573713f810e4",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "d8157971-3d05-4ded-8884-94bb37b20641",
+    "schema_version": "1.0.0",
+    "scenario_family": "suspicious_port",
+    "scenario_name": "High Alternate Port 8888 Admin Portal (Mutated: case_variation)",
+    "description": "Mutated variation of High Alternate Port 8888 Admin Portal using case_variation",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "port",
+      "mutated:case_variation",
+      "port_8888",
+      "admin",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "ee604d49-6e01-4b16-8e9a-fa7249ad6576",
+    "transformation_history": [
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_338"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "infrastructure-node.example.test:8888",
+          "mutated_netloc": "InFrAsTrUcTuRe-nOdE.ExAmPlE.TeSt:8888"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "http://InFrAsTrUcTuRe-nOdE.ExAmPlE.TeSt:8888/login?_lab_diag=lab_mut_338"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "ee604d49-6e01-4b16-8e9a-fa7249ad6576",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "086bc461-f7be-491e-a04c-1baaf3c6a1db",
+    "schema_version": "1.0.0",
+    "scenario_family": "double_encoding",
+    "scenario_name": "Double Encoded Dot-Dot Slash Path (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Double Encoded Dot-Dot Slash Path using subdomain_prefix",
+    "expected_class": "malicious",
+    "expected_decision": "warn",
+    "difficulty": "advanced",
+    "tags": [
+      "traversal",
+      "mutated:port_explicit_injection",
+      "encoding",
+      "evasion",
+      "mutated:subdomain_prefix"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "cc105a09-818c-4c4a-98f4-f281915fd093",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "preview"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://preview.secure-storage.example.test:8080/files/%252e%252e/%252e%252e/config"
+    },
+    "expected_evidence": [
+      "evasion_technique"
+    ],
+    "provenance": {
+      "parent_id": "cc105a09-818c-4c4a-98f4-f281915fd093",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "fea05b54-86aa-413d-bf36-35dbbdc77d1a",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Deep Five-Label Subdomain Chain (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Deep Five-Label Subdomain Chain using subdomain_prefix",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "obfuscation",
+      "dns_nesting",
+      "mutated:port_explicit_injection",
+      "subdomain",
+      "mutated:subdomain_prefix"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "cf0e9211-6728-4691-a3ca-2295d3c3adac",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8443
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "preview"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://preview.a.b.c.d.e.gateway.example.test:8443/index"
+    },
+    "expected_evidence": [
+      "dns_obfuscation"
+    ],
+    "provenance": {
+      "parent_id": "cf0e9211-6728-4691-a3ca-2295d3c3adac",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "5bacfb73-15f9-4002-b78f-85c2ebc7003c",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Brand Stacked Deep Subdomain (Mutated: query_param_injection)",
+    "description": "Mutated variation of Brand Stacked Deep Subdomain using query_param_injection",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "subdomain",
+      "mutated:query_param_injection",
+      "phishing_keywords",
+      "mutated:port_explicit_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "55c123b6-6ed9-477c-af8a-7a5722fd18e1",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_479"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://login.security.account.update.auth.example.test:8080/session?_lab_diag=lab_mut_479"
+    },
+    "expected_evidence": [
+      "dns_obfuscation",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "parent_id": "55c123b6-6ed9-477c-af8a-7a5722fd18e1",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "be9ec483-1284-4474-89ac-958c2d18062f",
+    "schema_version": "1.0.0",
+    "scenario_family": "length_anomaly",
+    "scenario_name": "Excessively Long URL with Repeated Tokens (Mutated: path_depth_variation)",
+    "description": "Mutated variation of Excessively Long URL with Repeated Tokens using path_depth_variation",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "length",
+      "structural_anomaly",
+      "mutated:path_depth_variation",
+      "deep_path",
+      "mutated:param_reorder"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "1b8a85a9-f730-40b1-be84-2af626bf6d42",
+    "transformation_history": [
+      {
+        "operator": "param_reorder",
+        "parameters": {
+          "operator": "param_reorder",
+          "reordered": true
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_5"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://content-delivery.example.test/session/v1/auth/path/verification/client/token/redirect/action/state/identifier/payload/data/resource/item/element/node/leaf/status/complete/final/check/substep_5?tracking_source=email_campaign_newsletter_blast&session_tracker_id=1234567890"
+    },
+    "expected_evidence": [
+      "structural_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "1b8a85a9-f730-40b1-be84-2af626bf6d42",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "0c3ab27b-325a-4b8a-afcb-b740f8cb35cb",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Engineering Port 8080 Test Server (Mutated: case_variation)",
+    "description": "Mutated variation of Benign Engineering Port 8080 Test Server using case_variation",
+    "expected_class": "benign",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "mutated:case_variation",
+      "staging",
+      "port_8080",
+      "benign_control",
+      "mutated:path_depth_variation"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "0c36badf-5307-4ec8-a9de-5330b25c40be",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_2"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "engineering-staging.example.test:8080",
+          "mutated_netloc": "EnGiNeErInG-StAgInG.ExAmPlE.TeSt:8080"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://EnGiNeErInG-StAgInG.ExAmPlE.TeSt:8080/health/substep_2"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "0c36badf-5307-4ec8-a9de-5330b25c40be",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "79006979-cf82-49ec-a865-f8fd05bc9ac1",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Apple Fan Club News (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of Benign Apple Fan Club News using port_explicit_injection",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "adversarial",
+    "tags": [
+      "editorial",
+      "mutated:case_variation",
+      "mutated:port_explicit_injection",
+      "benign_control",
+      "fan_club"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "1d953324-12ff-4eb4-83aa-c8ef0e7f2b63",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "apple-enthusiasts-club.example.test",
+          "mutated_netloc": "ApPlE-EnThUsIaStS-ClUb.eXaMpLe.tEsT"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "default"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://ApPlE-EnThUsIaStS-ClUb.eXaMpLe.tEsT:443/articles/latest"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "parent_id": "1d953324-12ff-4eb4-83aa-c8ef0e7f2b63",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "959be9cc-a57b-4de1-9d27-265a0795970b",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative Google Search Endpoint (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of Authoritative Google Search Endpoint using port_explicit_injection",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "whitelist",
+      "authoritative",
+      "mutated:port_explicit_injection",
+      "mutated:subdomain_prefix",
+      "google"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "a1c074da-30a6-4349-9775-5dc529b72b03",
+    "transformation_history": [
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "stage"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "default"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://stage.google.com:443/search?q=cybersecurity+defense"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "parent_id": "a1c074da-30a6-4349-9775-5dc529b72b03",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.690038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "6036cf53-bcfe-4539-8a5c-982c6c72ca77",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative GitHub Repository URL (Mutated: query_param_injection)",
+    "description": "Mutated variation of Authoritative GitHub Repository URL using query_param_injection",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "whitelist",
+      "authoritative",
+      "github",
+      "mutated:path_depth_variation",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "c6b64964-3e83-45b3-8658-13c8df6f7097",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "truncate_segment",
+          "removed_segment": "platform"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_573"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://github.com/cyberduel-ai?_lab_diag=lab_mut_573"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "parent_id": "c6b64964-3e83-45b3-8658-13c8df6f7097",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "3b3e17da-5012-4139-bc54-0d8e35533ee0",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative Microsoft TechNet Guide (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Authoritative Microsoft TechNet Guide using subdomain_prefix",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "microsoft",
+      "whitelist",
+      "authoritative",
+      "mutated:port_explicit_injection",
+      "mutated:subdomain_prefix"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "423991f1-93ad-4a0a-bb75-f7cb76f9daf2",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": false,
+        "relabel_required": true,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "preview"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://preview.microsoft.com:8080/en-us/security/engineering"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "parent_id": "423991f1-93ad-4a0a-bb75-f7cb76f9daf2",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "4c5dc5f7-98b6-4785-a818-d0bd5bfa7d4d",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic PayPal Homoglyph Mimicry (Mutated: query_param_injection)",
+    "description": "Mutated variation of Cyrillic PayPal Homoglyph Mimicry using query_param_injection",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "punycode",
+      "brand_theft",
+      "homograph",
+      "mutated:port_explicit_injection",
+      "mutated:punycode_unicode_swap",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "9b1d7996-7c96-42d3-9d61-edc658ce719a",
+    "transformation_history": [
+      {
+        "operator": "punycode_unicode_swap",
+        "parameters": {
+          "operator": "punycode_unicode_swap",
+          "direction": "punycode_to_unicode",
+          "unicode": "p\u0430ypal.example.test"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      },
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "default"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_801"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://p\u0430ypal.example.test:443/signin?_lab_diag=lab_mut_801"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "9b1d7996-7c96-42d3-9d61-edc658ce719a",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "a3d70528-29fa-4968-a35c-a1c79cb2d448",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "PayPal Deep Subdomain Impersonation (Mutated: query_param_injection)",
+    "description": "Mutated variation of PayPal Deep Subdomain Impersonation using query_param_injection",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "basic",
+    "tags": [
+      "paypal",
+      "brand",
+      "subdomain",
+      "mutated:port_explicit_injection",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "654c6e62-ff1d-41fd-81e7-6a8052e033db",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8443
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_891"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_941"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://paypal.account-recovery-system.example.test:8443/verify?_lab_diag=lab_mut_941"
+    },
+    "expected_evidence": [
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "654c6e62-ff1d-41fd-81e7-6a8052e033db",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "d834366c-325d-4ee5-be2e-c2b94ff23b70",
+    "schema_version": "1.0.0",
+    "scenario_family": "suspicious_port",
+    "scenario_name": "High Alternate Port 8888 Admin Portal (Mutated: path_depth_variation)",
+    "description": "Mutated variation of High Alternate Port 8888 Admin Portal using path_depth_variation",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "port",
+      "mutated:case_variation",
+      "port_8888",
+      "mutated:path_depth_variation",
+      "admin",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "d8157971-3d05-4ded-8884-94bb37b20641",
+    "transformation_history": [
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_338"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "infrastructure-node.example.test:8888",
+          "mutated_netloc": "InFrAsTrUcTuRe-nOdE.ExAmPlE.TeSt:8888"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_7"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "http://InFrAsTrUcTuRe-nOdE.ExAmPlE.TeSt:8888/login/substep_7?_lab_diag=lab_mut_338"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "d8157971-3d05-4ded-8884-94bb37b20641",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "aad7fed5-9f68-4561-a159-087c229ec53f",
+    "schema_version": "1.0.0",
+    "scenario_family": "double_encoding",
+    "scenario_name": "Double Encoded Dot-Dot Slash Path (Mutated: path_depth_variation)",
+    "description": "Mutated variation of Double Encoded Dot-Dot Slash Path using path_depth_variation",
+    "expected_class": "malicious",
+    "expected_decision": "warn",
+    "difficulty": "advanced",
+    "tags": [
+      "traversal",
+      "mutated:port_explicit_injection",
+      "mutated:path_depth_variation",
+      "encoding",
+      "evasion",
+      "mutated:subdomain_prefix"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "086bc461-f7be-491e-a04c-1baaf3c6a1db",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "preview"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_6"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://preview.secure-storage.example.test:8080/files/%252e%252e/%252e%252e/config/substep_6"
+    },
+    "expected_evidence": [
+      "evasion_technique"
+    ],
+    "provenance": {
+      "parent_id": "086bc461-f7be-491e-a04c-1baaf3c6a1db",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "55fb361b-14a1-43bf-9f63-1b2f6e756d4a",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Deep Five-Label Subdomain Chain (Mutated: query_param_injection)",
+    "description": "Mutated variation of Deep Five-Label Subdomain Chain using query_param_injection",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "obfuscation",
+      "dns_nesting",
+      "subdomain",
+      "mutated:port_explicit_injection",
+      "mutated:subdomain_prefix",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "fea05b54-86aa-413d-bf36-35dbbdc77d1a",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8443
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "preview"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_771"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://preview.a.b.c.d.e.gateway.example.test:8443/index?_lab_diag=lab_mut_771"
+    },
+    "expected_evidence": [
+      "dns_obfuscation"
+    ],
+    "provenance": {
+      "parent_id": "fea05b54-86aa-413d-bf36-35dbbdc77d1a",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "aaa7c58a-a82c-49f1-b94c-1663f9b3fadc",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Brand Stacked Deep Subdomain (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Brand Stacked Deep Subdomain using subdomain_prefix",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "phishing_keywords",
+      "subdomain",
+      "mutated:port_explicit_injection",
+      "mutated:subdomain_prefix",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "5bacfb73-15f9-4002-b78f-85c2ebc7003c",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_479"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "node-1"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://node-1.login.security.account.update.auth.example.test:8080/session?_lab_diag=lab_mut_479"
+    },
+    "expected_evidence": [
+      "dns_obfuscation",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "parent_id": "5bacfb73-15f9-4002-b78f-85c2ebc7003c",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "c9323c26-28f2-429e-9c97-2c27c9bfbd41",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Engineering Port 8080 Test Server (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Benign Engineering Port 8080 Test Server using subdomain_prefix",
+    "expected_class": "benign",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "mutated:case_variation",
+      "staging",
+      "port_8080",
+      "benign_control",
+      "mutated:path_depth_variation",
+      "mutated:subdomain_prefix"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "0c3ab27b-325a-4b8a-afcb-b740f8cb35cb",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_2"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "engineering-staging.example.test:8080",
+          "mutated_netloc": "EnGiNeErInG-StAgInG.ExAmPlE.TeSt:8080"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "qa"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://qa.EnGiNeErInG-StAgInG.ExAmPlE.TeSt:8080/health/substep_2"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "parent_id": "0c3ab27b-325a-4b8a-afcb-b740f8cb35cb",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "730108f8-deac-409d-9d19-9422054a000f",
+    "schema_version": "1.0.0",
+    "scenario_family": "benign_lookalike",
+    "scenario_name": "Benign Apple Fan Club News (Mutated: path_depth_variation)",
+    "description": "Mutated variation of Benign Apple Fan Club News using path_depth_variation",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "adversarial",
+    "tags": [
+      "fan_club",
+      "mutated:case_variation",
+      "mutated:port_explicit_injection",
+      "benign_control",
+      "mutated:path_depth_variation",
+      "editorial"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "79006979-cf82-49ec-a865-f8fd05bc9ac1",
+    "transformation_history": [
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "apple-enthusiasts-club.example.test",
+          "mutated_netloc": "ApPlE-EnThUsIaStS-ClUb.eXaMpLe.tEsT"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "default"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_9"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://ApPlE-EnThUsIaStS-ClUb.eXaMpLe.tEsT:443/articles/latest/substep_9"
+    },
+    "expected_evidence": [],
+    "provenance": {
+      "parent_id": "79006979-cf82-49ec-a865-f8fd05bc9ac1",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "5d62d8c7-d4ed-4e21-9dc5-cc8c994e689c",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative GitHub Repository URL (Mutated: path_depth_variation)",
+    "description": "Mutated variation of Authoritative GitHub Repository URL using path_depth_variation",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "whitelist",
+      "authoritative",
+      "github",
+      "mutated:path_depth_variation",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "6036cf53-bcfe-4539-8a5c-982c6c72ca77",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "truncate_segment",
+          "removed_segment": "platform"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_573"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_7"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://github.com/cyberduel-ai/substep_7?_lab_diag=lab_mut_573"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "parent_id": "6036cf53-bcfe-4539-8a5c-982c6c72ca77",
+      "mutation_operator": "path_depth_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "9e008004-7477-461f-9fd4-71a325ca31c5",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic PayPal Homoglyph Mimicry (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Cyrillic PayPal Homoglyph Mimicry using subdomain_prefix",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "punycode",
+      "brand_theft",
+      "homograph",
+      "mutated:port_explicit_injection",
+      "mutated:punycode_unicode_swap",
+      "mutated:subdomain_prefix",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "4c5dc5f7-98b6-4785-a818-d0bd5bfa7d4d",
+    "transformation_history": [
+      {
+        "operator": "punycode_unicode_swap",
+        "parameters": {
+          "operator": "punycode_unicode_swap",
+          "direction": "punycode_to_unicode",
+          "unicode": "p\u0430ypal.example.test"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      },
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "default"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_801"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "preview"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://preview.p\u0430ypal.example.test:443/signin?_lab_diag=lab_mut_801"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "4c5dc5f7-98b6-4785-a818-d0bd5bfa7d4d",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "91ba2325-ad2b-4d0c-a24a-cbcbfd8c69dd",
+    "schema_version": "1.0.0",
+    "scenario_family": "brand_impersonation",
+    "scenario_name": "PayPal Deep Subdomain Impersonation (Mutated: query_param_injection)",
+    "description": "Mutated variation of PayPal Deep Subdomain Impersonation using query_param_injection",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "basic",
+    "tags": [
+      "paypal",
+      "brand",
+      "subdomain",
+      "mutated:port_explicit_injection",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "a3d70528-29fa-4968-a35c-a1c79cb2d448",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8443
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_891"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_941"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_241"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://paypal.account-recovery-system.example.test:8443/verify?_lab_diag=lab_mut_241"
+    },
+    "expected_evidence": [
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "a3d70528-29fa-4968-a35c-a1c79cb2d448",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "ccfc8424-5c18-44bb-9704-bd4d634499a9",
+    "schema_version": "1.0.0",
+    "scenario_family": "double_encoding",
+    "scenario_name": "Double Encoded Dot-Dot Slash Path (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Double Encoded Dot-Dot Slash Path using subdomain_prefix",
+    "expected_class": "malicious",
+    "expected_decision": "warn",
+    "difficulty": "advanced",
+    "tags": [
+      "traversal",
+      "mutated:port_explicit_injection",
+      "mutated:path_depth_variation",
+      "encoding",
+      "evasion",
+      "mutated:subdomain_prefix"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "aad7fed5-9f68-4561-a159-087c229ec53f",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "preview"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_6"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "stage"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://stage.preview.secure-storage.example.test:8080/files/%252e%252e/%252e%252e/config/substep_6"
+    },
+    "expected_evidence": [
+      "evasion_technique"
+    ],
+    "provenance": {
+      "parent_id": "aad7fed5-9f68-4561-a159-087c229ec53f",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "93995f3d-75bb-4b56-8aae-805f18660ab4",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Brand Stacked Deep Subdomain (Mutated: case_variation)",
+    "description": "Mutated variation of Brand Stacked Deep Subdomain using case_variation",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "phishing_keywords",
+      "mutated:case_variation",
+      "subdomain",
+      "mutated:port_explicit_injection",
+      "mutated:subdomain_prefix",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "aaa7c58a-a82c-49f1-b94c-1663f9b3fadc",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_479"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "node-1"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "node-1.login.security.account.update.auth.example.test:8080",
+          "mutated_netloc": "NoDe-1.lOgIn.sEcUrItY.AcCoUnT.UpDaTe.aUtH.ExAmPlE.TeSt:8080"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://NoDe-1.lOgIn.sEcUrItY.AcCoUnT.UpDaTe.aUtH.ExAmPlE.TeSt:8080/session?_lab_diag=lab_mut_479"
+    },
+    "expected_evidence": [
+      "dns_obfuscation",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "parent_id": "aaa7c58a-a82c-49f1-b94c-1663f9b3fadc",
+      "mutation_operator": "case_variation",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "8e144a59-2a09-4d2c-92a8-4a80be75b08a",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative GitHub Repository URL (Mutated: query_param_injection)",
+    "description": "Mutated variation of Authoritative GitHub Repository URL using query_param_injection",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "whitelist",
+      "authoritative",
+      "github",
+      "mutated:path_depth_variation",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "5d62d8c7-d4ed-4e21-9dc5-cc8c994e689c",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "truncate_segment",
+          "removed_segment": "platform"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_573"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_7"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_742"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://github.com/cyberduel-ai/substep_7?_lab_diag=lab_mut_742"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "parent_id": "5d62d8c7-d4ed-4e21-9dc5-cc8c994e689c",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "0f7c94bb-87ac-4cd7-8ee1-d0c9d8ae4897",
+    "schema_version": "1.0.0",
+    "scenario_family": "homograph_mimicry",
+    "scenario_name": "Cyrillic PayPal Homoglyph Mimicry (Mutated: query_param_injection)",
+    "description": "Mutated variation of Cyrillic PayPal Homoglyph Mimicry using query_param_injection",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "punycode",
+      "brand_theft",
+      "homograph",
+      "mutated:port_explicit_injection",
+      "mutated:punycode_unicode_swap",
+      "mutated:subdomain_prefix",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "9e008004-7477-461f-9fd4-71a325ca31c5",
+    "transformation_history": [
+      {
+        "operator": "punycode_unicode_swap",
+        "parameters": {
+          "operator": "punycode_unicode_swap",
+          "direction": "punycode_to_unicode",
+          "unicode": "p\u0430ypal.example.test"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.689038Z"
+      },
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "default"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_801"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "preview"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_911"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://preview.p\u0430ypal.example.test:443/signin?_lab_diag=lab_mut_911"
+    },
+    "expected_evidence": [
+      "homoglyph",
+      "brand_impersonation"
+    ],
+    "provenance": {
+      "parent_id": "9e008004-7477-461f-9fd4-71a325ca31c5",
+      "mutation_operator": "query_param_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "2217c719-5b87-4a2d-86ae-91e2f0d6ebfd",
+    "schema_version": "1.0.0",
+    "scenario_family": "subdomain_flooding",
+    "scenario_name": "Brand Stacked Deep Subdomain (Mutated: subdomain_prefix)",
+    "description": "Mutated variation of Brand Stacked Deep Subdomain using subdomain_prefix",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "intermediate",
+    "tags": [
+      "phishing_keywords",
+      "mutated:case_variation",
+      "subdomain",
+      "mutated:port_explicit_injection",
+      "mutated:subdomain_prefix",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "93995f3d-75bb-4b56-8aae-805f18660ab4",
+    "transformation_history": [
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "non_standard",
+          "port": 8080
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_479"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "node-1"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "case_variation",
+        "parameters": {
+          "operator": "case_variation",
+          "original_netloc": "node-1.login.security.account.update.auth.example.test:8080",
+          "mutated_netloc": "NoDe-1.lOgIn.sEcUrItY.AcCoUnT.UpDaTe.aUtH.ExAmPlE.TeSt:8080"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "subdomain_prefix",
+        "parameters": {
+          "operator": "subdomain_prefix",
+          "prefix_added": "node-1"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://node-1.NoDe-1.lOgIn.sEcUrItY.AcCoUnT.UpDaTe.aUtH.ExAmPlE.TeSt:8080/session?_lab_diag=lab_mut_479"
+    },
+    "expected_evidence": [
+      "dns_obfuscation",
+      "phishing_keywords"
+    ],
+    "provenance": {
+      "parent_id": "93995f3d-75bb-4b56-8aae-805f18660ab4",
+      "mutation_operator": "subdomain_prefix",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "0aea36f2-d9a3-4c43-9b55-cc013c4acad1",
+    "schema_version": "1.0.0",
+    "scenario_family": "whitelist_control",
+    "scenario_name": "Authoritative GitHub Repository URL (Mutated: port_explicit_injection)",
+    "description": "Mutated variation of Authoritative GitHub Repository URL using port_explicit_injection",
+    "expected_class": "benign",
+    "expected_decision": "allow",
+    "difficulty": "basic",
+    "tags": [
+      "whitelist",
+      "authoritative",
+      "mutated:port_explicit_injection",
+      "github",
+      "mutated:path_depth_variation",
+      "mutated:query_param_injection"
+    ],
+    "seed": 42,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": "8e144a59-2a09-4d2c-92a8-4a80be75b08a",
+    "transformation_history": [
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "truncate_segment",
+          "removed_segment": "platform"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_573"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.690038Z"
+      },
+      {
+        "operator": "path_depth_variation",
+        "parameters": {
+          "operator": "path_depth_variation",
+          "action": "append_segment",
+          "added_segment": "substep_7"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "query_param_injection",
+        "parameters": {
+          "operator": "query_param_injection",
+          "injected_param": "_lab_diag",
+          "injected_value": "lab_mut_742"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      },
+      {
+        "operator": "port_explicit_injection",
+        "parameters": {
+          "operator": "port_explicit_injection",
+          "port_type": "default"
+        },
+        "preserved_semantics": true,
+        "relabel_required": false,
+        "applied_at": "2026-10-28T18:17:56.691038Z"
+      }
+    ],
+    "input_fixture": {
+      "raw_url": "https://github.com:443/cyberduel-ai/substep_7?_lab_diag=lab_mut_742"
+    },
+    "expected_evidence": [
+      "whitelist"
+    ],
+    "provenance": {
+      "parent_id": "8e144a59-2a09-4d2c-92a8-4a80be75b08a",
+      "mutation_operator": "port_explicit_injection",
+      "preserved_semantics": true,
+      "relabel_required": false,
+      "generator_version": "red-generator-1.0.0"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "f98a5731-37ff-40c9-9e2f-499fa6970c87",
+    "schema_version": "1.0.0",
+    "scenario_family": "ip_host",
+    "scenario_name": "IPv4 Documentation Address Host (Variant 4278)",
+    "description": "Direct connection to IPv4 documentation address without DNS [Variant seed 4278]",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "ipv4",
+      "direct_ip",
+      "network_anomaly",
+      "variant"
+    ],
+    "seed": 4320,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "http://192.0.2.10/admin/panel?variant=4278"
+    },
+    "expected_evidence": [
+      "ip_address_host"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary-Parameterized",
+      "template_id": "PAT-IP-001",
+      "rationale": "Direct IP connection circumvents domain reputation checks.",
+      "variant_seed": 4278,
+      "goal": "general_exploration"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "751ae851-007a-4710-b0a9-278215e9e7e0",
+    "schema_version": "1.0.0",
+    "scenario_family": "double_encoding",
+    "scenario_name": "Double Encoded Query Parameter (Variant 33098)",
+    "description": "Nested percent-encoding inside redirection query parameter [Variant seed 33098]",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "advanced",
+    "tags": [
+      "encoding",
+      "open_redirect",
+      "variant"
+    ],
+    "seed": 33140,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://redirect-service.example.test/bounce?dest=https%253A%252F%252Fbad.test&variant=33098"
+    },
+    "expected_evidence": [
+      "evasion_technique"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary-Parameterized",
+      "template_id": "PAT-ENC-002",
+      "rationale": "Hides destination target from naive single-pass inspection filters.",
+      "variant_seed": 33098,
+      "goal": "general_exploration"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "532189e3-c5e3-4d4f-9ded-2210e88a2b68",
+    "schema_version": "1.0.0",
+    "scenario_family": "suspicious_port",
+    "scenario_name": "High Alternate Port 8888 Admin Portal (Variant 19289)",
+    "description": "Web administration endpoint exposed on port 8888 [Variant seed 19289]",
+    "expected_class": "suspicious",
+    "expected_decision": "warn",
+    "difficulty": "basic",
+    "tags": [
+      "port",
+      "port_8888",
+      "admin",
+      "variant"
+    ],
+    "seed": 19331,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "http://infrastructure-node.example.test:8888/login?variant=19289"
+    },
+    "expected_evidence": [
+      "network_anomaly"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary-Parameterized",
+      "template_id": "PAT-PORT-002",
+      "rationale": "Evasive deployment on non-standard administration port.",
+      "variant_seed": 19289,
+      "goal": "general_exploration"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  },
+  {
+    "scenario_id": "20375c6b-8c24-44e3-8747-9d70e27ce7d3",
+    "schema_version": "1.0.0",
+    "scenario_family": "authority_spoofing",
+    "scenario_name": "Bank Verification Userinfo Spoof (Variant 89696)",
+    "description": "Authority section spoofing internal banking portal [Variant seed 89696]",
+    "expected_class": "malicious",
+    "expected_decision": "block",
+    "difficulty": "intermediate",
+    "tags": [
+      "userinfo",
+      "financial",
+      "spoof",
+      "variant"
+    ],
+    "seed": 89738,
+    "generator_version": "red-generator-1.0.0",
+    "mutation_parent_id": null,
+    "transformation_history": [],
+    "input_fixture": {
+      "raw_url": "https://internal-bank.com@gateway-proxy.example.test/transfer?variant=89696"
+    },
+    "expected_evidence": [
+      "authority_spoof"
+    ],
+    "provenance": {
+      "origin": "ThreatPatternLibrary-Parameterized",
+      "template_id": "PAT-AUTH-003",
+      "rationale": "Disguises hostile gateway host behind trusted bank authority string.",
+      "variant_seed": 89696,
+      "goal": "general_exploration"
+    },
+    "created_at": "2026-10-28T18:17:56.691038Z",
+    "safety_classification": "harmless_synthetic"
+  }
+]

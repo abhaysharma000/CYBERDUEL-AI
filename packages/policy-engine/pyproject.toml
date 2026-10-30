@@ -1,0 +1,16 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cyberduel-policy-engine"
+version = "0.1.0"
+description = "Declarative policy parsing, evaluation rules, and verification for CyberDuel AI"
+requires-python = ">=3.12, <3.13"
+dependencies = [
+    "pydantic>=2.10.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["cyberduel_policy_engine"]
+

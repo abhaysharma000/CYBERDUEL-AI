@@ -1,0 +1,991 @@
+{
+  "summary": {
+    "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+    "experiment_name": "Adversarial Homoglyphs and Benign Controls",
+    "goal": "Test Cyrillic Homoglyphs and False Positives",
+    "status": "completed",
+    "seed": 42,
+    "scenario_count": 50,
+    "executed_count": 50,
+    "discrepancy_count": 15,
+    "metrics": {
+      "total_scenarios": 50,
+      "evaluable_scenarios": 32,
+      "true_positives": 22,
+      "false_positives": 2,
+      "true_negatives": 8,
+      "false_negatives": 0,
+      "accuracy": 0.9375,
+      "precision": 0.9167,
+      "recall": 1.0,
+      "f1": 0.9565,
+      "false_positive_rate": 0.2,
+      "discrepancy_rate": 0.3,
+      "average_latency_ms": 0.17,
+      "decision_distribution": {
+        "block": 11,
+        "warn": 26,
+        "allow": 13
+      },
+      "family_breakdown": {
+        "homograph_mimicry": {
+          "total": 8,
+          "discrepancies": 4,
+          "accuracy": 0.5
+        },
+        "authority_spoofing": {
+          "total": 5,
+          "discrepancies": 0,
+          "accuracy": 1.0
+        },
+        "ip_host": {
+          "total": 3,
+          "discrepancies": 1,
+          "accuracy": 0.6666666666666666
+        },
+        "brand_impersonation": {
+          "total": 6,
+          "discrepancies": 2,
+          "accuracy": 0.6666666666666666
+        },
+        "suspicious_port": {
+          "total": 5,
+          "discrepancies": 0,
+          "accuracy": 1.0
+        },
+        "double_encoding": {
+          "total": 3,
+          "discrepancies": 0,
+          "accuracy": 1.0
+        },
+        "dga_entropy": {
+          "total": 2,
+          "discrepancies": 2,
+          "accuracy": 0.0
+        },
+        "subdomain_flooding": {
+          "total": 4,
+          "discrepancies": 2,
+          "accuracy": 0.5
+        },
+        "length_anomaly": {
+          "total": 1,
+          "discrepancies": 0,
+          "accuracy": 1.0
+        },
+        "phishing_keywords": {
+          "total": 2,
+          "discrepancies": 0,
+          "accuracy": 1.0
+        },
+        "benign_lookalike": {
+          "total": 4,
+          "discrepancies": 3,
+          "accuracy": 0.25
+        },
+        "whitelist_control": {
+          "total": 3,
+          "discrepancies": 0,
+          "accuracy": 1.0
+        },
+        "normalization_edge_case": {
+          "total": 3,
+          "discrepancies": 0,
+          "accuracy": 1.0
+        },
+        "stale_intelligence": {
+          "total": 1,
+          "discrepancies": 1,
+          "accuracy": 0.0
+        }
+      }
+    },
+    "family_breakdown": {
+      "homograph_mimicry": {
+        "total": 8,
+        "discrepancies": 4,
+        "accuracy": 0.5
+      },
+      "authority_spoofing": {
+        "total": 5,
+        "discrepancies": 0,
+        "accuracy": 1.0
+      },
+      "ip_host": {
+        "total": 3,
+        "discrepancies": 1,
+        "accuracy": 0.6666666666666666
+      },
+      "brand_impersonation": {
+        "total": 6,
+        "discrepancies": 2,
+        "accuracy": 0.6666666666666666
+      },
+      "suspicious_port": {
+        "total": 5,
+        "discrepancies": 0,
+        "accuracy": 1.0
+      },
+      "double_encoding": {
+        "total": 3,
+        "discrepancies": 0,
+        "accuracy": 1.0
+      },
+      "dga_entropy": {
+        "total": 2,
+        "discrepancies": 2,
+        "accuracy": 0.0
+      },
+      "subdomain_flooding": {
+        "total": 4,
+        "discrepancies": 2,
+        "accuracy": 0.5
+      },
+      "length_anomaly": {
+        "total": 1,
+        "discrepancies": 0,
+        "accuracy": 1.0
+      },
+      "phishing_keywords": {
+        "total": 2,
+        "discrepancies": 0,
+        "accuracy": 1.0
+      },
+      "benign_lookalike": {
+        "total": 4,
+        "discrepancies": 3,
+        "accuracy": 0.25
+      },
+      "whitelist_control": {
+        "total": 3,
+        "discrepancies": 0,
+        "accuracy": 1.0
+      },
+      "normalization_edge_case": {
+        "total": 3,
+        "discrepancies": 0,
+        "accuracy": 1.0
+      },
+      "stale_intelligence": {
+        "total": 1,
+        "discrepancies": 1,
+        "accuracy": 0.0
+      }
+    },
+    "detector_version": "0.2.0-heuristic-intel",
+    "policy_version": "2026.10.1",
+    "started_at": "2026-10-28T18:20:51.963084Z",
+    "completed_at": "2026-10-28T18:20:51.977081Z",
+    "findings": [
+      {
+        "finding_id": "dfb0f28d-b3c5-45b5-a06c-84d5b38cf644",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "policy_miscalibration",
+        "discrepancy_type": "underconfident",
+        "hypothesis": "Hypothesis: Underconfident risk scoring in family 'homograph_mimicry'. Malicious target received only a 'warn' decision rather than an authoritative 'block'.",
+        "affected_scenarios_count": 4,
+        "representative_scenario_ids": [
+          "40656e6c-53fe-4267-bfc8-fad7c6118f7e",
+          "e0303c36-f18e-4469-b5d3-bc61ca4d5167",
+          "43732fdc-9d6f-45f3-b6b7-a8cb8689aff4",
+          "a0e021e6-f432-40a5-b241-c112ad841a6c"
+        ],
+        "suggested_remedy": "Adjust soft saturation weight or increase evidence severity weighting for 'homograph_mimicry'.",
+        "severity": "medium"
+      },
+      {
+        "finding_id": "1c4143ab-e091-4df2-92ba-7fb4d1cf1d5b",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "policy_miscalibration",
+        "discrepancy_type": "underconfident",
+        "hypothesis": "Hypothesis: Underconfident risk scoring in family 'ip_host'. Malicious target received only a 'warn' decision rather than an authoritative 'block'.",
+        "affected_scenarios_count": 1,
+        "representative_scenario_ids": [
+          "d3f1a003-9029-49e0-b55c-466ddcb057d0"
+        ],
+        "suggested_remedy": "Adjust soft saturation weight or increase evidence severity weighting for 'ip_host'.",
+        "severity": "medium"
+      },
+      {
+        "finding_id": "5b29dbc1-a572-4ca0-b510-da454f94a449",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "policy_miscalibration",
+        "discrepancy_type": "underconfident",
+        "hypothesis": "Hypothesis: Underconfident risk scoring in family 'brand_impersonation'. Malicious target received only a 'warn' decision rather than an authoritative 'block'.",
+        "affected_scenarios_count": 2,
+        "representative_scenario_ids": [
+          "603c1523-d29b-46b6-b35f-5f15f5ddcbb6",
+          "d9c45756-2ad9-4ff7-8066-ed864dcfb047"
+        ],
+        "suggested_remedy": "Adjust soft saturation weight or increase evidence severity weighting for 'brand_impersonation'.",
+        "severity": "medium"
+      },
+      {
+        "finding_id": "10a6885b-9446-49f1-9733-ee7d7aaaf23d",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "unknown",
+        "discrepancy_type": "uncertain_outcome",
+        "hypothesis": "Hypothesis: Unclassified discrepancy observed in family 'dga_entropy'.",
+        "affected_scenarios_count": 2,
+        "representative_scenario_ids": [
+          "b4814407-38cb-4cdd-bfef-f3d87fe43e8b",
+          "beb87c02-16b6-4c0d-9483-4558c5149b0d"
+        ],
+        "suggested_remedy": "Manual forensic audit required.",
+        "severity": "low"
+      },
+      {
+        "finding_id": "8a368360-e01f-41ad-ac1d-010a1ea37d3c",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "unknown",
+        "discrepancy_type": "uncertain_outcome",
+        "hypothesis": "Hypothesis: Unclassified discrepancy observed in family 'subdomain_flooding'.",
+        "affected_scenarios_count": 2,
+        "representative_scenario_ids": [
+          "b8bd0861-6aa4-4221-8ca4-60888ba9f3a2",
+          "9cdacfc7-7490-4424-8c68-72576f208bb0"
+        ],
+        "suggested_remedy": "Manual forensic audit required.",
+        "severity": "low"
+      },
+      {
+        "finding_id": "04f1b036-1627-4de7-aca5-3a52cadf8288",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "over_detection",
+        "discrepancy_type": "false_positive",
+        "hypothesis": "Hypothesis: Over-detection in family 'benign_lookalike'. Legitimate controls containing benign tokens or structural attributes were penalized beyond acceptable threshold.",
+        "affected_scenarios_count": 2,
+        "representative_scenario_ids": [
+          "2331d42f-886d-4cc0-a25f-dd7b3df4c535",
+          "b2ae1003-7bc0-450b-91c5-d2c83cf8d77c"
+        ],
+        "suggested_remedy": "Calibrate heuristic rules associated with 'benign_lookalike' to require compounding evidence or establish domain context whitelisting before elevating risk score.",
+        "severity": "high"
+      },
+      {
+        "finding_id": "0083f622-978f-4368-9f8e-8b7477893f00",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "unknown",
+        "discrepancy_type": "uncertain_outcome",
+        "hypothesis": "Hypothesis: Unclassified discrepancy observed in family 'benign_lookalike'.",
+        "affected_scenarios_count": 1,
+        "representative_scenario_ids": [
+          "c95e9e12-c5a1-4a00-a48c-5562c315869e"
+        ],
+        "suggested_remedy": "Manual forensic audit required.",
+        "severity": "low"
+      },
+      {
+        "finding_id": "e3ecf7be-0865-4b7e-8bd3-573ce1046f80",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "unknown",
+        "discrepancy_type": "uncertain_outcome",
+        "hypothesis": "Hypothesis: Unclassified discrepancy observed in family 'stale_intelligence'.",
+        "affected_scenarios_count": 1,
+        "representative_scenario_ids": [
+          "12c20fbd-d088-4fd9-912c-1906d0c826f8"
+        ],
+        "suggested_remedy": "Manual forensic audit required.",
+        "severity": "low"
+      }
+    ]
+  },
+  "handoff": {
+    "handoff_id": "7d8a68bf-85d6-418f-a5ff-40a157c43556",
+    "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+    "candidate_id": "9951cf3e-ad59-44ce-b157-9a0bdd265209",
+    "detector_version": "0.2.0-heuristic-intel",
+    "policy_version": "2026.10.1",
+    "total_failures": 15,
+    "findings": [
+      {
+        "finding_id": "dfb0f28d-b3c5-45b5-a06c-84d5b38cf644",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "policy_miscalibration",
+        "discrepancy_type": "underconfident",
+        "hypothesis": "Hypothesis: Underconfident risk scoring in family 'homograph_mimicry'. Malicious target received only a 'warn' decision rather than an authoritative 'block'.",
+        "affected_scenarios_count": 4,
+        "representative_scenario_ids": [
+          "40656e6c-53fe-4267-bfc8-fad7c6118f7e",
+          "e0303c36-f18e-4469-b5d3-bc61ca4d5167",
+          "43732fdc-9d6f-45f3-b6b7-a8cb8689aff4",
+          "a0e021e6-f432-40a5-b241-c112ad841a6c"
+        ],
+        "suggested_remedy": "Adjust soft saturation weight or increase evidence severity weighting for 'homograph_mimicry'.",
+        "severity": "medium"
+      },
+      {
+        "finding_id": "1c4143ab-e091-4df2-92ba-7fb4d1cf1d5b",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "policy_miscalibration",
+        "discrepancy_type": "underconfident",
+        "hypothesis": "Hypothesis: Underconfident risk scoring in family 'ip_host'. Malicious target received only a 'warn' decision rather than an authoritative 'block'.",
+        "affected_scenarios_count": 1,
+        "representative_scenario_ids": [
+          "d3f1a003-9029-49e0-b55c-466ddcb057d0"
+        ],
+        "suggested_remedy": "Adjust soft saturation weight or increase evidence severity weighting for 'ip_host'.",
+        "severity": "medium"
+      },
+      {
+        "finding_id": "5b29dbc1-a572-4ca0-b510-da454f94a449",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "policy_miscalibration",
+        "discrepancy_type": "underconfident",
+        "hypothesis": "Hypothesis: Underconfident risk scoring in family 'brand_impersonation'. Malicious target received only a 'warn' decision rather than an authoritative 'block'.",
+        "affected_scenarios_count": 2,
+        "representative_scenario_ids": [
+          "603c1523-d29b-46b6-b35f-5f15f5ddcbb6",
+          "d9c45756-2ad9-4ff7-8066-ed864dcfb047"
+        ],
+        "suggested_remedy": "Adjust soft saturation weight or increase evidence severity weighting for 'brand_impersonation'.",
+        "severity": "medium"
+      },
+      {
+        "finding_id": "10a6885b-9446-49f1-9733-ee7d7aaaf23d",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "unknown",
+        "discrepancy_type": "uncertain_outcome",
+        "hypothesis": "Hypothesis: Unclassified discrepancy observed in family 'dga_entropy'.",
+        "affected_scenarios_count": 2,
+        "representative_scenario_ids": [
+          "b4814407-38cb-4cdd-bfef-f3d87fe43e8b",
+          "beb87c02-16b6-4c0d-9483-4558c5149b0d"
+        ],
+        "suggested_remedy": "Manual forensic audit required.",
+        "severity": "low"
+      },
+      {
+        "finding_id": "8a368360-e01f-41ad-ac1d-010a1ea37d3c",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "unknown",
+        "discrepancy_type": "uncertain_outcome",
+        "hypothesis": "Hypothesis: Unclassified discrepancy observed in family 'subdomain_flooding'.",
+        "affected_scenarios_count": 2,
+        "representative_scenario_ids": [
+          "b8bd0861-6aa4-4221-8ca4-60888ba9f3a2",
+          "9cdacfc7-7490-4424-8c68-72576f208bb0"
+        ],
+        "suggested_remedy": "Manual forensic audit required.",
+        "severity": "low"
+      },
+      {
+        "finding_id": "04f1b036-1627-4de7-aca5-3a52cadf8288",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "over_detection",
+        "discrepancy_type": "false_positive",
+        "hypothesis": "Hypothesis: Over-detection in family 'benign_lookalike'. Legitimate controls containing benign tokens or structural attributes were penalized beyond acceptable threshold.",
+        "affected_scenarios_count": 2,
+        "representative_scenario_ids": [
+          "2331d42f-886d-4cc0-a25f-dd7b3df4c535",
+          "b2ae1003-7bc0-450b-91c5-d2c83cf8d77c"
+        ],
+        "suggested_remedy": "Calibrate heuristic rules associated with 'benign_lookalike' to require compounding evidence or establish domain context whitelisting before elevating risk score.",
+        "severity": "high"
+      },
+      {
+        "finding_id": "0083f622-978f-4368-9f8e-8b7477893f00",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "unknown",
+        "discrepancy_type": "uncertain_outcome",
+        "hypothesis": "Hypothesis: Unclassified discrepancy observed in family 'benign_lookalike'.",
+        "affected_scenarios_count": 1,
+        "representative_scenario_ids": [
+          "c95e9e12-c5a1-4a00-a48c-5562c315869e"
+        ],
+        "suggested_remedy": "Manual forensic audit required.",
+        "severity": "low"
+      },
+      {
+        "finding_id": "e3ecf7be-0865-4b7e-8bd3-573ce1046f80",
+        "experiment_id": "94affe62-cd66-4693-9127-ef0f82f097df",
+        "failure_category": "unknown",
+        "discrepancy_type": "uncertain_outcome",
+        "hypothesis": "Hypothesis: Unclassified discrepancy observed in family 'stale_intelligence'.",
+        "affected_scenarios_count": 1,
+        "representative_scenario_ids": [
+          "12c20fbd-d088-4fd9-912c-1906d0c826f8"
+        ],
+        "suggested_remedy": "Manual forensic audit required.",
+        "severity": "low"
+      }
+    ],
+    "representative_scenarios": [
+      {
+        "scenario_id": "40656e6c-53fe-4267-bfc8-fad7c6118f7e",
+        "schema_version": "1.0.0",
+        "scenario_family": "homograph_mimicry",
+        "scenario_name": "Greek Google Homoglyph Mimicry",
+        "description": "Domain using Greek omicron mimicking Google brand",
+        "expected_class": "malicious",
+        "expected_decision": "block",
+        "difficulty": "intermediate",
+        "tags": [
+          "homograph",
+          "punycode",
+          "google"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://xn--gogle-l1a.example.test/accounts"
+        },
+        "expected_evidence": [
+          "homoglyph",
+          "brand_impersonation"
+        ],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-HOMO-002",
+          "rationale": "Greek omicron substitution designed to bypass visual user inspection.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "e0303c36-f18e-4469-b5d3-bc61ca4d5167",
+        "schema_version": "1.0.0",
+        "scenario_family": "homograph_mimicry",
+        "scenario_name": "Cyrillic Microsoft Homoglyph Verification",
+        "description": "Domain using Cyrillic small 'o' (U+043E) mimicking Microsoft",
+        "expected_class": "malicious",
+        "expected_decision": "block",
+        "difficulty": "advanced",
+        "tags": [
+          "homograph",
+          "microsoft",
+          "punycode"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://xn--micrsft-90a4j.example.test/auth"
+        },
+        "expected_evidence": [
+          "homoglyph",
+          "brand_impersonation"
+        ],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-HOMO-004",
+          "rationale": "Multi-character homoglyph evasion attempt.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "d3f1a003-9029-49e0-b55c-466ddcb057d0",
+        "schema_version": "1.0.0",
+        "scenario_family": "ip_host",
+        "scenario_name": "IPv4 Documentation Address with Non-standard Port",
+        "description": "Direct connection to IPv4 on port 8080 with login keyword",
+        "expected_class": "malicious",
+        "expected_decision": "block",
+        "difficulty": "intermediate",
+        "tags": [
+          "ipv4",
+          "port_8080",
+          "login_keywords"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "http://198.51.100.42:8080/secure/login"
+        },
+        "expected_evidence": [
+          "ip_address_host",
+          "network_anomaly",
+          "phishing_keywords"
+        ],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-IP-002",
+          "rationale": "Compound threat: raw IP + alternative port + credential theft keyword.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "603c1523-d29b-46b6-b35f-5f15f5ddcbb6",
+        "schema_version": "1.0.0",
+        "scenario_family": "brand_impersonation",
+        "scenario_name": "Apple iCloud Verification Token",
+        "description": "iCloud brand label embedded in deceptive third-level domain",
+        "expected_class": "malicious",
+        "expected_decision": "block",
+        "difficulty": "intermediate",
+        "tags": [
+          "apple",
+          "icloud",
+          "brand_theft"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://apple.icloud-locate-device.example.test/map"
+        },
+        "expected_evidence": [
+          "brand_impersonation"
+        ],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-BRAND-003",
+          "rationale": "Leverages brand familiarity to induce credential submission.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "b4814407-38cb-4cdd-bfef-f3d87fe43e8b",
+        "schema_version": "1.0.0",
+        "scenario_family": "dga_entropy",
+        "scenario_name": "High Entropy DGA Hostname 1",
+        "description": "Pseudo-random domain name generated by algorithmic seeding",
+        "expected_class": "suspicious",
+        "expected_decision": "warn",
+        "difficulty": "intermediate",
+        "tags": [
+          "dga",
+          "entropy",
+          "algorithm"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://qzxwkjhgf9876lkjh.example.test/sync"
+        },
+        "expected_evidence": [
+          "domain_entropy"
+        ],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-DGA-001",
+          "rationale": "Shannon entropy exceeds 3.8 bits/character.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "beb87c02-16b6-4c0d-9483-4558c5149b0d",
+        "schema_version": "1.0.0",
+        "scenario_family": "dga_entropy",
+        "scenario_name": "Compound DGA Subdomain",
+        "description": "Random alphanumeric subdomains stacked above registered domain",
+        "expected_class": "suspicious",
+        "expected_decision": "warn",
+        "difficulty": "intermediate",
+        "tags": [
+          "dga",
+          "entropy",
+          "subdomain"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://x89f72b9a4c1e03.dga-tracker.example.test/beacon"
+        },
+        "expected_evidence": [
+          "domain_entropy"
+        ],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-DGA-002",
+          "rationale": "High-entropy label indicating automated botnet rendezvous.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "b8bd0861-6aa4-4221-8ca4-60888ba9f3a2",
+        "schema_version": "1.0.0",
+        "scenario_family": "subdomain_flooding",
+        "scenario_name": "Deep Five-Label Subdomain Chain",
+        "description": "Domain nesting with 5 consecutive subdomain labels",
+        "expected_class": "suspicious",
+        "expected_decision": "warn",
+        "difficulty": "basic",
+        "tags": [
+          "subdomain",
+          "dns_nesting",
+          "obfuscation"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://a.b.c.d.e.gateway.example.test/index"
+        },
+        "expected_evidence": [
+          "dns_obfuscation"
+        ],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-SUB-001",
+          "rationale": "Intended to push primary domain out of mobile or address bar display.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "2331d42f-886d-4cc0-a25f-dd7b3df4c535",
+        "schema_version": "1.0.0",
+        "scenario_family": "benign_lookalike",
+        "scenario_name": "Benign Documentation Update Guide",
+        "description": "Legitimate developer documentation with 'update' and 'login' in path",
+        "expected_class": "benign",
+        "expected_decision": "allow",
+        "difficulty": "intermediate",
+        "tags": [
+          "benign_control",
+          "developer_docs",
+          "keywords"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://docs.development.example.test/guide/user-login/software-update"
+        },
+        "expected_evidence": [],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-LOOK-002",
+          "rationale": "Educational/technical documentation referencing login mechanisms safely.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "c95e9e12-c5a1-4a00-a48c-5562c315869e",
+        "schema_version": "1.0.0",
+        "scenario_family": "benign_lookalike",
+        "scenario_name": "Benign Engineering Port 8080 Test Server",
+        "description": "Legitimate internal engineering staging server on port 8080",
+        "expected_class": "benign",
+        "expected_decision": "warn",
+        "difficulty": "intermediate",
+        "tags": [
+          "benign_control",
+          "port_8080",
+          "staging"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://engineering-staging.example.test:8080/health"
+        },
+        "expected_evidence": [
+          "network_anomaly"
+        ],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-LOOK-003",
+          "rationale": "Non-standard port is suspicious but within policy warning bounds.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "b2ae1003-7bc0-450b-91c5-d2c83cf8d77c",
+        "schema_version": "1.0.0",
+        "scenario_family": "benign_lookalike",
+        "scenario_name": "Benign Apple Fan Club News",
+        "description": "Third-party community fan blog discussing Apple updates",
+        "expected_class": "benign",
+        "expected_decision": "allow",
+        "difficulty": "adversarial",
+        "tags": [
+          "benign_control",
+          "fan_club",
+          "editorial"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://apple-enthusiasts-club.example.test/articles/latest"
+        },
+        "expected_evidence": [],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-LOOK-004",
+          "rationale": "Editorial brand reference on distinct registrable domain.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "12c20fbd-d088-4fd9-912c-1906d0c826f8",
+        "schema_version": "1.0.0",
+        "scenario_family": "stale_intelligence",
+        "scenario_name": "Expired Threat Intelligence Indicator",
+        "description": "Domain previously associated with threat activity whose indicator has expired",
+        "expected_class": "suspicious",
+        "expected_decision": "warn",
+        "difficulty": "adversarial",
+        "tags": [
+          "threat_intel",
+          "staleness",
+          "expiration"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": null,
+        "transformation_history": [],
+        "input_fixture": {
+          "raw_url": "https://stale-threat-record.example.test/archive"
+        },
+        "expected_evidence": [],
+        "provenance": {
+          "origin": "ThreatPatternLibrary",
+          "template_id": "PAT-STALE-001",
+          "rationale": "Tests engine behavior when indicator expires from active verified pool.",
+          "goal": "Test Cyrillic Homoglyphs and False Positives",
+          "seed": 42
+        },
+        "created_at": "2026-10-28T18:20:51.963084Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "43732fdc-9d6f-45f3-b6b7-a8cb8689aff4",
+        "schema_version": "1.0.0",
+        "scenario_family": "homograph_mimicry",
+        "scenario_name": "Greek Google Homoglyph Mimicry (Mutated: case_variation)",
+        "description": "Mutated variation of Greek Google Homoglyph Mimicry using case_variation",
+        "expected_class": "malicious",
+        "expected_decision": "block",
+        "difficulty": "intermediate",
+        "tags": [
+          "homograph",
+          "google",
+          "mutated:case_variation",
+          "punycode"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": "40656e6c-53fe-4267-bfc8-fad7c6118f7e",
+        "transformation_history": [
+          {
+            "operator": "case_variation",
+            "parameters": {
+              "operator": "case_variation",
+              "original_netloc": "xn--gogle-l1a.example.test",
+              "mutated_netloc": "Xn--GoGlE-L1A.ExAmPlE.TeSt"
+            },
+            "preserved_semantics": true,
+            "relabel_required": false,
+            "applied_at": "2026-10-28T18:20:51.966083Z"
+          }
+        ],
+        "input_fixture": {
+          "raw_url": "https://Xn--GoGlE-L1A.ExAmPlE.TeSt/accounts"
+        },
+        "expected_evidence": [
+          "homoglyph",
+          "brand_impersonation"
+        ],
+        "provenance": {
+          "parent_id": "40656e6c-53fe-4267-bfc8-fad7c6118f7e",
+          "mutation_operator": "case_variation",
+          "preserved_semantics": true,
+          "relabel_required": false,
+          "generator_version": "red-generator-1.0.0"
+        },
+        "created_at": "2026-10-28T18:20:51.966083Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "a0e021e6-f432-40a5-b241-c112ad841a6c",
+        "schema_version": "1.0.0",
+        "scenario_family": "homograph_mimicry",
+        "scenario_name": "Cyrillic Microsoft Homoglyph Verification (Mutated: punycode_unicode_swap)",
+        "description": "Mutated variation of Cyrillic Microsoft Homoglyph Verification using punycode_unicode_swap",
+        "expected_class": "malicious",
+        "expected_decision": "block",
+        "difficulty": "advanced",
+        "tags": [
+          "homograph",
+          "mutated:punycode_unicode_swap",
+          "microsoft",
+          "punycode"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": "e0303c36-f18e-4469-b5d3-bc61ca4d5167",
+        "transformation_history": [
+          {
+            "operator": "punycode_unicode_swap",
+            "parameters": {
+              "operator": "punycode_unicode_swap",
+              "direction": "punycode_to_unicode",
+              "unicode": "m\u00f6icr\u0103sft.example.test"
+            },
+            "preserved_semantics": true,
+            "relabel_required": false,
+            "applied_at": "2026-10-28T18:20:51.967083Z"
+          }
+        ],
+        "input_fixture": {
+          "raw_url": "https://m\u00f6icr\u0103sft.example.test/auth"
+        },
+        "expected_evidence": [
+          "homoglyph",
+          "brand_impersonation"
+        ],
+        "provenance": {
+          "parent_id": "e0303c36-f18e-4469-b5d3-bc61ca4d5167",
+          "mutation_operator": "punycode_unicode_swap",
+          "preserved_semantics": true,
+          "relabel_required": false,
+          "generator_version": "red-generator-1.0.0"
+        },
+        "created_at": "2026-10-28T18:20:51.967083Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "d9c45756-2ad9-4ff7-8066-ed864dcfb047",
+        "schema_version": "1.0.0",
+        "scenario_family": "brand_impersonation",
+        "scenario_name": "Apple iCloud Verification Token (Mutated: case_variation)",
+        "description": "Mutated variation of Apple iCloud Verification Token using case_variation",
+        "expected_class": "malicious",
+        "expected_decision": "block",
+        "difficulty": "intermediate",
+        "tags": [
+          "mutated:case_variation",
+          "brand_theft",
+          "apple",
+          "icloud"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": "603c1523-d29b-46b6-b35f-5f15f5ddcbb6",
+        "transformation_history": [
+          {
+            "operator": "case_variation",
+            "parameters": {
+              "operator": "case_variation",
+              "original_netloc": "apple.icloud-locate-device.example.test",
+              "mutated_netloc": "ApPlE.IcLoUd-lOcAtE-DeViCe.eXaMpLe.tEsT"
+            },
+            "preserved_semantics": true,
+            "relabel_required": false,
+            "applied_at": "2026-10-28T18:20:51.967083Z"
+          }
+        ],
+        "input_fixture": {
+          "raw_url": "https://ApPlE.IcLoUd-lOcAtE-DeViCe.eXaMpLe.tEsT/map"
+        },
+        "expected_evidence": [
+          "brand_impersonation"
+        ],
+        "provenance": {
+          "parent_id": "603c1523-d29b-46b6-b35f-5f15f5ddcbb6",
+          "mutation_operator": "case_variation",
+          "preserved_semantics": true,
+          "relabel_required": false,
+          "generator_version": "red-generator-1.0.0"
+        },
+        "created_at": "2026-10-28T18:20:51.967083Z",
+        "safety_classification": "harmless_synthetic"
+      },
+      {
+        "scenario_id": "9cdacfc7-7490-4424-8c68-72576f208bb0",
+        "schema_version": "1.0.0",
+        "scenario_family": "subdomain_flooding",
+        "scenario_name": "Deep Five-Label Subdomain Chain (Mutated: port_explicit_injection)",
+        "description": "Mutated variation of Deep Five-Label Subdomain Chain using port_explicit_injection",
+        "expected_class": "suspicious",
+        "expected_decision": "warn",
+        "difficulty": "basic",
+        "tags": [
+          "mutated:port_explicit_injection",
+          "obfuscation",
+          "dns_nesting",
+          "subdomain"
+        ],
+        "seed": 42,
+        "generator_version": "red-generator-1.0.0",
+        "mutation_parent_id": "b8bd0861-6aa4-4221-8ca4-60888ba9f3a2",
+        "transformation_history": [
+          {
+            "operator": "port_explicit_injection",
+            "parameters": {
+              "operator": "port_explicit_injection",
+              "port_type": "non_standard",
+              "port": 8443
+            },
+            "preserved_semantics": true,
+            "relabel_required": false,
+            "applied_at": "2026-10-28T18:20:51.967083Z"
+          }
+        ],
+        "input_fixture": {
+          "raw_url": "https://a.b.c.d.e.gateway.example.test:8443/index"
+        },
+        "expected_evidence": [
+          "dns_obfuscation"
+        ],
+        "provenance": {
+          "parent_id": "b8bd0861-6aa4-4221-8ca4-60888ba9f3a2",
+          "mutation_operator": "port_explicit_injection",
+          "preserved_semantics": true,
+          "relabel_required": false,
+          "generator_version": "red-generator-1.0.0"
+        },
+        "created_at": "2026-10-28T18:20:51.967083Z",
+        "safety_classification": "harmless_synthetic"
+      }
+    ],
+    "ground_truth_confidence": 0.95,
+    "reproduction_config": {
+      "seed": 42,
+      "goal": "Test Cyrillic Homoglyphs and False Positives",
+      "scenario_count": 50
+    },
+    "suggested_investigation_questions": [
+      "Do the observed discrepancies represent novel evasion vectors or known policy limitations?",
+      "Can declarative heuristic rules be synthesized to detect these patterns without elevating false positives on benign controls?",
+      "What regression benchmarks must be evaluated before any proposed defensive update is considered for staging?"
+    ],
+    "status": "handed_off",
+    "created_at": "2026-10-28T18:20:51.977081Z"
+  }
+}
