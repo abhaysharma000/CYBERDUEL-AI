@@ -81,3 +81,4 @@ Once deployed, verify the endpoints:
 Once your Vercel deployment URL is live (e.g. `https://cyberduel-command.vercel.app`):
 1. **Browser Extension**: Set `VITE_BACKEND_URL` in `apps/browser-extension/.env` to your API URL before packing the extension.
 2. **Android Mobile App**: Set the backend URL in the mobile app settings or `ApiConfig.kt` to point to your live deployment.
+
