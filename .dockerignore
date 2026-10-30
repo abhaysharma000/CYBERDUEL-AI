@@ -24,10 +24,8 @@
 **/artifacts/scenarios/*
 **/.vscode
 **/.idea
+README.md
 docs/
-old/
-apps/mobile/
-apps/browser-extension/
 # Exclude signing private keys and keystores from Docker images
 infrastructure/keys/
 **/infrastructure/keys/
