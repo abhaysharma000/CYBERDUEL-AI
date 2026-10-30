@@ -151,17 +151,20 @@ async def ensure_schema_initialized() -> None:
             release = ReleaseRecord(
                 id=rel_id,
                 policy_version="1.1.0",
+                sequence_number=1,
                 channel="stable",
                 candidate_id=cand_id,
                 evaluation_report_id=eval_rep.id,
-                signing_key_id=key_id,
-                manifest_signature="ed25519_mock_signature",
+                publisher_key_id=key_id,
+                signature="ed25519_mock_signature",
                 status="published",
-                bundle_hash="sha256_bundle_hash",
-                bundle_size_bytes=4096,
+                artifact_path="/tmp/storage/releases/cyberduel-v1.1.0.json",
+                artifact_digest="0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+                artifact_size_bytes=4096,
                 manifest_payload={"version": "1.1.0", "channel": "stable"},
                 bundle_payload={"rules": [{"id": "R-101", "action": "block"}]},
                 published_at=now,
+                expires_at=datetime(2030, 1, 1, tzinfo=UTC),
             )
             session.add(release)
 
@@ -170,6 +173,7 @@ async def ensure_schema_initialized() -> None:
                 client_id="ext-chrome-node-01",
                 client_type="browser_extension",
                 current_policy_version="1.1.0",
+                engine_version="1.0.0",
                 platform="Chrome 131 / Win64",
                 last_seen_at=now,
             )
@@ -177,6 +181,7 @@ async def ensure_schema_initialized() -> None:
                 client_id="mob-android-companion-01",
                 client_type="android_app",
                 current_policy_version="1.1.0",
+                engine_version="1.0.0",
                 platform="Android 14 / Pixel 8",
                 last_seen_at=now,
             )
@@ -186,23 +191,21 @@ async def ensure_schema_initialized() -> None:
             # 6. Seed Audit Events
             audit_ev1 = AuditLogRecord(
                 event_id=f"evt_{uuid.uuid4().hex[:12]}",
-                timestamp=now,
                 actor="releaser",
                 action="release.published",
                 target_type="policy_release",
                 target_id="1.1.0",
                 outcome="success",
-                details={"channel": "stable", "key_id": key_id},
+                metadata_json={"channel": "stable", "key_id": key_id},
             )
             audit_ev2 = AuditLogRecord(
                 event_id=f"evt_{uuid.uuid4().hex[:12]}",
-                timestamp=now,
                 actor="evaluator",
                 action="evaluation.completed",
                 target_type="candidate_defense",
                 target_id=str(cand_id),
                 outcome="success",
-                details={"verdict": "accept", "precision": 0.984},
+                metadata_json={"verdict": "accept", "precision": 0.984},
             )
             session.add(audit_ev1)
             session.add(audit_ev2)

@@ -46,9 +46,11 @@ jobs:
           python scripts/run_migrations.py
 
       - name: Pytest Backend Test Suite
+        env:
+          ENVIRONMENT: test
         run: |
           source .venv/bin/activate
-          pytest --cov=apps/api/app --cov=packages --cov-report=term-missing
+          pytest -v --tb=short --cov=apps/api/app --cov=cyberduel_contracts --cov=cyberduel_threat_intel --cov=cyberduel_policy_engine --cov-report=term-missing
 
   extension-test-and-build:
     name: Browser Extension Tests & Manifest V3 Build
@@ -137,8 +139,17 @@ jobs:
           distribution: "temurin"
           cache: "gradle"
 
-      - name: Configure Android Local Properties
-        run: echo "sdk.dir=$ANDROID_HOME" > apps/mobile/local.properties
+      - name: Configure Android SDK and Accept Licenses
+        run: |
+          export ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}
+          export ANDROID_SDK_ROOT=$ANDROID_HOME
+          sudo chown -R $USER:$USER "$ANDROID_HOME" 2>/dev/null || true
+          if [ -f "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+            yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses 2>/dev/null || true
+          elif [ -f "$ANDROID_HOME/tools/bin/sdkmanager" ]; then
+            yes | "$ANDROID_HOME/tools/bin/sdkmanager" --licenses 2>/dev/null || true
+          fi
+          echo "sdk.dir=$ANDROID_HOME" > apps/mobile/local.properties
 
       - name: Make Gradlew Executable
         run: chmod +x ./apps/mobile/gradlew

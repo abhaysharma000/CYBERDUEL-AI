@@ -16,9 +16,9 @@ object Ed25519Verifier {
             .trim()
 
         val der = try {
-            Base64.decode(clean, Base64.DEFAULT)
-        } catch (_: Exception) {
             java.util.Base64.getDecoder().decode(clean)
+        } catch (_: Exception) {
+            android.util.Base64.decode(clean, android.util.Base64.DEFAULT)
         }
 
         return when {
