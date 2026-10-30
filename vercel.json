@@ -1,0 +1,32 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "npm --prefix apps/dashboard run build",
+  "outputDirectory": "apps/dashboard/dist",
+  "rewrites": [
+    {
+      "source": "/api/v1/:match*",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/api/:match*",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/docs",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/redoc",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/openapi.json",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/((?!api|docs|redoc|openapi.json).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

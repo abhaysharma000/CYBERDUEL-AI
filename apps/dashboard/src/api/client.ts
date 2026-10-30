@@ -17,8 +17,9 @@ import {
   UserProfile,
 } from "../types";
 
-const API_BASE = import.meta.env.VITE_API_URL
-  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, "")}/api/v1`
+const rawApiUrl = (import.meta.env.VITE_API_URL || import.meta.env.VITE_BACKEND_URL || "") as string;
+const API_BASE = rawApiUrl
+  ? `${rawApiUrl.replace(/\/$/, "")}/api/v1`
   : "/api/v1";
 
 /**
