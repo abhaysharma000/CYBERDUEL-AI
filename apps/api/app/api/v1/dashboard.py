@@ -313,9 +313,10 @@ async def get_dashboard_overview(
     settings = get_settings()
     now = datetime.now(UTC)
 
-    # Automatically ensure schema and baseline entities exist
+    # Automatically ensure schema and baseline entities exist in non-test runtimes
     try:
-        await ensure_schema_initialized()
+        if settings.ENVIRONMENT != "test":
+            await ensure_schema_initialized()
     except Exception as e:
         logger.warning(f"Dashboard auto-schema init notice: {e}")
 

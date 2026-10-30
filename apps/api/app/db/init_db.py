@@ -28,6 +28,12 @@ logger = logging.getLogger(__name__)
 async def ensure_schema_initialized() -> None:
     """Ensure database schema is created and populated with demo telemetry."""
     try:
+        from apps.api.app.core.config import get_settings
+
+        settings = get_settings()
+        if settings.ENVIRONMENT == "test":
+            return
+
         engine = get_engine()
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)

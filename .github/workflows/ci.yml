@@ -137,9 +137,6 @@ jobs:
           distribution: "temurin"
           cache: "gradle"
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Configure Android Local Properties
         run: echo "sdk.dir=$ANDROID_HOME" > apps/mobile/local.properties
 
