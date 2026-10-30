@@ -25,7 +25,6 @@ from cyberduel_contracts.lab import ScenarioContract
 
 from services.lab_worker.app.red_ai.mutator import ScenarioMutationEngine
 from services.lab_worker.app.red_ai.patterns import ThreatPatternLibrary
-from services.lab_worker.app.red_ai.validator import ScenarioValidator
 
 try:
     from apps.api.app.core.config import get_settings
@@ -102,30 +101,40 @@ class ScenarioGenerator:
         """Generate scenario corpus asynchronously, using Qwen if configured or procedural fallback."""
         if self.provider_mode == "qwen":
             if not self.provider:
-                is_prod = (
-                    get_settings().is_production
-                    if get_settings
-                    else False
-                ) or (os.getenv("ENVIRONMENT") == "production")
+                is_prod = (get_settings().is_production if get_settings else False) or (
+                    os.getenv("ENVIRONMENT") == "production"
+                )
                 if is_prod:
                     raise ProviderUnavailableError(
                         "Production mode requires active QwenProvider; silent fallback prohibited."
                     )
-                logger.warning("Qwen provider requested but not initialized; falling back to procedural mode.")
-                return self.generate_corpus(count=count, families=families, mutation_depth=mutation_depth, goal=goal)
+                logger.warning(
+                    "Qwen provider requested but not initialized; falling back to procedural mode."
+                )
+                return self.generate_corpus(
+                    count=count, families=families, mutation_depth=mutation_depth, goal=goal
+                )
 
             try:
                 scenarios: list[ScenarioContract] = []
                 # Resolve target families
-                all_families = [f.value if isinstance(f, ScenarioFamily) else str(f) for f in (families or [
-                    ScenarioFamily.HOMOGLYPH_MIMICRY,
-                    ScenarioFamily.CREDENTIAL_HARVESTING,
-                    ScenarioFamily.SUBDOMAIN_FLOODING,
-                    ScenarioFamily.BRAND_IMPERSONATION,
-                ])]
+                all_families = [
+                    f.value if isinstance(f, ScenarioFamily) else str(f)
+                    for f in (
+                        families
+                        or [
+                            ScenarioFamily.HOMOGLYPH_MIMICRY,
+                            ScenarioFamily.CREDENTIAL_HARVESTING,
+                            ScenarioFamily.SUBDOMAIN_FLOODING,
+                            ScenarioFamily.BRAND_IMPERSONATION,
+                        ]
+                    )
+                ]
 
                 # Generate via Qwen up to count (or batch of unique scenarios)
-                target_count = min(count, 5)  # Cap LLM generations per single experiment cycle for latency bounds
+                target_count = min(
+                    count, 5
+                )  # Cap LLM generations per single experiment cycle for latency bounds
                 for i in range(target_count):
                     fam = all_families[i % len(all_families)]
                     sc = await self.provider.generate_scenario_contract(
@@ -155,22 +164,26 @@ class ScenarioGenerator:
                         if self._is_safe_rfc2606_url(mut.input_fixture.get("raw_url", "")):
                             scenarios.append(mut)
 
-                logger.info("Successfully synthesized %d scenarios via QwenProvider.", len(scenarios))
+                logger.info(
+                    "Successfully synthesized %d scenarios via QwenProvider.", len(scenarios)
+                )
                 return scenarios
 
             except Exception as exc:
-                is_prod = (
-                    get_settings().is_production
-                    if get_settings
-                    else False
-                ) or (os.getenv("ENVIRONMENT") == "production")
+                is_prod = (get_settings().is_production if get_settings else False) or (
+                    os.getenv("ENVIRONMENT") == "production"
+                )
                 if is_prod:
-                    raise ProviderInferenceError(f"Qwen scenario generation failed in production: {exc}") from exc
+                    raise ProviderInferenceError(
+                        f"Qwen scenario generation failed in production: {exc}"
+                    ) from exc
                 logger.error(f"Qwen scenario generation failed: {exc}. Failing closed per policy.")
                 raise
 
         # Procedural generation mode
-        return self.generate_corpus(count=count, families=families, mutation_depth=mutation_depth, goal=goal)
+        return self.generate_corpus(
+            count=count, families=families, mutation_depth=mutation_depth, goal=goal
+        )
 
     def generate_corpus(
         self,

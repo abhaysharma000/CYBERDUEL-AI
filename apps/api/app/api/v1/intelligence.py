@@ -116,9 +116,12 @@ async def list_indicators(
     limit: int = 50,
 ) -> list[dict[str, Any]]:
     from sqlalchemy import select
+
     from apps.api.app.models.indicators import ThreatIndicatorRecord
 
-    stmt = select(ThreatIndicatorRecord).order_by(ThreatIndicatorRecord.created_at.desc()).limit(limit)
+    stmt = (
+        select(ThreatIndicatorRecord).order_by(ThreatIndicatorRecord.created_at.desc()).limit(limit)
+    )
     res = await session.execute(stmt)
     records = res.scalars().all()
     return [

@@ -7,7 +7,6 @@ import json
 import logging
 import secrets
 import time
-from datetime import UTC, datetime, timedelta
 from enum import Enum
 from typing import Annotated
 
@@ -111,31 +110,31 @@ class UserProfile(BaseModel):
 # Preconfigured initial operators for demonstration and administrative operations
 DEFAULT_OPERATORS: dict[str, dict] = {
     "admin": {
-        "password_hash": hashlib.sha256("Admin@CyberDuel2026!".encode()).hexdigest(),
+        "password_hash": hashlib.sha256(b"Admin@CyberDuel2026!").hexdigest(),
         "display_name": "Lead System Administrator",
         "role": Role.ADMIN,
         "email": "admin@cyberduel.internal",
     },
     "researcher": {
-        "password_hash": hashlib.sha256("Research@2026!".encode()).hexdigest(),
+        "password_hash": hashlib.sha256(b"Research@2026!").hexdigest(),
         "display_name": "Adversarial Lab Specialist",
         "role": Role.RESEARCH_OPERATOR,
         "email": "research@cyberduel.internal",
     },
     "reviewer": {
-        "password_hash": hashlib.sha256("Reviewer@2026!".encode()).hexdigest(),
+        "password_hash": hashlib.sha256(b"Reviewer@2026!").hexdigest(),
         "display_name": "Defensive Architecture Reviewer",
         "role": Role.DEFENSE_REVIEWER,
         "email": "reviewer@cyberduel.internal",
     },
     "releaser": {
-        "password_hash": hashlib.sha256("Releaser@2026!".encode()).hexdigest(),
+        "password_hash": hashlib.sha256(b"Releaser@2026!").hexdigest(),
         "display_name": "Security Release Authority",
         "role": Role.RELEASE_OPERATOR,
         "email": "releaser@cyberduel.internal",
     },
     "analyst": {
-        "password_hash": hashlib.sha256("Analyst@2026!".encode()).hexdigest(),
+        "password_hash": hashlib.sha256(b"Analyst@2026!").hexdigest(),
         "display_name": "Security Operations Analyst",
         "role": Role.VIEWER,
         "email": "analyst@cyberduel.internal",
@@ -249,4 +248,3 @@ def require_permission(required_perm: str):
         return user
 
     return _dependency
-

@@ -15,13 +15,15 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import Any
 
 import yaml
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s | [LORA-TRAIN] %(levelname)s | %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s | [LORA-TRAIN] %(levelname)s | %(message)s"
+)
 logger = logging.getLogger("lora_trainer")
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -48,24 +50,32 @@ def validate_chatml_record(record: dict[str, Any], line_num: int, file_path: Pat
 
     messages = record["messages"]
     if len(messages) < 2:
-        raise ValueError(f"Line {line_num} in {file_path.name}: ChatML must have at least user and assistant messages")
+        raise ValueError(
+            f"Line {line_num} in {file_path.name}: ChatML must have at least user and assistant messages"
+        )
 
     total_chars = 0
     roles_seen = []
     for m in messages:
         if not isinstance(m, dict) or "role" not in m or "content" not in m:
-            raise ValueError(f"Line {line_num} in {file_path.name}: message missing 'role' or 'content'")
+            raise ValueError(
+                f"Line {line_num} in {file_path.name}: message missing 'role' or 'content'"
+            )
         role = m["role"]
         content = m["content"]
         if role not in ("system", "user", "assistant"):
             raise ValueError(f"Line {line_num} in {file_path.name}: invalid role '{role}'")
         if not isinstance(content, str) or not content.strip():
-            raise ValueError(f"Line {line_num} in {file_path.name}: content must be non-empty string")
+            raise ValueError(
+                f"Line {line_num} in {file_path.name}: content must be non-empty string"
+            )
         roles_seen.append(role)
         total_chars += len(content)
 
     if "user" not in roles_seen or "assistant" not in roles_seen:
-        raise ValueError(f"Line {line_num} in {file_path.name}: must contain both 'user' and 'assistant' messages")
+        raise ValueError(
+            f"Line {line_num} in {file_path.name}: must contain both 'user' and 'assistant' messages"
+        )
 
     # Rough heuristic: ~4 characters per token
     return max(1, total_chars // 4)
@@ -87,7 +97,7 @@ def inspect_sft_sources(sources: list[str]) -> dict[str, Any]:
 
         file_examples = 0
         file_tokens = 0
-        with open(src_path, "r", encoding="utf-8") as f:
+        with open(src_path, encoding="utf-8") as f:
             for idx, line in enumerate(f, start=1):
                 line = line.strip()
                 if not line:
@@ -120,7 +130,9 @@ def run_dry_run(config: dict[str, Any], data_stats: dict[str, Any]) -> None:
     print("CYBERDUEL AI — QWEN LoRA TRAINING DRY-RUN REPORT")
     print("=" * 70)
     print(f"Base Model:             {model_cfg.get('base_model_name_or_path', 'N/A')}")
-    print(f"Quantization:           {model_cfg.get('quantization', {}).get('bnb_4bit_quant_type', 'N/A')} 4-bit NF4")
+    print(
+        f"Quantization:           {model_cfg.get('quantization', {}).get('bnb_4bit_quant_type', 'N/A')} 4-bit NF4"
+    )
     print(f"LoRA Rank (r):          {lora_cfg.get('r', 'N/A')}")
     print(f"LoRA Alpha (alpha):     {lora_cfg.get('lora_alpha', 'N/A')}")
     print(f"LoRA Dropout:           {lora_cfg.get('lora_dropout', 'N/A')}")
@@ -130,7 +142,9 @@ def run_dry_run(config: dict[str, Any], data_stats: dict[str, Any]) -> None:
     print(f"Epochs:                 {train_args.get('num_train_epochs', 'N/A')}")
     print(f"Batch Size (per-device):{train_args.get('per_device_train_batch_size', 'N/A')}")
     print(f"Gradient Accumulation:  {train_args.get('gradient_accumulation_steps', 'N/A')}")
-    print(f"Effective Batch Size:   {train_args.get('per_device_train_batch_size', 1) * train_args.get('gradient_accumulation_steps', 1)}")
+    print(
+        f"Effective Batch Size:   {train_args.get('per_device_train_batch_size', 1) * train_args.get('gradient_accumulation_steps', 1)}"
+    )
     print(f"Learning Rate:          {train_args.get('learning_rate', 'N/A')}")
     print(f"LR Scheduler:           {train_args.get('lr_scheduler_type', 'N/A')}")
     print(f"Warmup Ratio:           {train_args.get('warmup_ratio', 'N/A')}")
@@ -150,7 +164,9 @@ def run_dry_run(config: dict[str, Any], data_stats: dict[str, Any]) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="CyberDuel AI Qwen LoRA Fine-Tuning Recipe & Validator.")
+    parser = argparse.ArgumentParser(
+        description="CyberDuel AI Qwen LoRA Fine-Tuning Recipe & Validator."
+    )
     parser.add_argument(
         "--config",
         type=Path,
@@ -179,7 +195,7 @@ def main() -> None:
     if not args.config.exists():
         sys.exit(f"Config file not found: {args.config}")
 
-    with open(args.config, "r", encoding="utf-8") as f:
+    with open(args.config, encoding="utf-8") as f:
         config = yaml.safe_load(f)
 
     # 1. Enforce zero leakage
@@ -192,10 +208,16 @@ def main() -> None:
     # 2. Inspect and validate ChatML data
     logger.info("Validating SFT datasets against ChatML format...")
     data_stats = inspect_sft_sources(train_sources)
-    logger.info("Successfully validated %d examples across %d files.", data_stats["total_examples"], data_stats["files_inspected"])
+    logger.info(
+        "Successfully validated %d examples across %d files.",
+        data_stats["total_examples"],
+        data_stats["files_inspected"],
+    )
 
     if args.validate_data_only:
-        print(f"Data validation passed: {data_stats['total_examples']} records, {data_stats['estimated_tokens']} tokens.")
+        print(
+            f"Data validation passed: {data_stats['total_examples']} records, {data_stats['estimated_tokens']} tokens."
+        )
         return
 
     # 3. Dry-run report
@@ -214,4 +236,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

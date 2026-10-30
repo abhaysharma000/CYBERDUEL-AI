@@ -20,7 +20,6 @@ sys.path.insert(0, str(_REPO_ROOT / "packages" / "policy-engine"))
 sys.path.insert(0, str(_REPO_ROOT / "packages" / "threat-intelligence"))
 sys.path.insert(0, str(_REPO_ROOT / "apps" / "api"))
 
-from typing import Any
 from urllib.parse import urlparse
 
 
@@ -53,7 +52,9 @@ def mask_url_credentials(url: str | None) -> str:
 class PreflightChecker:
     """Runs end-to-end production readiness checks."""
 
-    def __init__(self, skip_network: bool = False, skip_redis: bool = False, dry_run: bool = False) -> None:
+    def __init__(
+        self, skip_network: bool = False, skip_redis: bool = False, dry_run: bool = False
+    ) -> None:
         self.skip_network = skip_network
         self.skip_redis = skip_redis
         self.dry_run = dry_run
@@ -77,22 +78,28 @@ class PreflightChecker:
                 self.failures.append("DEBUG must not be True in production/staging environment")
             if not secret_key or len(secret_key) < 32:
                 self.failures.append("SECRET_KEY must be at least 32 characters long in production")
-            elif "dev_" in secret_key or "secret" == secret_key.lower():
-                self.warnings.append("SECRET_KEY appears to use an insecure default or trivial pattern")
+            elif "dev_" in secret_key or secret_key.lower() == "secret":
+                self.warnings.append(
+                    "SECRET_KEY appears to use an insecure default or trivial pattern"
+                )
             else:
                 self.passes.append("Environment and SECRET_KEY validated for production")
 
             # Validate AI Provider in production
             ai_provider = os.environ.get("AI_PROVIDER_TYPE", "mock").lower()
             if env == "production" and ai_provider == "mock":
-                self.failures.append("AI_PROVIDER_TYPE cannot be 'mock' in production. Must be 'qwen'.")
+                self.failures.append(
+                    "AI_PROVIDER_TYPE cannot be 'mock' in production. Must be 'qwen'."
+                )
             else:
                 self.passes.append(f"AI_PROVIDER_TYPE configured as '{ai_provider}'")
 
             # Validate CORS configuration
             cors = os.environ.get("CORS_ORIGINS", "")
             if env == "production" and ("localhost" in cors or "127.0.0.1" in cors):
-                self.warnings.append("CORS_ORIGINS in production includes local loopback addresses (localhost/127.0.0.1)")
+                self.warnings.append(
+                    "CORS_ORIGINS in production includes local loopback addresses (localhost/127.0.0.1)"
+                )
         else:
             if not secret_key:
                 self.warnings.append("SECRET_KEY not set; defaulting to local development secret")
@@ -148,7 +155,9 @@ class PreflightChecker:
 
             # Normalize asyncpg URL for sync probe if needed
             probe_url = db_url_sync.replace("postgresql+asyncpg://", "postgresql+psycopg://")
-            engine = create_engine(probe_url, connect_args={"connect_timeout": 5} if "postgresql" in probe_url else {})
+            engine = create_engine(
+                probe_url, connect_args={"connect_timeout": 5} if "postgresql" in probe_url else {}
+            )
             with engine.connect() as conn:
                 res = conn.execute(text("SELECT 1")).scalar()
                 if res == 1:
@@ -158,9 +167,14 @@ class PreflightChecker:
                     self.failures.append(f"Unexpected database probe result: {res}")
         except Exception as e:
             # Check if running in a container during build step
-            if "could not connect to server" in str(e).lower() or "connection refused" in str(e).lower():
-                self.warnings.append(f"Database offline or unreachable from current network: {mask_url_credentials(str(e))}")
-                print(f"  • DB Test     : WARN (unreachable - service may still be booting)")
+            if (
+                "could not connect to server" in str(e).lower()
+                or "connection refused" in str(e).lower()
+            ):
+                self.warnings.append(
+                    f"Database offline or unreachable from current network: {mask_url_credentials(str(e))}"
+                )
+                print("  • DB Test     : WARN (unreachable - service may still be booting)")
             else:
                 self.failures.append(f"Database verification error: {e}")
                 print(f"  • DB Test     : FAIL ({e})")
@@ -177,7 +191,9 @@ class PreflightChecker:
             return
 
         if not redis_url:
-            self.warnings.append("REDIS_URL not set; worker queues will operate in standalone/mock mode")
+            self.warnings.append(
+                "REDIS_URL not set; worker queues will operate in standalone/mock mode"
+            )
             print("  • Redis Test  : WARN (REDIS_URL not configured)")
             return
 
@@ -210,7 +226,9 @@ class PreflightChecker:
 
         if provider_type == "mock":
             if env == "production":
-                self.failures.append("Mock provider is strictly prohibited in production environment.")
+                self.failures.append(
+                    "Mock provider is strictly prohibited in production environment."
+                )
                 print("  • AI Test     : FAIL (Mock provider prohibited in production)")
             else:
                 self.warnings.append("AI_PROVIDER_TYPE is 'mock'; live Qwen inference is inactive.")
@@ -225,6 +243,7 @@ class PreflightChecker:
 
             try:
                 import asyncio
+
                 from apps.api.app.providers.qwen_provider import QwenProvider
 
                 provider = QwenProvider(
@@ -232,15 +251,21 @@ class PreflightChecker:
                     api_key=qwen_key,
                     model_name=qwen_model,
                 )
-                is_connected, msg, details = asyncio.run(provider.check_endpoint_connectivity(timeout_seconds=3.0))
+                is_connected, msg, details = asyncio.run(
+                    provider.check_endpoint_connectivity(timeout_seconds=3.0)
+                )
 
                 if is_connected:
                     if not qwen_key:
-                        self.warnings.append(f"Qwen endpoint reachable at '{qwen_base}', but QWEN_API_KEY is not set. Inference requires authentication.")
-                        print(f"  • AI Test     : WARN (Endpoint reachable, auth key not set)")
+                        self.warnings.append(
+                            f"Qwen endpoint reachable at '{qwen_base}', but QWEN_API_KEY is not set. Inference requires authentication."
+                        )
+                        print("  • AI Test     : WARN (Endpoint reachable, auth key not set)")
                     else:
                         self.passes.append(f"Qwen endpoint connected ({qwen_model} at {qwen_base})")
-                        print(f"  • AI Test     : PASS (Endpoint reachable, latency {details.get('latency_ms', 0):.1f}ms)")
+                        print(
+                            f"  • AI Test     : PASS (Endpoint reachable, latency {details.get('latency_ms', 0):.1f}ms)"
+                        )
                 else:
                     msg_text = f"Qwen endpoint unreachable at '{qwen_base}': {msg}"
                     if env in ("production", "staging"):
@@ -262,7 +287,11 @@ class PreflightChecker:
         """Verify Ed25519 cryptography libraries and keystore access."""
         print("\n[6/6] Checking Cryptographic Signing Capabilities...")
         try:
-            from cyberduel_contracts.crypto import generate_ed25519_keypair, sign_detached, verify_detached
+            from cyberduel_contracts.crypto import (
+                generate_ed25519_keypair,
+                sign_detached,
+                verify_detached,
+            )
 
             priv_pem, pub_pem = generate_ed25519_keypair()
             test_data = b"preflight_crypto_health_check"
@@ -292,7 +321,9 @@ class PreflightChecker:
         self.check_cryptographic_anchors()
 
         print("\n------------------------------------------------------------------")
-        print(f"SUMMARY: {len(self.passes)} Passed | {len(self.warnings)} Warnings | {len(self.failures)} Failures")
+        print(
+            f"SUMMARY: {len(self.passes)} Passed | {len(self.warnings)} Warnings | {len(self.failures)} Failures"
+        )
         print("------------------------------------------------------------------")
 
         if self.warnings:
@@ -312,8 +343,12 @@ class PreflightChecker:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Railway Production Preflight Checker for CyberDuel AI")
-    parser.add_argument("--skip-network", action="store_true", help="Skip remote database and cache network checks")
+    parser = argparse.ArgumentParser(
+        description="Railway Production Preflight Checker for CyberDuel AI"
+    )
+    parser.add_argument(
+        "--skip-network", action="store_true", help="Skip remote database and cache network checks"
+    )
     parser.add_argument("--skip-redis", action="store_true", help="Skip Redis cache ping")
     parser.add_argument("--dry-run", action="store_true", help="Perform checks in dry-run mode")
     args = parser.parse_args()

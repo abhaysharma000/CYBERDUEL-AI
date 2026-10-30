@@ -19,7 +19,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from apps.api.app.core.auth import Role, UserProfile, get_current_user, require_permission
+from apps.api.app.core.auth import UserProfile, get_current_user, require_permission
 from apps.api.app.core.rate_limit import rate_limit_dependency
 from apps.api.app.db.session import get_db_session
 from apps.api.app.models.policies import CandidateDefenseRecord

@@ -20,16 +20,23 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy.ext.asyncio import create_async_engine
 
-from apps.api.app.core.config import get_settings
 from apps.api.app.db.session import get_engine, get_session_factory
 from apps.api.app.main import app
 from apps.api.app.models.base import Base
+from apps.api.app.models.evaluations import (
+    BenchmarkManifestRecord,
+    EvaluationReportRecord,
+    EvaluationRequestRecord,
+)
 from apps.api.app.models.lab import LabExperimentRecord
 from apps.api.app.models.policies import CandidateDefenseRecord
-from apps.api.app.models.evaluations import BenchmarkManifestRecord, EvaluationRequestRecord, EvaluationReportRecord
-from apps.api.app.models.releases import ReleaseRecord, ClientDeviceRecord, ClientAcknowledgementRecord, SigningKeyRecord
+from apps.api.app.models.releases import (
+    ClientAcknowledgementRecord,
+    ClientDeviceRecord,
+    ReleaseRecord,
+    SigningKeyRecord,
+)
 
 
 async def init_schema_and_seed():
@@ -216,7 +223,9 @@ async def run_integration_demo():
         # Step 1: Health probe
         print("\n[1/6] Probing System Runtime Health...")
         health_res = await client.get("/health/ready")
-        print(f"      Status: {health_res.status_code} | Health Payload: {health_res.json()['status']}")
+        print(
+            f"      Status: {health_res.status_code} | Health Payload: {health_res.json()['status']}"
+        )
         assert health_res.status_code == 200
 
         # Step 2: Authenticate Operator
@@ -239,12 +248,24 @@ async def run_integration_demo():
         dash_res = await client.get("/api/v1/dashboard/overview", headers=headers)
         assert dash_res.status_code == 200
         overview = dash_res.json()
-        print(f"      System Health: {overview['health']['status']} (v{overview['health']['version']})")
-        print(f"      Research: {overview['research']['total_experiments']} experiments | {overview['research']['total_discrepancies']} discrepancies")
-        print(f"      Defense: {overview['defense']['total_candidates']} candidates ({overview['defense']['approved_candidates']} approved)")
-        print(f"      Evaluations: {overview['evaluations']['total_evaluations']} audited ({overview['evaluations']['regressions_prevented']} regressions blocked)")
-        print(f"      Releases: Active Prod v{overview['releases']['active_production_version']} | Rollout: {overview['releases']['current_rollout_percentage']}%")
-        print(f"      Clients: {overview['clients']['total_devices']} endpoints ({overview['clients']['browser_extensions']} extensions, {overview['clients']['mobile_devices']} mobile)")
+        print(
+            f"      System Health: {overview['health']['status']} (v{overview['health']['version']})"
+        )
+        print(
+            f"      Research: {overview['research']['total_experiments']} experiments | {overview['research']['total_discrepancies']} discrepancies"
+        )
+        print(
+            f"      Defense: {overview['defense']['total_candidates']} candidates ({overview['defense']['approved_candidates']} approved)"
+        )
+        print(
+            f"      Evaluations: {overview['evaluations']['total_evaluations']} audited ({overview['evaluations']['regressions_prevented']} regressions blocked)"
+        )
+        print(
+            f"      Releases: Active Prod v{overview['releases']['active_production_version']} | Rollout: {overview['releases']['current_rollout_percentage']}%"
+        )
+        print(
+            f"      Clients: {overview['clients']['total_devices']} endpoints ({overview['clients']['browser_extensions']} extensions, {overview['clients']['mobile_devices']} mobile)"
+        )
         print(f"      Fleet Adoption Rate: {overview['clients']['fleet_adoption_rate']}%")
 
         # Step 4: Query Client Fleet Telemetry
@@ -254,7 +275,9 @@ async def run_integration_demo():
         client_list = clients_res.json()
         print(f"      Total Client Records Retrieved: {len(client_list)}")
         for c in client_list:
-            print(f"      - Device: {c['client_id']} ({c['platform']}) | Policy: v{c['current_policy_version']} | Status: {c['latest_status']}")
+            print(
+                f"      - Device: {c['client_id']} ({c['platform']}) | Policy: v{c['current_policy_version']} | Status: {c['latest_status']}"
+            )
 
         metrics_res = await client.get("/api/v1/clients/metrics", headers=headers)
         assert metrics_res.status_code == 200
@@ -269,7 +292,9 @@ async def run_integration_demo():
         releases = rel_res.json()
         print(f"      Total Published/Staged Releases: {len(releases)}")
         for r in releases[:2]:
-            print(f"      - Release v{r['policy_version']}: Status={r['status']} | Channel={r['channel']} | Rollout={r.get('current_rollout_percentage', 0)}%")
+            print(
+                f"      - Release v{r['policy_version']}: Status={r['status']} | Channel={r['channel']} | Rollout={r.get('current_rollout_percentage', 0)}%"
+            )
 
         # Step 6: Verify Immutable Audit Log
         print("\n[6/6] Inspecting Security Audit Trail (/api/v1/audit/events)...")
@@ -278,7 +303,9 @@ async def run_integration_demo():
         audit_data = audit_res.json()
         print(f"      Total Immutable Audit Records: {audit_data['total']}")
         for evt in audit_data["events"][:3]:
-            print(f"      - [{evt['created_at'][:19]}] Actor={evt['actor']} | Action={evt['action']} | Outcome={evt['outcome']}")
+            print(
+                f"      - [{evt['created_at'][:19]}] Actor={evt['actor']} | Action={evt['action']} | Outcome={evt['outcome']}"
+            )
 
     print("\n" + "=" * 70)
     print("COMMAND CENTER INTEGRATION DEMONSTRATION COMPLETE: ALL CHECKS PASSED")

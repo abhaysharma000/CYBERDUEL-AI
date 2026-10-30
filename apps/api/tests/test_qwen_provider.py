@@ -9,7 +9,6 @@ Validates:
 6. Accurate, transparent reporting of AI provider status in readiness probe.
 """
 
-import json
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx
@@ -101,9 +100,7 @@ async def test_qwen_provider_structured_json_strips_code_fences() -> None:
         "```"
     )
 
-    fake_response = {
-        "choices": [{"message": {"content": markdown_wrapped_json}}]
-    }
+    fake_response = {"choices": [{"message": {"content": markdown_wrapped_json}}]}
 
     mock_resp = MagicMock(spec=httpx.Response)
     mock_resp.status_code = 200
@@ -175,9 +172,7 @@ async def test_qwen_provider_fails_closed_on_malformed_json() -> None:
     """Verify Qwen provider raises ProviderInferenceError when model returns invalid JSON."""
     provider = QwenProvider(api_base="https://mock.qwen.endpoint/v1")
 
-    fake_response = {
-        "choices": [{"message": {"content": "I am not a JSON object: {malformed"}}]
-    }
+    fake_response = {"choices": [{"message": {"content": "I am not a JSON object: {malformed"}}]}
 
     mock_resp = MagicMock(spec=httpx.Response)
     mock_resp.status_code = 200
@@ -262,4 +257,3 @@ async def test_readiness_probe_reporting_honesty() -> None:
         assert "offline non-llm" in data["checks"]["ai_provider"]
 
     app.dependency_overrides.clear()
-

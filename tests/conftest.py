@@ -7,4 +7,3 @@ from apps.api.tests.conftest import (  # noqa: F401
     test_db_session,
     test_settings,
 )
-

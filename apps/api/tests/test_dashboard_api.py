@@ -105,4 +105,3 @@ async def test_lab_experiments_list(async_client: AsyncClient) -> None:
     assert res.status_code == 200
     data = res.json()
     assert isinstance(data, list)
-

@@ -104,24 +104,28 @@ async def login(
             )
     else:
         # In dev/demo mode, if password is empty or matches known demo credentials, allow login
-        if payload.password and provided_hash != op_info["password_hash"]:
-            if payload.password != "demo" and payload.password != username:
-                try:
-                    await AuditService.record_event(
-                        session=session,
-                        actor=username,
-                        action="auth.login",
-                        target_type="auth",
-                        outcome="denied",
-                        reason="Invalid password",
-                        client_ip=client_ip,
-                    )
-                except Exception as e:
-                    logger.warning("Audit record failed during failed login: %s", e)
-                raise HTTPException(
-                    status_code=status.HTTP_401_UNAUTHORIZED,
-                    detail="Invalid operator credentials",
+        if (
+            payload.password
+            and provided_hash != op_info["password_hash"]
+            and payload.password != "demo"
+            and payload.password != username
+        ):
+            try:
+                await AuditService.record_event(
+                    session=session,
+                    actor=username,
+                    action="auth.login",
+                    target_type="auth",
+                    outcome="denied",
+                    reason="Invalid password",
+                    client_ip=client_ip,
                 )
+            except Exception as e:
+                logger.warning("Audit record failed during failed login: %s", e)
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid operator credentials",
+            )
 
     role = op_info["role"]
     claims = {

@@ -11,12 +11,12 @@ All records are persisted to the active development database (cyberduel_dev.db).
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
-import os
 import sys
-from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from uuid import UUID, uuid4
+from typing import Any
+from uuid import uuid4
 
 # Ensure project root is on PYTHONPATH
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -26,42 +26,25 @@ sys.path.insert(0, str(ROOT_DIR / "packages" / "threat-intel-engine"))
 
 from cyberduel_contracts.enums import (
     Decision,
-    ExpectedClass,
-    KeyStatus,
     ReleaseChannel,
-    ReleaseStatus,
-    RolloutStage,
     ThreatSeverity,
 )
 from cyberduel_contracts.evaluation import (
     AcceptancePolicyConfig,
-    ConfusionMatrix,
-    EvaluationReport,
     EvaluationRequest,
-    ImprovementMetrics,
-    OperationalMetrics,
 )
 from cyberduel_contracts.lab import ExperimentConfig
-from cyberduel_contracts.observation import ThreatObservationReport
 from cyberduel_contracts.policy import CandidateDefense, DeclarativeRuleModel, RulePredicateModel
-from cyberduel_threat_intel.normalizer import URLNormalizer
-from sqlalchemy import func, select, text
+from sqlalchemy import func, select
 
 from apps.api.app.core.config import get_settings
 from apps.api.app.db.session import get_db_session, get_engine
-from apps.api.app.models.audit import AuditLogRecord
 from apps.api.app.models.evaluations import (
     BenchmarkManifestRecord,
     EvaluationReportRecord,
     EvaluationRequestRecord,
 )
-from apps.api.app.models.indicators import ThreatIndicatorRecord
 from apps.api.app.models.policies import CandidateDefenseRecord
-from apps.api.app.models.releases import (
-    ReleaseAuthorizationRecord,
-    ReleaseRecord,
-    RolloutStateRecord,
-)
 from apps.api.app.repositories.threat_intel_repository import ThreatIntelRepository
 from apps.api.app.services.audit_service import AuditService
 from apps.api.app.services.blue_ai import (
@@ -75,8 +58,6 @@ from apps.api.app.services.releases import (
     PolicyBundleBuilder,
     ReleaseApprovalService,
     ReleaseEligibilityService,
-    ReleaseManifestBuilder,
-    ReleaseSigningService,
     SigningKeyManager,
 )
 from apps.api.app.services.releases.verifier import ClientUpdateVerifier
@@ -118,7 +99,9 @@ async def main() -> dict[str, Any]:
             created_by="AutonomousWorkflowLead",
         )
 
-        summary, handoff, executions = await red_agent.run_experiment(config=config, experiment_id=exp_id)
+        summary, handoff, executions = await red_agent.run_experiment(
+            config=config, experiment_id=exp_id
+        )
         await session.commit()
 
         results["experiment_id"] = str(exp_id)
@@ -126,7 +109,9 @@ async def main() -> dict[str, Any]:
         results["scenarios_generated"] = summary.scenario_count
         results["discrepancies_detected"] = summary.discrepancy_count
         results["findings_count"] = len(summary.findings)
-        logger.info(f"Red AI Complete: Exp {exp_id} generated {summary.scenario_count} scenarios with {summary.discrepancy_count} discrepancies.")
+        logger.info(
+            f"Red AI Complete: Exp {exp_id} generated {summary.scenario_count} scenarios with {summary.discrepancy_count} discrepancies."
+        )
 
         # =========================================================================
         # 2. BLUE AI DEFENSE: Ingest Handoff, Hypothesize, Propose, Assemble Candidate
@@ -141,7 +126,9 @@ async def main() -> dict[str, Any]:
         results["ranked_groups_count"] = len(ranked_groups)
 
         top_priority = ranked_groups[0] if ranked_groups else None
-        logger.info(f"Blue AI Ingested: Task {task_record.id}, Top Priority: {top_priority.recommended_focus if top_priority else 'None'}")
+        logger.info(
+            f"Blue AI Ingested: Task {task_record.id}, Top Priority: {top_priority.recommended_focus if top_priority else 'None'}"
+        )
 
         # Formulate hypothesis
         hypothesis = await DefenseHypothesisEngine.formulate_hypothesis_async(
@@ -185,7 +172,9 @@ async def main() -> dict[str, Any]:
             if hasattr(comparison.preliminary_verdict, "value")
             else str(comparison.preliminary_verdict)
         )
-        logger.info(f"Blue AI Candidate {candidate.defense_id} v{candidate.version} assembled and sandboxed.")
+        logger.info(
+            f"Blue AI Candidate {candidate.defense_id} v{candidate.version} assembled and sandboxed."
+        )
 
         # =========================================================================
         # 3. INDEPENDENT EVALUATOR: Benchmark Auditing
@@ -280,10 +269,14 @@ async def main() -> dict[str, Any]:
         session.add(report_rec)
 
         # Update candidate status based on evaluation verdict
-        c_stmt = select(CandidateDefenseRecord).where(CandidateDefenseRecord.id == candidate.defense_id)
+        c_stmt = select(CandidateDefenseRecord).where(
+            CandidateDefenseRecord.id == candidate.defense_id
+        )
         cand_db = (await session.execute(c_stmt)).scalar_one_or_none()
         if cand_db:
-            cand_db.status = "approved" if report.verdict.value in ["pass", "accept"] else "rejected"
+            cand_db.status = (
+                "approved" if report.verdict.value in ["pass", "accept"] else "rejected"
+            )
 
         await session.commit()
 
@@ -293,7 +286,9 @@ async def main() -> dict[str, Any]:
         results["cand1_evaluation_rationale"] = report.verdict_rationale
         results["cand1_candidate_accuracy"] = report.candidate_metrics.accuracy
         results["cand1_candidate_fpr"] = report.candidate_metrics.false_positive_rate
-        logger.info(f"Evaluator Complete for Candidate 1: Verdict={report.verdict.value}, Accuracy={report.candidate_metrics.accuracy:.4f}, FPR={report.candidate_metrics.false_positive_rate:.4f}")
+        logger.info(
+            f"Evaluator Complete for Candidate 1: Verdict={report.verdict.value}, Accuracy={report.candidate_metrics.accuracy:.4f}, FPR={report.candidate_metrics.false_positive_rate:.4f}"
+        )
 
         # Check eligibility for Candidate 1
         eligibility_svc = ReleaseEligibilityService()
@@ -304,9 +299,15 @@ async def main() -> dict[str, Any]:
         )
         results["cand1_is_release_eligible"] = eligibility1.is_eligible
         results["cand1_eligibility_reasons"] = eligibility1.reasons
-        logger.info(f"Candidate 1 Release Eligibility: {eligibility1.is_eligible} - {eligibility1.reasons}")
-        assert not eligibility1.is_eligible, "Invariant violation: Failed evaluation candidate must not be release-eligible"
-        logger.info("Security Gate Invariant Confirmed: Failed candidate is strictly barred from release consideration.")
+        logger.info(
+            f"Candidate 1 Release Eligibility: {eligibility1.is_eligible} - {eligibility1.reasons}"
+        )
+        assert not eligibility1.is_eligible, (
+            "Invariant violation: Failed evaluation candidate must not be release-eligible"
+        )
+        logger.info(
+            "Security Gate Invariant Confirmed: Failed candidate is strictly barred from release consideration."
+        )
 
         # =========================================================================
         # 3b. ITERATIVE DEFENSE SYNTHESIS: Candidate 2 (Comprehensive Remediation Suite)
@@ -470,10 +471,14 @@ async def main() -> dict[str, Any]:
         )
         session.add(report_rec2)
 
-        c2_stmt = select(CandidateDefenseRecord).where(CandidateDefenseRecord.id == candidate2.defense_id)
+        c2_stmt = select(CandidateDefenseRecord).where(
+            CandidateDefenseRecord.id == candidate2.defense_id
+        )
         cand2_db = (await session.execute(c2_stmt)).scalar_one_or_none()
         if cand2_db:
-            cand2_db.status = "approved" if report2.verdict.value in ["pass", "accept"] else "rejected"
+            cand2_db.status = (
+                "approved" if report2.verdict.value in ["pass", "accept"] else "rejected"
+            )
         await session.commit()
 
         results["cand2_evaluation_request_id"] = str(eval_req2.request_id)
@@ -482,7 +487,9 @@ async def main() -> dict[str, Any]:
         results["cand2_evaluation_rationale"] = report2.verdict_rationale
         results["cand2_candidate_accuracy"] = report2.candidate_metrics.accuracy
         results["cand2_candidate_fpr"] = report2.candidate_metrics.false_positive_rate
-        logger.info(f"Evaluator Complete for Candidate 2: Verdict={report2.verdict.value}, Accuracy={report2.candidate_metrics.accuracy:.4f}, FPR={report2.candidate_metrics.false_positive_rate:.4f}")
+        logger.info(
+            f"Evaluator Complete for Candidate 2: Verdict={report2.verdict.value}, Accuracy={report2.candidate_metrics.accuracy:.4f}, FPR={report2.candidate_metrics.false_positive_rate:.4f}"
+        )
 
         # =========================================================================
         # 4. RELEASE MANAGEMENT: Eligibility & Ed25519 Cryptographic Signing
@@ -496,7 +503,9 @@ async def main() -> dict[str, Any]:
 
         results["cand2_is_release_eligible"] = eligibility2.is_eligible
         results["cand2_eligibility_reasons"] = eligibility2.reasons
-        logger.info(f"Candidate 2 Release Eligibility: {eligibility2.is_eligible} - {eligibility2.reasons}")
+        logger.info(
+            f"Candidate 2 Release Eligibility: {eligibility2.is_eligible} - {eligibility2.reasons}"
+        )
 
         if eligibility2.is_eligible:
             approval_svc = ReleaseApprovalService()
@@ -534,7 +543,9 @@ async def main() -> dict[str, Any]:
             results["artifact_digest"] = release_rec.artifact_digest
             results["publisher_key_id"] = release_rec.publisher_key_id
             results["release_status"] = release_rec.status
-            logger.info(f"Release Staged & Signed: Release {release_rec.id} v{release_rec.policy_version} Key={release_rec.publisher_key_id}")
+            logger.info(
+                f"Release Staged & Signed: Release {release_rec.id} v{release_rec.policy_version} Key={release_rec.publisher_key_id}"
+            )
 
             # =====================================================================
             # 5. CLIENT UPDATE VERIFICATION: Verifier Contract
@@ -550,7 +561,9 @@ async def main() -> dict[str, Any]:
             if bundle_path.exists():
                 bundle_bytes = bundle_path.read_bytes()
             elif release_rec.bundle_payload:
-                bundle_bytes = json.dumps(release_rec.bundle_payload, separators=(",", ":")).encode("utf-8")
+                bundle_bytes = json.dumps(release_rec.bundle_payload, separators=(",", ":")).encode(
+                    "utf-8"
+                )
             else:
                 bundle_builder = PolicyBundleBuilder()
                 _, bundle_bytes, _ = bundle_builder.build_bundle(
@@ -576,7 +589,9 @@ async def main() -> dict[str, Any]:
             results["client_verification_policy_version"] = (
                 verification_result.bundle.policy_version if verification_result.bundle else None
             )
-            logger.info(f"Browser Extension Verification: IsValid={verification_result.is_valid}, StepPassed={verification_result.step_passed}")
+            logger.info(
+                f"Browser Extension Verification: IsValid={verification_result.is_valid}, StepPassed={verification_result.step_passed}"
+            )
 
             # Verify Android companion client update ingestion contract
             verification_result_android = ClientUpdateVerifier.verify_update(
@@ -591,7 +606,9 @@ async def main() -> dict[str, Any]:
             results["android_verification_success"] = verification_result_android.is_valid
             results["android_verification_step"] = verification_result_android.step_passed
             results["android_verification_error"] = verification_result_android.error
-            logger.info(f"Android Companion Verification: IsValid={verification_result_android.is_valid}, StepPassed={verification_result_android.step_passed}")
+            logger.info(
+                f"Android Companion Verification: IsValid={verification_result_android.is_valid}, StepPassed={verification_result_android.step_passed}"
+            )
 
         # =========================================================================
         # 6. THREAT INTEL & TELEMETRY: Ingestion of live verification fixtures
@@ -610,6 +627,7 @@ async def main() -> dict[str, Any]:
 
         # Ingest edge observation
         from apps.api.app.models.observations import ThreatObservation
+
         obs_id = uuid4()
         obs = ThreatObservation(
             id=obs_id,
@@ -630,7 +648,9 @@ async def main() -> dict[str, Any]:
         session.add(obs)
         await session.commit()
         results["threat_observation_id"] = str(obs_id)
-        logger.info(f"Threat Intelligence populated: Indicator {ind.get('id')}, Observation {obs_id}")
+        logger.info(
+            f"Threat Intelligence populated: Indicator {ind.get('id')}, Observation {obs_id}"
+        )
 
         logger.info("=== WORKFLOW SUCCESSFULLY COMPLETED AND COMMITTED ===")
 

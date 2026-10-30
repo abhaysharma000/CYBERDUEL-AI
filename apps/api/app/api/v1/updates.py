@@ -10,7 +10,8 @@ from cyberduel_contracts.updates import (
     UpdateCheckRequest,
     UpdateCheckResponse,
 )
-from fastapi import APIRouter, Depends, HTTPException, Path as FastApiPath, Response, status
+from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi import Path as FastApiPath
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -74,7 +75,14 @@ async def check_for_updates(
     description="Fetches the cryptographically signed release manifest describing a policy update.",
 )
 async def get_manifest(
-    version_or_id: Annotated[str, FastApiPath(description="Release version string or UUID", pattern=r"^[a-zA-Z0-9.\-_]{1,64}$", max_length=64)],
+    version_or_id: Annotated[
+        str,
+        FastApiPath(
+            description="Release version string or UUID",
+            pattern=r"^[a-zA-Z0-9.\-_]{1,64}$",
+            max_length=64,
+        ),
+    ],
     session: Annotated[AsyncSession, Depends(get_db_session)],
 ) -> ReleaseManifest:
     """Download signed release manifest for client-side cryptographic verification."""
@@ -100,7 +108,9 @@ async def get_manifest(
     description="Downloads the canonical JSON policy bundle verified by the given SHA-256 digest.",
 )
 async def get_artifact(
-    digest: Annotated[str, FastApiPath(description="SHA-256 digest of artifact", pattern="^[a-fA-F0-9]{64}$")],
+    digest: Annotated[
+        str, FastApiPath(description="SHA-256 digest of artifact", pattern="^[a-fA-F0-9]{64}$")
+    ],
     session: Annotated[AsyncSession, Depends(get_db_session)],
 ) -> Response:
     """Download immutable policy bundle bytes."""

@@ -22,10 +22,7 @@ from apps.api.app.db.session import get_db_session
 from apps.api.app.main import create_app
 from apps.api.app.models.audit import AuditLogRecord
 from apps.api.app.models.evaluations import (
-    BenchmarkManifestRecord,
-    EvaluationProtocolRecord,
     EvaluationReportRecord,
-    EvaluationRequestRecord,
 )
 from apps.api.app.models.policies import CandidateDefenseRecord
 from apps.api.app.services.releases import SigningKeyManager

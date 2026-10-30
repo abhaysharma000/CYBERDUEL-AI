@@ -1,10 +1,10 @@
 """Verify all 9 Command Center Dashboard API endpoints against the live application database (cyberduel_dev.db)."""
 
 import asyncio
-import json
 import logging
 import sys
 from pathlib import Path
+
 from httpx import ASGITransport, AsyncClient
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
@@ -59,15 +59,27 @@ async def main():
             status_ok = resp.status_code == expected_status
             if not status_ok:
                 all_ok = False
-                print(f"[FAIL] {name:30} {path:35} -> HTTP {resp.status_code} (Expected {expected_status})")
+                print(
+                    f"[FAIL] {name:30} {path:35} -> HTTP {resp.status_code} (Expected {expected_status})"
+                )
                 print(f"       Response: {resp.text[:200]}")
             else:
                 data = resp.json()
-                count = len(data) if isinstance(data, list) else len(data.get("events", [])) if "events" in data else 1
-                print(f"[PASS] {name:30} {path:35} -> HTTP {resp.status_code} (Records/Status: {count})")
+                count = (
+                    len(data)
+                    if isinstance(data, list)
+                    else len(data.get("events", []))
+                    if "events" in data
+                    else 1
+                )
+                print(
+                    f"[PASS] {name:30} {path:35} -> HTTP {resp.status_code} (Records/Status: {count})"
+                )
                 if isinstance(data, list) and data:
                     sample = data[0]
-                    first_keys = list(sample.keys())[:4] if isinstance(sample, dict) else str(sample)[:30]
+                    first_keys = (
+                        list(sample.keys())[:4] if isinstance(sample, dict) else str(sample)[:30]
+                    )
                     print(f"       Sample: {first_keys}")
                 elif isinstance(data, dict):
                     print(f"       Payload keys: {list(data.keys())[:6]}")

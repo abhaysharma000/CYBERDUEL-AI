@@ -21,7 +21,7 @@ def get_ai_provider() -> (
     | BaseEvaluationProvider
 ):
     """Instantiate and return the configured AI provider singleton.
-    
+
     Invariants:
     1. If AI_PROVIDER_TYPE == 'qwen', returns real QwenProvider targeting QWEN_API_BASE.
     2. If AI_PROVIDER_TYPE == 'mock', allows DeterministicMockProvider ONLY in development/test.

@@ -19,7 +19,6 @@ from urllib.parse import urlparse
 from uuid import UUID, uuid4
 
 import httpx
-
 from cyberduel_contracts.analysis import EvidenceItem, ThreatAnalysisResult
 from cyberduel_contracts.enums import (
     Decision,
@@ -27,7 +26,8 @@ from cyberduel_contracts.enums import (
     ThreatSeverity,
 )
 from cyberduel_contracts.lab import LaboratoryScenario, ScenarioContract
-from cyberduel_contracts.policy import DeclarativeRuleModel, DefensiveHypothesis, RulePredicateModel
+from cyberduel_contracts.policy import DeclarativeRuleModel, DefensiveHypothesis
+
 from apps.api.app.core.config import get_settings
 from apps.api.app.providers.base import (
     BaseReasoningProvider,
@@ -64,9 +64,11 @@ class QwenProvider(
         if not self.api_base:
             raise ValueError("Qwen API base URL (QWEN_API_BASE) must be configured.")
 
-    async def check_endpoint_connectivity(self, timeout_seconds: float = 3.0) -> tuple[bool, str, dict[str, Any]]:
+    async def check_endpoint_connectivity(
+        self, timeout_seconds: float = 3.0
+    ) -> tuple[bool, str, dict[str, Any]]:
         """Verify real HTTP connectivity to the configured Qwen model endpoint.
-        
+
         Returns:
             tuple of (is_connected: bool, status_message: str, metadata: dict)
         """
@@ -81,11 +83,19 @@ class QwenProvider(
                 resp = await client.get(f"{self.api_base}/models", headers=headers)
                 latency_ms = (datetime.now(UTC) - start_time).total_seconds() * 1000
                 if resp.status_code == 200:
-                    return True, "reachable", {"latency_ms": round(latency_ms, 1), "model": self.model_name}
+                    return (
+                        True,
+                        "reachable",
+                        {"latency_ms": round(latency_ms, 1), "model": self.model_name},
+                    )
                 elif resp.status_code == 401:
                     return False, "authentication_failed", {"status_code": 401}
                 else:
-                    return False, f"http_status_{resp.status_code}", {"status_code": resp.status_code}
+                    return (
+                        False,
+                        f"http_status_{resp.status_code}",
+                        {"status_code": resp.status_code},
+                    )
             except httpx.TimeoutException:
                 return False, "connection_timeout", {"timeout": timeout_seconds}
             except (httpx.ConnectError, httpx.NetworkError) as exc:
@@ -123,10 +133,14 @@ class QwenProvider(
                 )
             except httpx.TimeoutException as exc:
                 logger.error("Qwen inference timed out after %.1fs", self.timeout)
-                raise ProviderUnavailableError(f"Qwen inference timed out after {self.timeout}s") from exc
+                raise ProviderUnavailableError(
+                    f"Qwen inference timed out after {self.timeout}s"
+                ) from exc
             except (httpx.ConnectError, httpx.NetworkError) as exc:
                 logger.error("Cannot connect to Qwen inference server at %s", self.api_base)
-                raise ProviderUnavailableError(f"Cannot connect to Qwen inference server at {self.api_base}") from exc
+                raise ProviderUnavailableError(
+                    f"Cannot connect to Qwen inference server at {self.api_base}"
+                ) from exc
 
             if response.status_code == 429:
                 logger.warning("Qwen rate limit exceeded (HTTP 429)")
@@ -135,15 +149,23 @@ class QwenProvider(
                 logger.error("Qwen upstream server error: HTTP %d", response.status_code)
                 raise ProviderUnavailableError(f"Qwen server error: HTTP {response.status_code}")
             if response.status_code != 200:
-                logger.error("Qwen request failed with HTTP %d: %s", response.status_code, response.text[:200])
-                raise ProviderInferenceError(f"Qwen request failed [HTTP {response.status_code}]: {response.text}")
+                logger.error(
+                    "Qwen request failed with HTTP %d: %s",
+                    response.status_code,
+                    response.text[:200],
+                )
+                raise ProviderInferenceError(
+                    f"Qwen request failed [HTTP {response.status_code}]: {response.text}"
+                )
 
             try:
                 data = response.json()
                 content = data["choices"][0]["message"]["content"]
                 return str(content)
             except (KeyError, IndexError, json.JSONDecodeError) as exc:
-                raise ProviderInferenceError(f"Malformed response envelope from Qwen: {response.text[:200]}") from exc
+                raise ProviderInferenceError(
+                    f"Malformed response envelope from Qwen: {response.text[:200]}"
+                ) from exc
 
     async def generate_response(
         self,
@@ -157,7 +179,9 @@ class QwenProvider(
             messages.append({"role": "system", "content": system_instruction})
         messages.append({"role": "user", "content": prompt})
 
-        return await self._post_chat_completion(messages, temperature=temperature, require_json=False)
+        return await self._post_chat_completion(
+            messages, temperature=temperature, require_json=False
+        )
 
     async def generate_structured_json(
         self,
@@ -191,7 +215,9 @@ class QwenProvider(
         try:
             parsed = json.loads(clean)
             if not isinstance(parsed, dict):
-                raise ProviderInferenceError(f"Qwen expected JSON object, got {type(parsed).__name__}")
+                raise ProviderInferenceError(
+                    f"Qwen expected JSON object, got {type(parsed).__name__}"
+                )
             return parsed
         except json.JSONDecodeError as exc:
             raise ProviderInferenceError(f"Qwen returned invalid JSON: {clean[:200]}") from exc
@@ -218,7 +244,12 @@ class QwenProvider(
 
         test_url = str(data.get("test_url", "http://synthetic-attack.example.test/phish"))
         # Enforce RFC 2606 safe domain boundary even on model output
-        if not (test_url.endswith(".test") or ".test/" in test_url or test_url.endswith(".example") or ".example/" in test_url):
+        if not (
+            test_url.endswith(".test")
+            or ".test/" in test_url
+            or test_url.endswith(".example")
+            or ".example/" in test_url
+        ):
             test_url = "http://qwen-synthetic.example.test/login"
 
         dec_str = str(data.get("expected_decision", "block")).lower()
@@ -229,7 +260,9 @@ class QwenProvider(
             title=str(data.get("title", f"Qwen Synthetic Scenario for {target_vulnerability}")),
             description=str(data.get("description", "Synthesized by Qwen 2.5 Coder")),
             target_url=test_url,
-            difficulty=difficulty if difficulty in ["beginner", "intermediate", "advanced", "expert"] else "intermediate",
+            difficulty=difficulty
+            if difficulty in ["beginner", "intermediate", "advanced", "expert"]
+            else "intermediate",
             expected_decision=expected_decision,
             expected_score=0.90 if expected_decision == Decision.BLOCK else 0.65,
             safety_classification="harmless_synthetic",
@@ -277,24 +310,35 @@ class QwenProvider(
         test_url = str(data.get("test_url", "")).strip()
         parsed = urlparse(test_url)
         host = (parsed.hostname or "").lower()
-        if not host or not any(host == tld.lstrip(".") or host.endswith(tld) for tld in (".test", ".example", ".invalid", ".localhost")):
+        if not host or not any(
+            host == tld.lstrip(".") or host.endswith(tld)
+            for tld in (".test", ".example", ".invalid", ".localhost")
+        ):
             raise ProviderInferenceError(
                 f"Red AI safety boundary violation: Qwen generated unsafe URL '{test_url}' with live domain '{host}'. "
                 f"Scenarios must strictly end in RFC 2606 reserved domains (.test, .example)."
             )
 
         dec_str = str(data.get("expected_decision", "block")).lower()
-        decision = Decision.BLOCK if dec_str == "block" else (Decision.ALLOW if dec_str == "allow" else Decision.WARN)
+        decision = (
+            Decision.BLOCK
+            if dec_str == "block"
+            else (Decision.ALLOW if dec_str == "allow" else Decision.WARN)
+        )
 
         scenario = ScenarioContract(
             scenario_id=uuid4(),
             schema_version="1.0.0",
             scenario_family=target_family,
             scenario_name=str(data.get("scenario_name", f"Qwen Synthetic {target_family}"))[:128],
-            description=str(data.get("description", f"Qwen synthesized scenario targeting {target_family}"))[:512],
+            description=str(
+                data.get("description", f"Qwen synthesized scenario targeting {target_family}")
+            )[:512],
             expected_class=str(data.get("expected_class", "malicious")),
             expected_decision=decision,
-            difficulty=difficulty if difficulty in ["basic", "intermediate", "advanced", "adversarial"] else "intermediate",
+            difficulty=difficulty
+            if difficulty in ["basic", "intermediate", "advanced", "adversarial"]
+            else "intermediate",
             tags=["qwen", "synthetic", target_family],
             seed=seed,
             generator_version=f"qwen-{self.model_name.split('/')[-1]}"[:32],
@@ -316,9 +360,12 @@ class QwenProvider(
         )
 
         from services.lab_worker.app.red_ai.validator import ScenarioValidator
+
         val_res = ScenarioValidator.validate(scenario)
         if not val_res.is_valid:
-            raise ProviderInferenceError(f"Qwen generated invalid ScenarioContract: {val_res.error_message}")
+            raise ProviderInferenceError(
+                f"Qwen generated invalid ScenarioContract: {val_res.error_message}"
+            )
 
         return scenario
 
@@ -332,7 +379,9 @@ class QwenProvider(
         sample_urls: list[str],
     ) -> DefensiveHypothesis:
         """Use Qwen to reason over a failure cluster and synthesize a DefensiveHypothesis with declarative predicates."""
-        defanged_samples = [u.replace("http://", "hxxp://").replace("https://", "hxxps://") for u in sample_urls[:5]]
+        defanged_samples = [
+            u.replace("http://", "hxxp://").replace("https://", "hxxps://") for u in sample_urls[:5]
+        ]
         prompt = (
             f"Analyze the following detection failure observations and formulate a defensive hypothesis.\n"
             f"Failure Category: {failure_category}\n"
@@ -364,27 +413,46 @@ class QwenProvider(
                 research_task_id=task_id,
                 failure_category=failure_category,
                 target_family=target_family,
-                observed_behavior=str(data.get("observed_behavior", f"Detector failed on {failure_category}"))[:512],
-                expected_behavior=str(data.get("expected_behavior", "Detector should block or warn on threat pattern"))[:512],
-                possible_explanation=str(data.get("possible_explanation", "Lexical blind spot in heuristic inspection"))[:1024],
+                observed_behavior=str(
+                    data.get("observed_behavior", f"Detector failed on {failure_category}")
+                )[:512],
+                expected_behavior=str(
+                    data.get("expected_behavior", "Detector should block or warn on threat pattern")
+                )[:512],
+                possible_explanation=str(
+                    data.get("possible_explanation", "Lexical blind spot in heuristic inspection")
+                )[:1024],
                 supporting_evidence=data.get("supporting_evidence", []),
                 counterexamples=data.get("counterexamples", []),
-                proposed_intervention=data.get("proposed_intervention", {
-                    "proposal_type": "declarative_rule",
-                    "target_action": "block",
-                    "predicates": [
-                        {"field": "phish_keyword_count", "operator": "gte", "value": 2}
-                    ],
-                    "recommended_weight": 0.85,
-                }),
-                predicted_benefit=str(data.get("predicted_benefit", "Mitigates detection gap"))[:512],
-                potential_risks=str(data.get("potential_risks", "Low false-positive risk with allowlist"))[:512],
-                test_plan=str(data.get("test_plan", "Evaluate against golden benchmark and held-out test split"))[:512],
+                proposed_intervention=data.get(
+                    "proposed_intervention",
+                    {
+                        "proposal_type": "declarative_rule",
+                        "target_action": "block",
+                        "predicates": [
+                            {"field": "phish_keyword_count", "operator": "gte", "value": 2}
+                        ],
+                        "recommended_weight": 0.85,
+                    },
+                ),
+                predicted_benefit=str(data.get("predicted_benefit", "Mitigates detection gap"))[
+                    :512
+                ],
+                potential_risks=str(
+                    data.get("potential_risks", "Low false-positive risk with allowlist")
+                )[:512],
+                test_plan=str(
+                    data.get(
+                        "test_plan", "Evaluate against golden benchmark and held-out test split"
+                    )
+                )[:512],
                 confidence=float(data.get("confidence", 0.85)),
             )
             return hypothesis
         except Exception as exc:
-            raise ProviderInferenceError(f"Qwen emitted invalid DefensiveHypothesis: {exc}") from exc
+            raise ProviderInferenceError(
+                f"Qwen emitted invalid DefensiveHypothesis: {exc}"
+            ) from exc
 
     async def generate_defense_rule(
         self,
@@ -393,7 +461,9 @@ class QwenProvider(
         sample_urls: list[str],
     ) -> DeclarativeRuleModel:
         """Use Qwen to formulate a strictly validated declarative AST rule from failure observations."""
-        defanged_samples = [u.replace("http://", "hxxp://").replace("https://", "hxxps://") for u in sample_urls[:5]]
+        defanged_samples = [
+            u.replace("http://", "hxxp://").replace("https://", "hxxps://") for u in sample_urls[:5]
+        ]
         prompt = (
             f"Synthesize a declarative detection rule to mitigate the following attack pattern.\n"
             f"Target Threat Family: {target_family}\n"
@@ -414,7 +484,9 @@ class QwenProvider(
         try:
             return DeclarativeRuleModel.model_validate(data)
         except Exception as exc:
-            raise ProviderInferenceError(f"Qwen emitted invalid DeclarativeRuleModel: {exc}") from exc
+            raise ProviderInferenceError(
+                f"Qwen emitted invalid DeclarativeRuleModel: {exc}"
+            ) from exc
 
     async def classify_resource(
         self,
@@ -441,7 +513,6 @@ class QwenProvider(
         score = float(data.get("threat_score", 0.05))
         score = max(0.0, min(1.0, score))
 
-        dec_str = str(data.get("decision", "allow")).lower()
         if score >= 0.85:
             decision = Decision.BLOCK
         elif score >= 0.50:
@@ -463,9 +534,13 @@ class QwenProvider(
                     evidence_items.append(
                         EvidenceItem(
                             category=str(item.get("category", "qwen_reasoning"))[:64],
-                            reason=str(item.get("reason", "Indicator flagged by Qwen inference"))[:512],
+                            reason=str(item.get("reason", "Indicator flagged by Qwen inference"))[
+                                :512
+                            ],
                             severity=severity,
-                            confidence=float(item.get("confidence", 0.85)) if "confidence" in item else 0.85,
+                            confidence=float(item.get("confidence", 0.85))
+                            if "confidence" in item
+                            else 0.85,
                         )
                     )
 
@@ -474,7 +549,9 @@ class QwenProvider(
                 EvidenceItem(
                     category="qwen_analysis",
                     reason=f"Qwen {self.model_name} evaluated resource as {decision.value}",
-                    severity=ThreatSeverity.HIGH if decision == Decision.BLOCK else ThreatSeverity.LOW,
+                    severity=ThreatSeverity.HIGH
+                    if decision == Decision.BLOCK
+                    else ThreatSeverity.LOW,
                     confidence=float(data.get("confidence", 0.9)),
                 )
             )
@@ -491,4 +568,3 @@ class QwenProvider(
             provenance=ProvenanceType.MODEL_INFERENCE,
             created_at=datetime.now(UTC),
         )
-

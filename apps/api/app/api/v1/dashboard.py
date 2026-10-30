@@ -1,10 +1,9 @@
 """Consolidated dashboard aggregation endpoint for CyberDuel AI Command Center."""
 
 from datetime import UTC, datetime, timedelta
-from typing import Any
 
 from fastapi import APIRouter, Depends
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from sqlalchemy import desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -118,9 +117,7 @@ async def get_dashboard_overview(
     total_exp = tot_exp_res.scalar() or 0
 
     comp_exp_res = await session.execute(
-        select(func.count(LabExperimentRecord.id)).where(
-            LabExperimentRecord.status == "completed"
-        )
+        select(func.count(LabExperimentRecord.id)).where(LabExperimentRecord.status == "completed")
     )
     completed_exp = comp_exp_res.scalar() or 0
 
@@ -131,9 +128,7 @@ async def get_dashboard_overview(
     )
     active_exp = act_exp_res.scalar() or 0
 
-    disc_res = await session.execute(
-        select(func.sum(LabExperimentRecord.discrepancy_count))
-    )
+    disc_res = await session.execute(select(func.sum(LabExperimentRecord.discrepancy_count)))
     total_discrepancies = disc_res.scalar() or 0
 
     research = ResearchOverview(

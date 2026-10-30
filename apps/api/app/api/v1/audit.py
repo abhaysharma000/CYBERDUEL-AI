@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import Any
 
 from fastapi import APIRouter, Depends, Query
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from apps.api.app.core.auth import require_permission
@@ -39,7 +39,11 @@ class AuditQueryResponse(BaseModel):
     offset: int
 
 
-@router.get("/events", response_model=AuditQueryResponse, dependencies=[Depends(require_permission("audit:read"))])
+@router.get(
+    "/events",
+    response_model=AuditQueryResponse,
+    dependencies=[Depends(require_permission("audit:read"))],
+)
 async def list_audit_events(
     actor: str | None = None,
     action: str | None = None,

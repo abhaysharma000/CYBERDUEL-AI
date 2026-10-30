@@ -228,7 +228,9 @@ async def list_evaluations(
                 benchmark_manifest_id=r.benchmark_manifest_id,
                 verdict=rep.verdict if rep else None,
                 verdict_rationale=rep.verdict_rationale if rep else None,
-                evaluated_at=rep.evaluated_at.isoformat() if rep and rep.evaluated_at else r.created_at.isoformat(),
+                evaluated_at=rep.evaluated_at.isoformat()
+                if rep and rep.evaluated_at
+                else r.created_at.isoformat(),
                 candidate_metrics=rep.candidate_metrics if rep else None,
                 created_at=r.created_at.isoformat(),
             )

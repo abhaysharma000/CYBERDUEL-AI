@@ -18,7 +18,6 @@ import argparse
 import hashlib
 import json
 import logging
-import os
 import re
 from collections import defaultdict
 from datetime import UTC, datetime
@@ -26,7 +25,9 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import urlparse
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s | [DATASET] %(levelname)s | %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s | [DATASET] %(levelname)s | %(message)s"
+)
 logger = logging.getLogger("dataset_pipeline")
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -64,7 +65,16 @@ def extract_registrable_domain(url: str) -> str:
         if len(parts) <= 2:
             return host
         # Handle two-part TLDs like .co.uk, .com.br, etc.
-        two_part_tlds = {"co.uk", "gov.uk", "ac.uk", "com.br", "org.br", "com.au", "net.au", "co.jp"}
+        two_part_tlds = {
+            "co.uk",
+            "gov.uk",
+            "ac.uk",
+            "com.br",
+            "org.br",
+            "com.au",
+            "net.au",
+            "co.jp",
+        }
         last_two = ".".join(parts[-2:])
         if last_two in two_part_tlds and len(parts) >= 3:
             return ".".join(parts[-3:])
@@ -85,58 +95,229 @@ def compute_sha256(file_path: Path) -> str:
 # Curated verified seeds representing classic open academic security URL datasets (ISCX-URL2016 / OpenPhish)
 SEED_SECURITY_CORPUS = [
     # Benign Educational, Technical, Institutional, and Public Services (Label = 0)
-    {"url": "https://www.unb.ca/cic/research/datasets/index.html", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://docs.python.org/3/library/urllib.parse.html", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://en.wikipedia.org/wiki/Computer_security", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://github.com/torvalds/linux/blob/master/README.md", "label": "benign", "source": "ISCX-URL2016"},
+    {
+        "url": "https://www.unb.ca/cic/research/datasets/index.html",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://docs.python.org/3/library/urllib.parse.html",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://en.wikipedia.org/wiki/Computer_security",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://github.com/torvalds/linux/blob/master/README.md",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
     {"url": "https://www.nist.gov/cyberframework", "label": "benign", "source": "ISCX-URL2016"},
     {"url": "https://www.cisa.gov/shields-up", "label": "benign", "source": "ISCX-URL2016"},
     {"url": "https://owasp.org/www-project-top-ten/", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://developer.mozilla.org/en-US/docs/Web/Security", "label": "benign", "source": "ISCX-URL2016"},
+    {
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Security",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
     {"url": "https://www.ietf.org/rfc/rfc3986.txt", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://cloudflare.com/learning/access-management/what-is-zero-trust/", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://www.mitre.org/news-insights/impact-stories/mitre-attck", "label": "benign", "source": "ISCX-URL2016"},
+    {
+        "url": "https://cloudflare.com/learning/access-management/what-is-zero-trust/",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://www.mitre.org/news-insights/impact-stories/mitre-attck",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
     {"url": "https://arxiv.org/abs/1606.01234", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://stackoverflow.com/questions/tagged/security", "label": "benign", "source": "ISCX-URL2016"},
+    {
+        "url": "https://stackoverflow.com/questions/tagged/security",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
     {"url": "https://pypi.org/project/pydantic/", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://www.apple.com/support/system-status/", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://aws.amazon.com/security/security-bulletins/", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://azure.microsoft.com/en-us/explore/trust-center", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://www.google.com/search?q=cyberduel+defense", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://support.google.com/accounts/answer/185839", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://www.kaggle.com/datasets/taruntiwarihp/phishing-site-urls", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://news.ycombinator.com/item?id=38192831", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://www.reuters.com/technology/cybersecurity/", "label": "benign", "source": "ISCX-URL2016"},
+    {
+        "url": "https://huggingface.co/Qwen/Qwen2.5-Coder-7B-Instruct",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://www.apple.com/support/system-status/",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://aws.amazon.com/security/security-bulletins/",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://azure.microsoft.com/en-us/explore/trust-center",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://www.google.com/search?q=cyberduel+defense",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://support.google.com/accounts/answer/185839",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://www.kaggle.com/datasets/taruntiwarihp/phishing-site-urls",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://news.ycombinator.com/item?id=38192831",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "https://www.reuters.com/technology/cybersecurity/",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
     {"url": "https://www.bloomberg.com/cybersecurity", "label": "benign", "source": "ISCX-URL2016"},
-    {"url": "https://www.w3.org/Protocols/rfc2616/rfc2616.html", "label": "benign", "source": "ISCX-URL2016"},
-
+    {
+        "url": "https://www.w3.org/Protocols/rfc2616/rfc2616.html",
+        "label": "benign",
+        "source": "ISCX-URL2016",
+    },
     # Malicious Phishing & Credential Harvesting Samples (Label = 1, Inert)
-    {"url": "http://paypal-security-update-verification.account-service-alert.com/webscr?cmd=_login-run", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://192.168.1.105:8080/secure/bankofamerica/login.php", "label": "phishing", "source": "ISCX-URL2016"},
-    {"url": "http://login.microsoftonline.portal-security-check.ru/oauth2/authorize", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://appleid.apple.com.verify-device-account-service.top/auth/signin", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://chase-bank-verify-identity-fraud-alert.info/auth/login.aspx", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://wellsfargo.com.online-banking-account-verify.xyz/auth/logon", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://dhl-parcel-tracking-shipment-delivery-fee.bid/tracking?id=9281729", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://netflix-billing-update-account-suspended.cc/customer/update", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://amazon-orders-security-verification-card.club/ap/signin", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://coinbase-wallet-security-migration-kyc.pw/session/login", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://steamcommunity.com.trade-offer-confirm-item.su/trade/offer/2819", "label": "phishing", "source": "ISCX-URL2016"},
-    {"url": "http://irs-tax-refund-direct-deposit-portal.org/refund/status", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://meta-business-suite-account-disabled-appeal.vip/support/cases", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://secure-login-chase-online-access.live/chase/verify.html", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://google-drive-shared-invoice-document.cfd/view?id=982173", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://198.51.100.42/paypal/signin.php?token=expired", "label": "phishing", "source": "ISCX-URL2016"},
-    {"url": "http://203.0.113.88:8443/webmail/login.do", "label": "phishing", "source": "ISCX-URL2016"},
-    {"url": "http://facebook-security-check-community-standards.site/login", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://usps-tracking-redelivery-address-confirm.online/track/redelivery", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://citibank-card-activation-fraud-prevention.top/citi/login", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://binance-kyc-compliance-aml-freeze.xyz/login/verify", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://adobe-document-cloud-pdf-view-sign.click/doc/review", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://fedex-express-delivery-package-notice.work/fedex/redeliver", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://instagram-verified-badge-apply-appeal.agency/accounts/login", "label": "phishing", "source": "OpenPhish"},
-    {"url": "http://dropbox-file-transfer-download-confidential.link/dl/file", "label": "phishing", "source": "OpenPhish"},
+    {
+        "url": "http://paypal-security-update-verification.account-service-alert.com/webscr?cmd=_login-run",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://192.168.1.105:8080/secure/bankofamerica/login.php",
+        "label": "phishing",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "http://login.microsoftonline.portal-security-check.ru/oauth2/authorize",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://appleid.apple.com.verify-device-account-service.top/auth/signin",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://chase-bank-verify-identity-fraud-alert.info/auth/login.aspx",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://wellsfargo.com.online-banking-account-verify.xyz/auth/logon",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://dhl-parcel-tracking-shipment-delivery-fee.bid/tracking?id=9281729",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://netflix-billing-update-account-suspended.cc/customer/update",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://amazon-orders-security-verification-card.club/ap/signin",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://coinbase-wallet-security-migration-kyc.pw/session/login",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://steamcommunity.com.trade-offer-confirm-item.su/trade/offer/2819",
+        "label": "phishing",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "http://irs-tax-refund-direct-deposit-portal.org/refund/status",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://meta-business-suite-account-disabled-appeal.vip/support/cases",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://secure-login-chase-online-access.live/chase/verify.html",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://google-drive-shared-invoice-document.cfd/view?id=982173",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://198.51.100.42/paypal/signin.php?token=expired",
+        "label": "phishing",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "http://203.0.113.88:8443/webmail/login.do",
+        "label": "phishing",
+        "source": "ISCX-URL2016",
+    },
+    {
+        "url": "http://facebook-security-check-community-standards.site/login",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://usps-tracking-redelivery-address-confirm.online/track/redelivery",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://citibank-card-activation-fraud-prevention.top/citi/login",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://binance-kyc-compliance-aml-freeze.xyz/login/verify",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://adobe-document-cloud-pdf-view-sign.click/doc/review",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://fedex-express-delivery-package-notice.work/fedex/redeliver",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://instagram-verified-badge-apply-appeal.agency/accounts/login",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
+    {
+        "url": "http://dropbox-file-transfer-download-confidential.link/dl/file",
+        "label": "phishing",
+        "source": "OpenPhish",
+    },
 ]
 
 
@@ -144,7 +325,7 @@ def init_raw_corpus() -> Path:
     """Initialize raw provenance-tracked security corpus in datasets/raw/."""
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     raw_file = RAW_DIR / "security_urls_raw.jsonl"
-    
+
     with open(raw_file, "w", encoding="utf-8") as f:
         for idx, item in enumerate(SEED_SECURITY_CORPUS):
             record = {
@@ -155,7 +336,7 @@ def init_raw_corpus() -> Path:
                 "ingested_at": datetime.now(UTC).isoformat(),
             }
             f.write(json.dumps(record) + "\n")
-            
+
     logger.info("Initialized raw corpus with %d records at %s", len(SEED_SECURITY_CORPUS), raw_file)
     return raw_file
 
@@ -163,7 +344,7 @@ def init_raw_corpus() -> Path:
 def process_and_split_dataset(seed: int = 42) -> dict[str, Any]:
     """Clean, deduplicate, group by domain, and split dataset into 60/20/20 train/val/test."""
     raw_file = init_raw_corpus()
-    
+
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     SPLITS_DIR.mkdir(parents=True, exist_ok=True)
     MANIFESTS_DIR.mkdir(parents=True, exist_ok=True)
@@ -171,8 +352,8 @@ def process_and_split_dataset(seed: int = 42) -> dict[str, Any]:
     # 1. Ingest and Deduplicate
     seen_urls: set[str] = set()
     records: list[dict[str, Any]] = []
-    
-    with open(raw_file, "r", encoding="utf-8") as f:
+
+    with open(raw_file, encoding="utf-8") as f:
         for line in f:
             if not line.strip():
                 continue
@@ -181,17 +362,21 @@ def process_and_split_dataset(seed: int = 42) -> dict[str, Any]:
             if norm_url in seen_urls:
                 continue
             seen_urls.add(norm_url)
-            
+
             domain = extract_registrable_domain(norm_url)
-            records.append({
-                "id": rec["id"],
-                "url": norm_url,
-                "defanged_url": defang_url(norm_url),
-                "domain": domain,
-                "label": 1 if rec["label"].lower() in ["phishing", "malicious", "1"] else 0,
-                "label_text": "phishing" if rec["label"].lower() in ["phishing", "malicious", "1"] else "benign",
-                "source": rec.get("source", "OpenPhish/ISCX-URL2016"),
-            })
+            records.append(
+                {
+                    "id": rec["id"],
+                    "url": norm_url,
+                    "defanged_url": defang_url(norm_url),
+                    "domain": domain,
+                    "label": 1 if rec["label"].lower() in ["phishing", "malicious", "1"] else 0,
+                    "label_text": "phishing"
+                    if rec["label"].lower() in ["phishing", "malicious", "1"]
+                    else "benign",
+                    "source": rec.get("source", "OpenPhish/ISCX-URL2016"),
+                }
+            )
 
     # 2. Group by Domain (Prevent Cross-Split Contamination)
     domain_groups: dict[str, list[dict[str, Any]]] = defaultdict(list)
@@ -199,7 +384,9 @@ def process_and_split_dataset(seed: int = 42) -> dict[str, Any]:
         domain_groups[r["domain"]].append(r)
 
     # Deterministic sorting for reproducibility
-    sorted_domains = sorted(domain_groups.keys(), key=lambda d: hashlib.sha256(f"{seed}:{d}".encode()).hexdigest())
+    sorted_domains = sorted(
+        domain_groups.keys(), key=lambda d: hashlib.sha256(f"{seed}:{d}".encode()).hexdigest()
+    )
 
     total_records = len(records)
     target_train = int(total_records * 0.60)
@@ -235,7 +422,11 @@ def process_and_split_dataset(seed: int = 42) -> dict[str, Any]:
     val_path = SPLITS_DIR / "val.jsonl"
     test_path = SPLITS_DIR / "test_held_out.jsonl"
 
-    for path, data in [(train_path, train_records), (val_path, val_records), (test_path, test_records)]:
+    for path, data in [
+        (train_path, train_records),
+        (val_path, val_records),
+        (test_path, test_records),
+    ]:
         with open(path, "w", encoding="utf-8") as out:
             for r in data:
                 out.write(json.dumps(r) + "\n")
@@ -315,14 +506,21 @@ def process_and_split_dataset(seed: int = 42) -> dict[str, Any]:
         json.dump(manifest, mf, indent=2)
 
     logger.info("Dataset pipeline completed successfully.")
-    logger.info("Train: %d | Val: %d | Test: %d | Total: %d", len(train_records), len(val_records), len(test_records), total_records)
+    logger.info(
+        "Train: %d | Val: %d | Test: %d | Total: %d",
+        len(train_records),
+        len(val_records),
+        len(test_records),
+        total_records,
+    )
     logger.info("Manifest written to %s", manifest_path)
     return manifest
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="CyberDuel AI Dataset Acquisition & Splitting Pipeline")
+    parser = argparse.ArgumentParser(
+        description="CyberDuel AI Dataset Acquisition & Splitting Pipeline"
+    )
     parser.add_argument("--seed", type=int, default=42, help="Deterministic shuffle seed")
     args = parser.parse_args()
     process_and_split_dataset(seed=args.seed)
-

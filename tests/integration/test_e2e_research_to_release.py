@@ -8,11 +8,9 @@ from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
-from cyberduel_contracts.crypto import compute_sha256
 from cyberduel_contracts.enums import (
     Decision,
     ExpectedClass,
-    KeyStatus,
     ReleaseChannel,
     ReleaseStatus,
     ThreatSeverity,
@@ -36,7 +34,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from apps.api.app.models.evaluations import (
     BenchmarkManifestRecord,
-    EvaluationProtocolRecord,
     EvaluationReportRecord,
     EvaluationRequestRecord,
 )
@@ -52,7 +49,9 @@ from services.evaluator.app.acceptance import AcceptancePolicyEngine
 
 
 @pytest.mark.asyncio
-async def test_full_lifecycle_research_to_client_verification(test_db_session: AsyncSession) -> None:
+async def test_full_lifecycle_research_to_client_verification(
+    test_db_session: AsyncSession,
+) -> None:
     """Validate full end-to-end pipeline from synthetic scenario to verified client update."""
     now = datetime.now(UTC)
 
@@ -564,4 +563,3 @@ async def test_evaluator_rejects_regressive_candidate_and_preserves_outcome(
     assert eligibility.is_eligible is False
     assert len(eligibility.reasons) > 0
     assert any("verdict is 'fail'" in r.lower() for r in eligibility.reasons)
-

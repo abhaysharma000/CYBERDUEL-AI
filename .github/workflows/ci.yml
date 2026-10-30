@@ -130,11 +130,20 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up JDK 21
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          java-version: "21"
+          java-version: "17"
           distribution: "temurin"
+          cache: "gradle"
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Accept Android SDK Licenses & Configure SDK
+        run: |
+          yes | sdkmanager --licenses || true
+          echo "sdk.dir=$ANDROID_HOME" > apps/mobile/local.properties
 
       - name: Make Gradlew Executable
         run: chmod +x ./apps/mobile/gradlew

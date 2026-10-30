@@ -68,4 +68,3 @@ class AuditLogRecord(Base, UUIDPrimaryKeyMixin, TimestampMixin):
         Index("ix_audit_actor_created", "actor", "created_at"),
         Index("ix_audit_action_created", "action", "created_at"),
     )
-

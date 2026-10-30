@@ -11,21 +11,25 @@ from cyberduel_contracts.policy import CandidateDefense
 
 class ProviderError(Exception):
     """Base exception for all AI provider errors."""
+
     pass
 
 
 class ProviderUnavailableError(ProviderError):
     """Raised when an AI provider endpoint cannot be reached or times out."""
+
     pass
 
 
 class ProviderRateLimitError(ProviderError):
     """Raised when an AI provider returns HTTP 429 rate limit exceeded."""
+
     pass
 
 
 class ProviderInferenceError(ProviderError):
     """Raised when an AI provider returns an error, invalid response, or schema validation fails."""
+
     pass
 
 

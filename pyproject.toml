@@ -74,10 +74,27 @@ markers = [
 [tool.ruff]
 target-version = "py312"
 line-length = 100
+exclude = [
+    ".git",
+    ".venv",
+    "old",
+    "datasets",
+    "storage",
+    "apps/browser-extension",
+    "apps/dashboard",
+    "apps/mobile",
+    "node_modules",
+    "dist",
+    "build",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "N", "UP", "B", "A", "C4", "SIM"]
-ignore = ["E501", "B008", "N818"]
+ignore = ["E501", "B008", "N818", "B904", "UP042"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = ["E402", "F841", "F401", "B904"]
+"tests/*" = ["SIM117", "F401", "UP015"]
 
 [tool.mypy]
 python_version = "3.12"

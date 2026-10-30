@@ -3,10 +3,7 @@
 from uuid import uuid4
 
 import pytest
-from httpx import ASGITransport, AsyncClient
-
-from apps.api.app.core.config import Settings, get_settings
-from apps.api.app.main import create_app
+from httpx import AsyncClient
 
 
 @pytest.mark.asyncio

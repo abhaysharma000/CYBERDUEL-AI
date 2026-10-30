@@ -17,8 +17,8 @@ from __future__ import annotations
 import argparse
 import json
 import logging
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import Any
 
 # Ensure cyberduel_contracts can be imported
@@ -26,12 +26,14 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "packages" / "shared-contracts"))
 
 try:
-    from cyberduel_contracts.policy import DeclarativeRuleModel, RulePredicateModel
     from cyberduel_contracts.enums import Decision, ThreatSeverity
+    from cyberduel_contracts.policy import DeclarativeRuleModel, RulePredicateModel
 except ImportError as err:
     sys.exit(f"Failed to import cyberduel_contracts: {err}")
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s | [SFT-GEN] %(levelname)s | %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s | [SFT-GEN] %(levelname)s | %(message)s"
+)
 logger = logging.getLogger("sft_generator")
 
 FORBIDDEN_FILES = {"test_held_out.jsonl", "test.jsonl", "held_out.jsonl"}
@@ -55,7 +57,7 @@ def load_train_records(train_path: Path) -> list[dict[str, Any]]:
         raise FileNotFoundError(f"Training split not found: {train_path}")
 
     records = []
-    with open(train_path, "r", encoding="utf-8") as f:
+    with open(train_path, encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if line:
@@ -195,7 +197,9 @@ def generate_blue_defense_sft(train_records: list[dict[str, Any]], output_path: 
             "description": "Warn on simulated mobile banking apk or direct binary downloads disguised as updates.",
             "purpose": "Prevent rogue banking trojan apk distribution.",
             "predicates": [
-                RulePredicateModel(field="path", operator="contains", value="banking_app_security.apk"),
+                RulePredicateModel(
+                    field="path", operator="contains", value="banking_app_security.apk"
+                ),
             ],
             "action": Decision.BLOCK,
             "severity": ThreatSeverity.CRITICAL,
@@ -206,7 +210,9 @@ def generate_blue_defense_sft(train_records: list[dict[str, Any]], output_path: 
     with open(output_path, "w", encoding="utf-8") as f:
         for tpl in rule_templates:
             cat = tpl["category"]
-            sample_group = categories.get(cat, [r for r in train_records if r["label"] == "phishing"][:2])
+            sample_group = categories.get(
+                cat, [r for r in train_records if r["label"] == "phishing"][:2]
+            )
             samples = [s["url"] for s in sample_group[:3]]
 
             rule_model = DeclarativeRuleModel(
@@ -344,7 +350,9 @@ def generate_red_adversary_sft(output_path: Path) -> int:
             # Verify RFC 2606 domain compliance
             domain = scen["rfc2606_domain"]
             if not any(domain.endswith(tld) for tld in RFC_2606_TLDS):
-                raise ValueError(f"Safety violation: Domain '{domain}' does not comply with RFC 2606 reserved TLDs!")
+                raise ValueError(
+                    f"Safety violation: Domain '{domain}' does not comply with RFC 2606 reserved TLDs!"
+                )
 
             chat = {
                 "messages": [
@@ -404,9 +412,13 @@ def main() -> None:
     b_count = generate_blue_defense_sft(records, args.output_dir / "blue_defense_sft.jsonl")
     r_count = generate_red_adversary_sft(args.output_dir / "red_adversary_sft.jsonl")
 
-    logger.info("Task SFT generation complete! Classification: %d | Blue AI: %d | Red AI: %d", c_count, b_count, r_count)
+    logger.info(
+        "Task SFT generation complete! Classification: %d | Blue AI: %d | Red AI: %d",
+        c_count,
+        b_count,
+        r_count,
+    )
 
 
 if __name__ == "__main__":
     main()
-

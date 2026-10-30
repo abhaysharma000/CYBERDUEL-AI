@@ -81,9 +81,7 @@ class AuditService:
         total = total_res.scalar() or 0
 
         res = await session.execute(
-            stmt.order_by(desc(AuditLogRecord.created_at))
-            .offset(offset)
-            .limit(min(limit, 200))
+            stmt.order_by(desc(AuditLogRecord.created_at)).offset(offset).limit(min(limit, 200))
         )
         records = res.scalars().all()
         return list(records), total

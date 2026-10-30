@@ -4,7 +4,7 @@ from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 from sqlalchemy import desc, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
@@ -42,7 +42,11 @@ class ClientMetrics(BaseModel):
     acknowledgements_breakdown: dict[str, int]
 
 
-@router.get("", response_model=list[ClientSummary], dependencies=[Depends(require_permission("clients:read"))])
+@router.get(
+    "",
+    response_model=list[ClientSummary],
+    dependencies=[Depends(require_permission("clients:read"))],
+)
 async def list_clients(
     client_type: str | None = None,
     channel: str | None = None,
@@ -94,7 +98,11 @@ async def list_clients(
     return results
 
 
-@router.get("/metrics", response_model=ClientMetrics, dependencies=[Depends(require_permission("clients:read"))])
+@router.get(
+    "/metrics",
+    response_model=ClientMetrics,
+    dependencies=[Depends(require_permission("clients:read"))],
+)
 async def get_client_metrics(session: AsyncSession = Depends(get_db_session)) -> ClientMetrics:
     """Calculate aggregated fleet statistics directly from client tables."""
     now = datetime.now(UTC)
@@ -153,7 +161,9 @@ async def get_client_metrics(session: AsyncSession = Depends(get_db_session)) ->
 
 
 @router.get("/{client_id}", dependencies=[Depends(require_permission("clients:read"))])
-async def get_client_detail(client_id: str, session: AsyncSession = Depends(get_db_session)) -> dict[str, Any]:
+async def get_client_detail(
+    client_id: str, session: AsyncSession = Depends(get_db_session)
+) -> dict[str, Any]:
     """Retrieve full detail for a single client device."""
     stmt = (
         select(ClientDeviceRecord)

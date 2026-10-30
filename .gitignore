@@ -65,3 +65,33 @@ desktop.ini
 *.swp
 *.swo
 
+# Node & Dependencies
+node_modules/
+*/node_modules/
+*/*/node_modules/
+
+# Gradle & Android build cache
+.gradle/
+*/.gradle/
+*/*/.gradle/
+local.properties
+.cxx/
+*.apk
+*.aab
+
+# Built artifacts
+dist/
+build/
+*/dist/
+*/*/dist/
+*/build/
+*/*/build/
+
+# Storage & generated test releases
+storage/releases/*.json
+!storage/releases/.gitkeep
+
+# Legacy reference files
+old/
+
+

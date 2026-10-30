@@ -48,4 +48,3 @@ def test_cross_language_vectors_consistency() -> None:
         assert norm.has_embedded_credentials == vec["has_embedded_credentials"]
         assert norm.is_ip_literal == vec["is_ip_literal"]
         assert norm.url_sha256 == compute_sha256(norm.canonical_url)
-

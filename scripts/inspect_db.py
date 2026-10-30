@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Inspect database tables, row counts, and sample records in the active CyberDuel database."""
 
-import json
-from pathlib import Path
 import sqlite3
 import sys
+from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT))
@@ -31,7 +30,9 @@ def inspect_db() -> dict[str, int]:
     conn = sqlite3.connect(str(path))
     cursor = conn.cursor()
 
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")
+    cursor.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name"
+    )
     tables = [r[0] for r in cursor.fetchall()]
 
     counts = {}

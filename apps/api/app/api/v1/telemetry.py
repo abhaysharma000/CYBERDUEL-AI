@@ -39,7 +39,11 @@ async def ingest_observation(
         id=obs_id,
         normalized_target=report.normalized_target,
         source=report.source.value if hasattr(report.source, "value") else str(report.source),
-        local_action_taken=report.local_action_taken.value if hasattr(report.local_action_taken, "value") else str(report.local_action_taken) if report.local_action_taken else None,
+        local_action_taken=report.local_action_taken.value
+        if hasattr(report.local_action_taken, "value")
+        else str(report.local_action_taken)
+        if report.local_action_taken
+        else None,
         engine_version=report.engine_version,
         policy_version=report.policy_version,
         telemetry_payload=report.telemetry_summary or {},

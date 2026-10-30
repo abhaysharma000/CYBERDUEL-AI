@@ -544,7 +544,9 @@ async def list_candidate_history(
             "status": r.status,
             "rule_count": len((r.rule_spec or {}).get("rules", [])),
             "created_at": r.created_at.isoformat(),
-            "updated_at": r.updated_at.isoformat() if hasattr(r, "updated_at") and r.updated_at else r.created_at.isoformat(),
+            "updated_at": r.updated_at.isoformat()
+            if hasattr(r, "updated_at") and r.updated_at
+            else r.created_at.isoformat(),
         }
         for r in records
     ]

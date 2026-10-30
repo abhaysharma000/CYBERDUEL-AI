@@ -21,9 +21,12 @@ from unittest.mock import AsyncMock, patch
 from uuid import uuid4
 
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from cyberduel_contracts.enums import Decision, EvaluationVerdict, ScenarioFamily, ThreatSeverity
+from cyberduel_contracts.lab import ScenarioContract
+from cyberduel_contracts.policy import DeclarativeRuleModel, DefensiveHypothesis
+from cyberduel_policy_engine.rules import DeclarativeRuleEngine
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
-from apps.api.app.core.config import Settings
 from apps.api.app.models.base import Base
 from apps.api.app.models.evaluations import (
     BenchmarkManifestRecord,
@@ -40,12 +43,7 @@ from apps.api.app.services.blue_ai.hypothesis import DefenseHypothesisEngine
 from apps.api.app.services.blue_ai.prioritizer import FailureCluster, PrioritizedFailureGroup
 from apps.api.app.services.blue_ai.proposals import DefenseProposalGenerator
 from apps.api.app.services.releases.eligibility import ReleaseEligibilityService
-from cyberduel_contracts.enums import Decision, EvaluationVerdict, ScenarioFamily, ThreatSeverity
-from cyberduel_contracts.lab import ScenarioContract
-from cyberduel_contracts.policy import DeclarativeRuleModel, DefensiveHypothesis, RulePredicateModel
-from cyberduel_policy_engine.rules import DeclarativeRuleEngine, RuleValidationError
 from services.lab_worker.app.red_ai.generator import ScenarioGenerator
-
 
 # ==============================================================================
 # Fixtures
@@ -109,7 +107,9 @@ async def test_red_ai_selects_qwen_provider() -> None:
     mock_qwen.generate_scenario_contract.return_value = mock_scenario
 
     generator = ScenarioGenerator(seed=1001, provider=mock_qwen, provider_mode="qwen")
-    scenarios = await generator.generate_corpus_async(count=1, families=[ScenarioFamily.HOMOGRAPH_MIMICRY])
+    scenarios = await generator.generate_corpus_async(
+        count=1, families=[ScenarioFamily.HOMOGRAPH_MIMICRY]
+    )
 
     assert len(scenarios) >= 1
     assert scenarios[0].generator_version.startswith("qwen-")
@@ -152,13 +152,17 @@ async def test_red_ai_rejects_unsafe_live_domains() -> None:
 async def test_red_ai_fails_closed_in_production() -> None:
     """Verify Red AI fails closed in production without silent procedural fallback when Qwen fails."""
     mock_qwen = AsyncMock(spec=QwenProvider)
-    mock_qwen.generate_scenario_contract.side_effect = ProviderUnavailableError("Qwen connection timed out")
+    mock_qwen.generate_scenario_contract.side_effect = ProviderUnavailableError(
+        "Qwen connection timed out"
+    )
 
     generator = ScenarioGenerator(seed=1003, provider=mock_qwen, provider_mode="qwen")
 
     with patch.dict(os.environ, {"ENVIRONMENT": "production"}):
         with pytest.raises(ProviderInferenceError, match="failed in production"):
-            await generator.generate_corpus_async(count=2, families=[ScenarioFamily.HOMOGRAPH_MIMICRY])
+            await generator.generate_corpus_async(
+                count=2, families=[ScenarioFamily.HOMOGRAPH_MIMICRY]
+            )
 
 
 # ==============================================================================
@@ -167,7 +171,9 @@ async def test_red_ai_fails_closed_in_production() -> None:
 
 
 @pytest.mark.asyncio
-async def test_blue_ai_selects_qwen_provider(sample_priority_group: PrioritizedFailureGroup) -> None:
+async def test_blue_ai_selects_qwen_provider(
+    sample_priority_group: PrioritizedFailureGroup,
+) -> None:
     """Verify Blue AI DefenseHypothesisEngine invokes QwenProvider when configured."""
     task_id = uuid4()
     mock_qwen = AsyncMock(spec=QwenProvider)
@@ -291,7 +297,9 @@ async def test_blue_ai_fails_closed_in_production(
 ) -> None:
     """Verify Blue AI fails closed without procedural fallback when Qwen fails in production."""
     mock_qwen = AsyncMock(spec=QwenProvider)
-    mock_qwen.formulate_hypothesis.side_effect = ProviderUnavailableError("Qwen service unavailable")
+    mock_qwen.formulate_hypothesis.side_effect = ProviderUnavailableError(
+        "Qwen service unavailable"
+    )
 
     with patch.dict(os.environ, {"ENVIRONMENT": "production"}):
         with pytest.raises(ProviderInferenceError, match="failed in production"):
@@ -376,7 +384,12 @@ async def test_failed_evaluation_blocks_release_eligibility() -> None:
             acceptance_reasons=[],
             rejection_reasons=["Regressions detected"],
             baseline_metrics={},
-            candidate_metrics={"accuracy": 0.75, "recall": 0.70, "false_positive_rate": 0.08, "f1_score": 0.72},
+            candidate_metrics={
+                "accuracy": 0.75,
+                "recall": 0.70,
+                "false_positive_rate": 0.08,
+                "f1_score": 0.72,
+            },
             split_metrics={},
             improvement_metrics={"regression_count": 2},
             operational_metrics={},
@@ -415,7 +428,7 @@ def test_held_out_dataset_strictly_isolated_from_agents() -> None:
     assert test_path.exists()
 
     held_out_domains = set()
-    with open(test_path, "r", encoding="utf-8") as f:
+    with open(test_path, encoding="utf-8") as f:
         for line in f:
             if line.strip():
                 item = json.loads(line)
@@ -423,11 +436,15 @@ def test_held_out_dataset_strictly_isolated_from_agents() -> None:
 
     # Verify Red AI pattern library does not reference any held-out domain
     from services.lab_worker.app.red_ai.patterns import ThreatPatternLibrary
+
     templates = ThreatPatternLibrary.list_templates()
     for t in templates:
         from urllib.parse import urlparse
+
         host = urlparse(t.raw_url).hostname or ""
-        assert host.lower() not in held_out_domains, f"Held-out domain leak in template {t.template_id}: {host}"
+        assert host.lower() not in held_out_domains, (
+            f"Held-out domain leak in template {t.template_id}: {host}"
+        )
 
 
 # ==============================================================================

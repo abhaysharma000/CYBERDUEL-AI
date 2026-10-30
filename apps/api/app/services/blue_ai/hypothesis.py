@@ -22,14 +22,14 @@ from apps.api.app.models.policies import DefenseHypothesisRecord
 from apps.api.app.services.blue_ai.prioritizer import PrioritizedFailureGroup
 
 try:
+    from cyberduel_policy_engine.rules import DeclarativeRuleEngine
+
     from apps.api.app.core.config import get_settings
     from apps.api.app.providers.base import (
-        ProviderError,
         ProviderInferenceError,
         ProviderUnavailableError,
     )
     from apps.api.app.providers.factory import get_ai_provider
-    from cyberduel_policy_engine.rules import DeclarativeRuleEngine
 except ImportError:
     get_settings = None  # type: ignore
     get_ai_provider = None  # type: ignore
@@ -311,16 +311,22 @@ class DefenseHypothesisEngine:
                                 f"Allowed operators: {DeclarativeRuleEngine.ALLOWED_OPERATORS}"
                             )
 
-                logger.info(f"Synthesized hypothesis via QwenProvider for category '{cluster.failure_category}'")
+                logger.info(
+                    f"Synthesized hypothesis via QwenProvider for category '{cluster.failure_category}'"
+                )
                 return hypothesis
 
             except Exception as exc:
-                is_prod = (
-                    get_settings().is_production if get_settings else False
-                ) or (os.getenv("ENVIRONMENT") == "production")
+                is_prod = (get_settings().is_production if get_settings else False) or (
+                    os.getenv("ENVIRONMENT") == "production"
+                )
                 if is_prod:
-                    raise ProviderInferenceError(f"Qwen hypothesis formulation failed in production: {exc}") from exc
-                logger.error(f"Qwen hypothesis formulation failed: {exc}. Failing closed per policy.")
+                    raise ProviderInferenceError(
+                        f"Qwen hypothesis formulation failed in production: {exc}"
+                    ) from exc
+                logger.error(
+                    f"Qwen hypothesis formulation failed: {exc}. Failing closed per policy."
+                )
                 raise
 
         # Procedural fallback

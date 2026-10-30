@@ -18,13 +18,13 @@ from pathlib import Path
 from unittest.mock import AsyncMock, patch
 
 import pytest
+from cyberduel_contracts.policy import DeclarativeRuleModel
 from httpx import ASGITransport, AsyncClient
 
 from apps.api.app.core.config import Settings, get_settings
 from apps.api.app.main import create_app
 from apps.api.app.providers.base import ProviderInferenceError
 from apps.api.app.providers.qwen_provider import QwenProvider
-from cyberduel_contracts.policy import DeclarativeRuleModel
 from scripts.generate_agent_tasks import check_forbidden_path
 from scripts.train_qwen_lora import enforce_test_set_isolation, validate_chatml_record
 
@@ -41,7 +41,7 @@ def test_dataset_manifest_and_sha256_digests() -> None:
     manifest_path = REPO_ROOT / "datasets" / "manifests" / "dataset_manifest.json"
     assert manifest_path.exists(), f"Manifest file missing: {manifest_path}"
 
-    with open(manifest_path, "r", encoding="utf-8") as f:
+    with open(manifest_path, encoding="utf-8") as f:
         manifest = json.load(f)
 
     splits = manifest.get("splits", {})
@@ -65,10 +65,11 @@ def test_dataset_manifest_and_sha256_digests() -> None:
 
 def test_zero_cross_split_domain_leakage() -> None:
     """Verify strictly zero domain overlap across train, validation, and held-out test splits."""
+
     def extract_domains(rel_path: str) -> set[str]:
         p = REPO_ROOT / rel_path
         domains = set()
-        with open(p, "r", encoding="utf-8") as f:
+        with open(p, encoding="utf-8") as f:
             for line in f:
                 if line.strip():
                     item = json.loads(line)
@@ -111,7 +112,10 @@ def test_lora_training_enforces_test_isolation() -> None:
     enforce_test_set_isolation(clean_sources)
 
     # Should raise PermissionError when contaminated
-    contaminated_sources = ["datasets/sft/classification_sft.jsonl", "datasets/splits/test_held_out.jsonl"]
+    contaminated_sources = [
+        "datasets/sft/classification_sft.jsonl",
+        "datasets/splits/test_held_out.jsonl",
+    ]
     with pytest.raises(PermissionError, match="TEST SET ISOLATION BREACH"):
         enforce_test_set_isolation(contaminated_sources)
 
@@ -126,7 +130,7 @@ def test_classification_sft_chatml_structure() -> None:
     path = REPO_ROOT / "datasets" / "sft" / "classification_sft.jsonl"
     assert path.exists()
 
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         for idx, line in enumerate(f, start=1):
             if not line.strip():
                 continue
@@ -146,7 +150,7 @@ def test_blue_defense_sft_validates_declarative_rule_model() -> None:
     path = REPO_ROOT / "datasets" / "sft" / "blue_defense_sft.jsonl"
     assert path.exists()
 
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         for idx, line in enumerate(f, start=1):
             if not line.strip():
                 continue
@@ -167,7 +171,7 @@ def test_red_adversary_sft_rfc2606_compliance() -> None:
     assert path.exists()
 
     rfc_suffixes = (".test", ".example", ".invalid", ".localhost")
-    with open(path, "r", encoding="utf-8") as f:
+    with open(path, encoding="utf-8") as f:
         for idx, line in enumerate(f, start=1):
             if not line.strip():
                 continue

@@ -53,4 +53,3 @@ def downgrade() -> None:
     op.drop_index("ix_audit_log_records_actor", table_name="audit_log_records")
     op.drop_index("ix_audit_log_records_event_id", table_name="audit_log_records")
     op.drop_table("audit_log_records")
-
