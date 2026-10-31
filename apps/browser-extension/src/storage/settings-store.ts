@@ -27,7 +27,7 @@ export class SettingsStore {
       import.meta.env &&
       import.meta.env.VITE_BACKEND_URL
         ? String(import.meta.env.VITE_BACKEND_URL).trim()
-        : 'http://localhost:8000';
+        : 'https://cyberduel-ai-1.onrender.com';
 
     const defaultSettings: ExtensionSettings = {
       protection_enabled: true,

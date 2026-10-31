@@ -15,7 +15,7 @@ import {
 export class UpdateClient {
   private baseUrl: string;
 
-  constructor(baseUrl = 'http://localhost:8000') {
+  constructor(baseUrl = 'https://cyberduel-ai-1.onrender.com') {
     this.baseUrl = baseUrl.replace(/\/+$/, '');
   }
 

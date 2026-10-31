@@ -99,8 +99,8 @@ class SettingsRepository(context: Context) {
         private const val KEY_LAST_UPDATE_CHECK = "last_update_check"
         private const val KEY_THREAT_HISTORY = "threat_history"
 
-        // Default to Android Emulator host loopback alias (10.0.2.2)
-        const val DEFAULT_BACKEND_URL = "http://10.0.2.2:8000"
+        // Default to Render production backend (or override via settings screen)
+        const val DEFAULT_BACKEND_URL = "https://cyberduel-ai-1.onrender.com"
     }
 }
 
