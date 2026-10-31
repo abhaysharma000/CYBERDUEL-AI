@@ -45,7 +45,7 @@ htmlcov/
 # Database and state
 *.sqlite3
 *.db
-data/
+/data/
 pgdata/
 
 # Logs and runtime artifacts

@@ -42,6 +42,8 @@ dev = [
 packages = [
     "apps/api/app",
     "packages/shared-contracts/cyberduel_contracts",
+    "packages/threat-intelligence/cyberduel_threat_intel",
+    "packages/policy-engine/cyberduel_policy_engine",
 ]
 
 [tool.pytest.ini_options]
