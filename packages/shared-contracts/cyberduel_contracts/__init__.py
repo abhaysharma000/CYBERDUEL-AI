@@ -59,6 +59,16 @@ from cyberduel_contracts.evaluation import (
     ImprovementTrendReport,
     OperationalMetrics,
 )
+from cyberduel_contracts.guardian import (
+    AgentHealthStatus,
+    GuardianActivityEvent,
+    GuardianDecisionExplanation,
+    GuardianDecisionOutcome,
+    GuardianMissionContract,
+    GuardianMissionRequest,
+    GuardianState,
+    GuardianStatusResponse,
+)
 from cyberduel_contracts.lab import (
     AgentRunSummary,
     EvaluationHandoffPackage,
@@ -108,6 +118,7 @@ from cyberduel_contracts.updates import (
 
 __all__ = [
     "AcceptancePolicyConfig",
+    "AgentHealthStatus",
     "AgentRole",
     "AgentRunSummary",
     "BaselineComparisonReport",
@@ -143,6 +154,13 @@ __all__ = [
     "ExperimentStatus",
     "FailureCategory",
     "FailureFinding",
+    "GuardianActivityEvent",
+    "GuardianDecisionExplanation",
+    "GuardianDecisionOutcome",
+    "GuardianMissionContract",
+    "GuardianMissionRequest",
+    "GuardianState",
+    "GuardianStatusResponse",
     "HealthResponse",
     "HypothesisStatus",
     "ImprovementCycleConfig",

@@ -14,7 +14,9 @@ from apps.api.app.providers.qwen_provider import QwenProvider
 
 
 @lru_cache
-def get_ai_provider() -> (
+def get_ai_provider(
+    provider_type: str | None = None,
+) -> (
     BaseReasoningProvider
     | BaseThreatClassificationProvider
     | BaseScenarioGeneratorProvider
@@ -28,8 +30,9 @@ def get_ai_provider() -> (
     3. In production mode, mock AI is strictly prohibited and fails closed.
     """
     settings = get_settings()
+    ptype = provider_type or settings.AI_PROVIDER_TYPE
 
-    if settings.AI_PROVIDER_TYPE == "qwen":
+    if ptype == "qwen":
         return QwenProvider(
             api_base=settings.QWEN_API_BASE,
             api_key=settings.QWEN_API_KEY,
@@ -37,7 +40,7 @@ def get_ai_provider() -> (
             timeout_seconds=settings.QWEN_TIMEOUT_SECONDS,
         )
 
-    if settings.AI_PROVIDER_TYPE == "mock":
+    if ptype == "mock":
         if settings.is_production:
             raise RuntimeError(
                 "CRITICAL SECURITY VIOLATION: Mock AI provider is strictly prohibited in production mode. "
@@ -46,4 +49,4 @@ def get_ai_provider() -> (
             )
         return DeterministicMockProvider(model_name=settings.AI_MODEL_NAME)
 
-    raise ValueError(f"Unsupported AI_PROVIDER_TYPE: '{settings.AI_PROVIDER_TYPE}'")
+    raise ValueError(f"Unsupported AI_PROVIDER_TYPE: '{ptype}'")

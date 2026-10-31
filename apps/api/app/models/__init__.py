@@ -15,6 +15,7 @@ from apps.api.app.models.evaluations import (
     ImprovementCycleRecord,
 )
 from apps.api.app.models.feedback import FeedbackSubmission
+from apps.api.app.models.guardian import GuardianMissionRecord
 from apps.api.app.models.indicators import ThreatIndicatorRecord
 from apps.api.app.models.lab import (
     EvaluationRunRecord,
@@ -64,6 +65,7 @@ __all__ = [
     "EvaluationRunRecord",
     "FailureFindingRecord",
     "FeedbackSubmission",
+    "GuardianMissionRecord",
     "ImprovementCycleRecord",
     "LabExperimentRecord",
     "LaboratoryScenarioRun",

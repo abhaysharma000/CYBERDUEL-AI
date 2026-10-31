@@ -10,6 +10,7 @@ from apps.api.app.api.v1.blue import router as blue_router
 from apps.api.app.api.v1.clients import router as clients_router
 from apps.api.app.api.v1.dashboard import router as dashboard_router
 from apps.api.app.api.v1.evaluations import router as evaluations_router
+from apps.api.app.api.v1.guardian import router as guardian_router
 from apps.api.app.api.v1.improvement import router as improvement_router
 from apps.api.app.api.v1.intelligence import router as intelligence_router
 from apps.api.app.api.v1.lab import router as lab_router
@@ -30,6 +31,7 @@ v1_router.include_router(analysis_router)
 v1_router.include_router(analyze_router)
 v1_router.include_router(blue_router)
 v1_router.include_router(evaluations_router)
+v1_router.include_router(guardian_router)
 v1_router.include_router(improvement_router)
 v1_router.include_router(intelligence_router)
 v1_router.include_router(lab_router)

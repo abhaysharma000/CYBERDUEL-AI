@@ -4,6 +4,7 @@ import { AuthProvider } from "./auth/AuthContext";
 import { Layout } from "./components/layout/Layout";
 
 import { OverviewPage } from "./pages/OverviewPage";
+import { GuardianPage } from "./pages/GuardianPage";
 import { RedAiPage } from "./pages/RedAiPage";
 import { BlueAiPage } from "./pages/BlueAiPage";
 import { EvaluationsPage } from "./pages/EvaluationsPage";
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<OverviewPage />} />
+            <Route path="guardian" element={<GuardianPage />} />
             <Route path="lab" element={<RedAiPage />} />
             <Route path="blue" element={<BlueAiPage />} />
             <Route path="evaluations" element={<EvaluationsPage />} />

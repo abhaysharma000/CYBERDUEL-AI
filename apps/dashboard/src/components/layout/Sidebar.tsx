@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import {
   Activity,
+  ShieldAlert,
   Flame,
   Shield,
   CheckCircle2,
@@ -24,6 +25,7 @@ interface NavItem {
 export const Sidebar: React.FC = () => {
   const navigation: NavItem[] = [
     { name: "Command Overview", path: "/", icon: Activity },
+    { name: "Guardian Control", path: "/guardian", icon: ShieldAlert, badge: "AI" },
     { name: "Red AI Lab", path: "/lab", icon: Flame },
     { name: "Blue AI Defense", path: "/blue", icon: Shield },
     { name: "Evaluations & Benchmarks", path: "/evaluations", icon: CheckCircle2 },

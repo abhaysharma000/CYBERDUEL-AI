@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CyberDuel AI — Protection Settings & Architecture</title>
   <link rel="stylesheet" href="./src/options/options.css">
 </head>
+
 <body class="theme-dark">
   <div class="options-layout">
     <!-- Sidebar -->
@@ -43,7 +45,8 @@
           <div class="setting-row">
             <div>
               <div class="setting-title">Enable Real-Time Navigation Guard</div>
-              <div class="setting-desc">Applies local declarative rules and Declarative Net Request filters to web traffic.</div>
+              <div class="setting-desc">Applies local declarative rules and Declarative Net Request filters to web
+                traffic.</div>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" id="optProtectionEnabled" checked>
@@ -71,7 +74,8 @@
             <div style="display: flex; flex-direction: column; gap: 6px; width: 340px;">
               <input type="text" id="optBackendUrl" class="form-input" value="https://cyberduel-ai-1.onrender.com" />
               <div style="display: flex; align-items: center; gap: 8px;">
-                <button id="testBackendBtn" type="button" class="btn btn-secondary" style="font-size: 11px; padding: 4px 10px;">Test Connection</button>
+                <button id="testBackendBtn" type="button" class="btn btn-secondary"
+                  style="font-size: 11px; padding: 4px 10px;">Test Connection</button>
                 <span id="testBackendMsg" style="font-size: 11px; font-weight: 500;"></span>
               </div>
             </div>
@@ -108,12 +112,13 @@
           <div class="setting-group">
             <div class="setting-title">Telemetry Mode</div>
             <div class="setting-desc">Choose what diagnostic observations may be sent to the research lab.</div>
-            
+
             <div class="radio-option">
               <input type="radio" id="modeMinimal" name="telemetryMode" value="minimal" checked>
               <label for="modeMinimal">
                 <strong>Minimal SHA-256 Digest (Recommended)</strong>
-                <span>Sends only irreversible cryptographic hash digests (SHA-256), domain name, and local rule verdict. Sensitive query parameters, page HTML, passwords, and browsing history are NEVER collected.</span>
+                <span>Sends only irreversible cryptographic hash digests (SHA-256), domain name, and local rule verdict.
+                  Sensitive query parameters, page HTML, passwords, and browsing history are NEVER collected.</span>
               </label>
             </div>
 
@@ -121,7 +126,8 @@
               <input type="radio" id="modeDisabled" name="telemetryMode" value="disabled">
               <label for="modeDisabled">
                 <strong>Disabled (Strict Local Privacy)</strong>
-                <span>Zero telemetry or observation reports are ever sent. All detection functions purely offline using local cached policies.</span>
+                <span>Zero telemetry or observation reports are ever sent. All detection functions purely offline using
+                  local cached policies.</span>
               </label>
             </div>
 
@@ -129,7 +135,8 @@
               <input type="radio" id="modeFull" name="telemetryMode" value="full_url">
               <label for="modeFull">
                 <strong>Full Target URL (Explicit Lab Research Opt-In)</strong>
-                <span>Sends the normalized canonical URL for high-risk destinations (still redacting sensitive passwords and session tokens).</span>
+                <span>Sends the normalized canonical URL for high-risk destinations (still redacting sensitive passwords
+                  and session tokens).</span>
               </label>
             </div>
           </div>
@@ -137,7 +144,8 @@
           <div class="setting-row">
             <div>
               <div class="setting-title">Cloud Deep Analysis Fallback</div>
-              <div class="setting-desc">Allow querying /api/v1/analysis/evaluate for ambiguous destinations when local policy is uncertain.</div>
+              <div class="setting-desc">Allow querying /api/v1/analysis/evaluate for ambiguous destinations when local
+                policy is uncertain.</div>
             </div>
             <label class="toggle-switch">
               <input type="checkbox" id="optCloudAnalysis" checked>
@@ -182,7 +190,8 @@
           <div class="section-divider"></div>
 
           <h3>Configured Public Trust Anchors (Ed25519)</h3>
-          <p class="section-desc">Public keys used to authenticate release manifests. Release private keys are NEVER accessible to edge clients.</p>
+          <p class="section-desc">Public keys used to authenticate release manifests. Release private keys are NEVER
+            accessible to edge clients.</p>
           <div class="trust-keys-list" id="trustKeysList">
             <!-- Dynamically populated -->
           </div>
@@ -217,7 +226,9 @@
                 </tr>
               </thead>
               <tbody id="recentEvalsBody">
-                <tr><td colspan="5" class="empty-cell">No evaluations recorded yet.</td></tr>
+                <tr>
+                  <td colspan="5" class="empty-cell">No evaluations recorded yet.</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -235,19 +246,25 @@
           <h3>Declared Permissions and Justifications</h3>
           <ul class="permission-list">
             <li>
-              <strong>storage</strong>: Persists the verified policy bundle, cryptographic manifest metadata, monotonic sequence counter, and user settings securely in <code>chrome.storage.local</code>.
+              <strong>storage</strong>: Persists the verified policy bundle, cryptographic manifest metadata, monotonic
+              sequence counter, and user settings securely in <code>chrome.storage.local</code>.
             </li>
             <li>
-              <strong>declarativeNetRequest</strong>: Compiles approved threat indicators into synchronous browser dynamic blocking rules. Runs directly inside the browser network process with zero overhead.
+              <strong>declarativeNetRequest</strong>: Compiles approved threat indicators into synchronous browser
+              dynamic blocking rules. Runs directly inside the browser network process with zero overhead.
             </li>
             <li>
-              <strong>alarms</strong>: Schedules periodic background checks (default every 30 minutes) to query the release authority for signed security updates without running a permanent background process.
+              <strong>alarms</strong>: Schedules periodic background checks (default every 30 minutes) to query the
+              release authority for signed security updates without running a permanent background process.
             </li>
             <li>
-              <strong>activeTab</strong>: Enables the popup to query the active tab's URL for on-demand manual security inspection without requiring permanent tab monitoring.
+              <strong>activeTab</strong>: Enables the popup to query the active tab's URL for on-demand manual security
+              inspection without requiring permanent tab monitoring.
             </li>
             <li>
-              <strong>host_permissions (&lt;all_urls&gt;)</strong>: Required for the Declarative Net Request engine to block confirmed malicious domains across the web and for the Link Guard content script to intercept clicked phishing links.
+              <strong>host_permissions (&lt;all_urls&gt;)</strong>: Required for the Declarative Net Request engine to
+              block confirmed malicious domains across the web and for the Link Guard content script to intercept
+              clicked phishing links.
             </li>
           </ul>
 
@@ -259,13 +276,18 @@
           </p>
           <ul class="boundary-list">
             <li>
-              <strong>Typed Navigation</strong>: Manifest V3 does not allow arbitrary extensions to synchronously inspect URLs typed directly into the omnibox before navigation, unless matched by existing declarative DNR rules.
+              <strong>Typed Navigation</strong>: Manifest V3 does not allow arbitrary extensions to synchronously
+              inspect URLs typed directly into the omnibox before navigation, unless matched by existing declarative DNR
+              rules.
             </li>
             <li>
-              <strong>Dynamic Quotas</strong>: Chrome enforces a strict limit (~30,000 rules) on dynamic declarative rules. CyberDuel optimizes this by compiling only high-impact confirmed indicators into DNR.
+              <strong>Dynamic Quotas</strong>: Chrome enforces a strict limit (~30,000 rules) on dynamic declarative
+              rules. CyberDuel optimizes this by compiling only high-impact confirmed indicators into DNR.
             </li>
             <li>
-              <strong>No Arbitrary Code in Updates</strong>: Update bundles contain strictly declarative AST rules, prefixes, and weights. No remote JavaScript, WebAssembly bytecode, or scripts are ever downloaded or executed.
+              <strong>No Arbitrary Code in Updates</strong>: Update bundles contain strictly declarative AST rules,
+              prefixes, and weights. No remote JavaScript, WebAssembly bytecode, or scripts are ever downloaded or
+              executed.
             </li>
           </ul>
         </div>
@@ -275,5 +297,5 @@
 
   <script type="module" src="./src/options/options.ts"></script>
 </body>
-</html>
 
+</html>

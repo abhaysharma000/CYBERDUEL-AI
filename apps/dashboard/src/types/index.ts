@@ -279,3 +279,75 @@ export interface AuditQueryResponse {
   offset: number;
 }
 
+export type GuardianState =
+  | "idle"
+  | "researching"
+  | "analyzing"
+  | "defending"
+  | "evaluating"
+  | "approval_pending"
+  | "released"
+  | "failed"
+  | "rolled_back";
+
+export interface AgentHealthStatus {
+  agent_name: string;
+  role: string;
+  status: "online" | "degraded" | "offline";
+  last_heartbeat: string;
+  current_task: string;
+  processed_count: number;
+  details?: Record<string, any>;
+}
+
+export interface GuardianActivityEvent {
+  event_id: string;
+  timestamp: string;
+  event_type: string;
+  state: GuardianState;
+  summary: string;
+  details: Record<string, any>;
+}
+
+export interface GuardianDecisionExplanation {
+  decision_id: string;
+  candidate_id: string;
+  candidate_version: string;
+  outcome: string;
+  release_recommendation: boolean;
+  confidence: number;
+  reasoning_summary: string;
+  comparative_analysis: Record<string, any>;
+  created_at: string;
+}
+
+export interface GuardianMissionContract {
+  mission_id: string;
+  mission_name: string;
+  state: GuardianState;
+  target_family: string;
+  experiment_id?: string;
+  candidate_id?: string;
+  candidate_version?: string;
+  evaluation_id?: string;
+  release_id?: string;
+  policy_version?: string;
+  terminal_reason?: string;
+  decision_explanation?: GuardianDecisionExplanation;
+  timeline: GuardianActivityEvent[];
+  created_at: string;
+  completed_at?: string;
+}
+
+export interface GuardianStatusResponse {
+  guardian_state: GuardianState;
+  agents: Record<string, AgentHealthStatus>;
+  active_mission?: GuardianMissionContract;
+  active_policy_version: string;
+  registered_clients_count: number;
+  qwen_connected: boolean;
+  qwen_model: string;
+  last_updated: string;
+}
+
+

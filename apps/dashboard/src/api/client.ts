@@ -6,6 +6,9 @@ import {
   DashboardOverviewResponse,
   EvaluationReport,
   FailureGroupSummary,
+  GuardianActivityEvent,
+  GuardianMissionContract,
+  GuardianStatusResponse,
   ImprovementCycle,
   LabExperiment,
   OperatorOption,
@@ -380,5 +383,32 @@ export const intelligenceApi = {
 export const systemApi = {
   getStatus: async () => {
     return request<SystemHealthInfo>("/system/status");
+  },
+};
+
+export const guardianApi = {
+  getStatus: async () => {
+    return request<GuardianStatusResponse>("/guardian/status");
+  },
+
+  getActivity: async (limit: number = 30) => {
+    return request<GuardianActivityEvent[]>(`/guardian/activity?limit=${limit}`);
+  },
+
+  triggerLiveDefenseChallenge: async () => {
+    return request<GuardianMissionContract>("/guardian/challenge", {
+      method: "POST",
+    });
+  },
+
+  startMission: async (data: { mission_name?: string; target_family?: string; auto_release?: boolean } = {}) => {
+    return request<GuardianMissionContract>("/guardian/missions", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  },
+
+  getMission: async (missionId: string) => {
+    return request<GuardianMissionContract>(`/guardian/missions/${missionId}`);
   },
 };

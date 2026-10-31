@@ -37,7 +37,9 @@ if not os.environ.get("DATABASE_URL"):
     os.environ["DATABASE_URL"] = "sqlite+aiosqlite:////tmp/cyberduel.db"
     os.environ["DATABASE_URL_SYNC"] = "sqlite:////tmp/cyberduel.db"
 
-from apps.api.app.main import app  # noqa: E402
+from apps.api.app.main import app as _fastapi_app  # noqa: E402
 
-# Top-level FastAPI application instance exported for Vercel
+# Explicit top-level FastAPI application assignment for Vercel detector
+app = _fastapi_app
+
 __all__ = ["app"]

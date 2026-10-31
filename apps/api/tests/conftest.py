@@ -16,6 +16,7 @@ from apps.api.app.core.config import Settings, get_settings
 from apps.api.app.core.rate_limit import limiter
 from apps.api.app.db.session import get_db_session
 from apps.api.app.main import create_app
+import apps.api.app.models  # noqa: F401
 from apps.api.app.models.base import Base
 
 
