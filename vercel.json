@@ -3,8 +3,13 @@
   "buildCommand": "npm --prefix apps/dashboard install && npm --prefix apps/dashboard run build",
   "outputDirectory": "apps/dashboard/dist",
   "functions": {
-    "api/**/*.py": {
-      "includeFiles": "apps/api/**,packages/**,services/**,datasets/**",
+    "api/index.py": {
+      "includeFiles": [
+        "apps/api/**",
+        "packages/**",
+        "services/**",
+        "datasets/**"
+      ],
       "maxDuration": 30
     }
   },
