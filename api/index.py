@@ -13,11 +13,19 @@ from pathlib import Path
 
 # Resolve workspace root and package paths
 ROOT_DIR = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT_DIR))
-sys.path.insert(0, str(ROOT_DIR / "apps" / "api"))
-sys.path.insert(0, str(ROOT_DIR / "packages" / "shared-contracts"))
-sys.path.insert(0, str(ROOT_DIR / "packages" / "threat-intelligence"))
-sys.path.insert(0, str(ROOT_DIR / "packages" / "policy-engine"))
+for pkg_path in [
+    ROOT_DIR,
+    ROOT_DIR / "apps" / "api",
+    ROOT_DIR / "packages" / "shared-contracts",
+    ROOT_DIR / "packages" / "threat-intelligence",
+    ROOT_DIR / "packages" / "policy-engine",
+    ROOT_DIR / "services" / "lab-worker",
+    ROOT_DIR / "services" / "lab_worker",
+    ROOT_DIR / "services" / "evaluator",
+]:
+    p_str = str(pkg_path)
+    if p_str not in sys.path:
+        sys.path.insert(0, p_str)
 
 # Ensure writeable temporary directories in Vercel serverless environment
 if not os.environ.get("STORAGE_RELEASES_DIR"):

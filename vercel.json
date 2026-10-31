@@ -1,8 +1,13 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "npm --prefix apps/dashboard install",
   "buildCommand": "npm --prefix apps/dashboard install && npm --prefix apps/dashboard run build",
   "outputDirectory": "apps/dashboard/dist",
+  "functions": {
+    "api/**/*.py": {
+      "includeFiles": "apps/api/**,packages/**,services/**,datasets/**",
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
     {
       "source": "/api/v1/:match*",
