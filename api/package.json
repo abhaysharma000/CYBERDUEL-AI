@@ -1,0 +1,9 @@
+{
+  "name": "cyberduel-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CyberDuel AI API Serverless Entrypoint",
+  "scripts": {
+    "build": "cd ../apps/dashboard && npm install && npm run build"
+  }
+}

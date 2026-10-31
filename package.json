@@ -1,0 +1,9 @@
+{
+  "name": "cyberduel-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CyberDuel AI Platform Monorepo",
+  "scripts": {
+    "build": "cd apps/dashboard && npm install && npm run build"
+  }
+}

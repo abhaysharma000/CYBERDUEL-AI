@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "(cd apps/dashboard 2>/dev/null || cd ../apps/dashboard) && npm install && npm run build && (mkdir -p ../api/apps/dashboard && cp -r dist ../api/apps/dashboard/ 2>/dev/null || true)",
+  "buildCommand": "if [ -d \"apps/dashboard\" ]; then cd apps/dashboard; else cd ../apps/dashboard; fi && npm install && npm run build",
   "outputDirectory": "apps/dashboard/dist",
   "functions": {
     "api/index.py": {
