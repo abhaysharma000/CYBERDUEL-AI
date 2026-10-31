@@ -4,12 +4,7 @@
   "outputDirectory": "apps/dashboard/dist",
   "functions": {
     "api/index.py": {
-      "includeFiles": [
-        "apps/api/**",
-        "packages/**",
-        "services/**",
-        "datasets/**"
-      ],
+      "includeFiles": "{apps/api/**,packages/**,services/**,datasets/**}",
       "maxDuration": 30
     }
   },
