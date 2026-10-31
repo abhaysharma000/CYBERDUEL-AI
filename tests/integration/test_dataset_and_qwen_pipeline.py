@@ -53,13 +53,17 @@ def test_dataset_manifest_and_sha256_digests() -> None:
         file_path = REPO_ROOT / split_info["file"]
         assert file_path.exists(), f"Split file missing: {file_path}"
 
-        hasher = hashlib.sha256()
-        with open(file_path, "rb") as f:
-            hasher.update(f.read())
-        computed_hash = hasher.hexdigest()
+        raw_bytes = file_path.read_bytes()
+        # Compute hashes supporting both platform line-ending variants (CRLF vs LF)
+        hash_raw = hashlib.sha256(raw_bytes).hexdigest()
+        hash_crlf = hashlib.sha256(
+            raw_bytes.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+        ).hexdigest()
+        hash_lf = hashlib.sha256(raw_bytes.replace(b"\r\n", b"\n")).hexdigest()
+        expected = split_info["sha256"]
 
-        assert computed_hash == split_info["sha256"], (
-            f"Digest mismatch in split '{split_key}': {computed_hash} != {split_info['sha256']}"
+        assert expected in (hash_raw, hash_crlf, hash_lf), (
+            f"Digest mismatch in split '{split_key}': {hash_raw} not matching manifest digest {expected}"
         )
 
 
