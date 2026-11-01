@@ -291,63 +291,102 @@ export type GuardianState =
   | "rolled_back";
 
 export interface AgentHealthStatus {
-  agent_name: string;
-  role: string;
-  status: "online" | "degraded" | "offline";
-  last_heartbeat: string;
-  current_task: string;
-  processed_count: number;
+  role?: string;
+  status: "online" | "degraded" | "offline" | string;
+  agent_name?: string;
+  model?: string;
+  provider_type?: string;
+  last_active_at?: string;
+  last_heartbeat?: string;
+  current_task?: string;
+  latency_ms?: number;
+  processed_count?: number;
   details?: Record<string, any>;
 }
 
 export interface GuardianActivityEvent {
-  event_id: string;
-  timestamp: string;
-  event_type: string;
-  state: GuardianState;
-  summary: string;
-  details: Record<string, any>;
+  id?: string;
+  event_id?: string;
+  mission_id?: string | null;
+  step_name?: string;
+  stage?: GuardianState | string;
+  state?: GuardianState | string;
+  message?: string;
+  summary?: string;
+  actor?: string;
+  evidence?: Record<string, any>;
+  created_at?: string;
+  timestamp?: string;
+  event_type?: string;
+  details?: Record<string, any>;
 }
 
 export interface GuardianDecisionExplanation {
-  decision_id: string;
-  candidate_id: string;
-  candidate_version: string;
-  outcome: string;
-  release_recommendation: boolean;
+  selected_candidate_id?: string | null;
+  selected_candidate_version?: string | null;
+  decision_id?: string;
+  candidate_id?: string;
+  candidate_version?: string;
+  outcome?: string;
+  threat_priority?: string;
+  research_priority?: string;
+  candidate_priority?: string;
+  expected_detection_benefit?: string;
+  false_positive_concerns?: string;
+  evaluator_verdict?: string;
+  release_recommendation?: string | boolean;
+  user_impact?: string;
   confidence: number;
+  uncertainty?: string;
+  recommended_next_action?: string;
   reasoning_summary: string;
-  comparative_analysis: Record<string, any>;
-  created_at: string;
+  comparative_analysis?: Record<string, any>;
+  created_at?: string;
 }
 
 export interface GuardianMissionContract {
   mission_id: string;
   mission_name: string;
-  state: GuardianState;
-  target_family: string;
+  goal: string;
+  state: GuardianState | string;
+  trigger_source?: string;
+  target_family?: string;
   experiment_id?: string;
   candidate_id?: string;
   candidate_version?: string;
   evaluation_id?: string;
   release_id?: string;
   policy_version?: string;
+  initial_threat_url?: string;
+  initial_decision?: string;
+  final_decision?: string;
+  benign_control_url?: string;
+  benign_control_decision?: string;
   terminal_reason?: string;
   decision_explanation?: GuardianDecisionExplanation;
-  timeline: GuardianActivityEvent[];
-  created_at: string;
+  timeline?: GuardianActivityEvent[];
+  started_at?: string;
+  created_at?: string;
   completed_at?: string;
 }
 
 export interface GuardianStatusResponse {
-  guardian_state: GuardianState;
-  agents: Record<string, AgentHealthStatus>;
-  active_mission?: GuardianMissionContract;
-  active_policy_version: string;
-  registered_clients_count: number;
-  qwen_connected: boolean;
-  qwen_model: string;
-  last_updated: string;
+  guardian_name?: string;
+  version?: string;
+  state?: GuardianState | string;
+  guardian_state?: GuardianState | string;
+  active_mission_id?: string | null;
+  agent_health?: Record<string, AgentHealthStatus>;
+  agents?: Record<string, AgentHealthStatus>;
+  qwen_status?: Record<string, any>;
+  active_policy_version?: string;
+  total_missions_executed?: number;
+  latest_decision?: GuardianDecisionExplanation | null;
+  active_mission?: GuardianMissionContract | null;
+  registered_clients_count?: number;
+  qwen_connected?: boolean;
+  qwen_model?: string;
+  last_updated?: string;
 }
 
 

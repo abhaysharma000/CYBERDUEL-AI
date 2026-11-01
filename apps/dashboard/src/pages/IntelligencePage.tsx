@@ -73,7 +73,7 @@ export const IntelligencePage: React.FC = () => {
           onClick={() => setActiveTab("indicators")}
           className={`pb-3 text-sm font-mono font-semibold transition-colors border-b-2 flex items-center gap-2 ${
             activeTab === "indicators"
-              ? "border-cyan-500 text-red-400"
+              ? "border-red-500 text-red-400"
               : "border-transparent text-slate-400 hover:text-slate-200"
           }`}
         >
@@ -84,7 +84,7 @@ export const IntelligencePage: React.FC = () => {
           onClick={() => setActiveTab("observations")}
           className={`pb-3 text-sm font-mono font-semibold transition-colors border-b-2 flex items-center gap-2 ${
             activeTab === "observations"
-              ? "border-cyan-500 text-red-400"
+              ? "border-red-500 text-red-400"
               : "border-transparent text-slate-400 hover:text-slate-200"
           }`}
         >

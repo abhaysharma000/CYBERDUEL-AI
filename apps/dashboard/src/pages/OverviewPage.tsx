@@ -225,7 +225,7 @@ export const OverviewPage: React.FC = () => {
 
               <div className="flex items-center justify-between text-sm">
                 <span className="text-slate-400 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+                  <span className="w-2 h-2 rounded-full bg-red-400"></span>
                   Active in Last 24 Hours
                 </span>
                 <span className="font-mono font-bold text-red-400">{clients.active_last_24h}</span>
