@@ -100,7 +100,7 @@ class SettingsRepository(context: Context) {
         private const val KEY_THREAT_HISTORY = "threat_history"
 
         // Default to Render production backend (or override via settings screen)
-        const val DEFAULT_BACKEND_URL = "https://cyberduel-ai-1.onrender.com"
+        const val DEFAULT_BACKEND_URL = "https://cyberduel-ai-pabz.onrender.com"
     }
 }
 

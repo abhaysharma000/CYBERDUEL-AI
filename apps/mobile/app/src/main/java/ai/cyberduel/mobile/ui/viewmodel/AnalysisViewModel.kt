@@ -74,23 +74,21 @@ class AnalysisViewModel : ViewModel() {
                 launch(Dispatchers.IO) {
                     try {
                         val report = ThreatObservationReport(
-                            observationId = "obs-m-${UUID.randomUUID().toString().take(8)}",
-                            reportedAt = Instant.now().toString(),
+                            observationId = UUID.randomUUID().toString(),
                             source = "mobile_app",
-                            normalizedIdentifier = normalized.urlSha256,
-                            observedUrl = null, // Strictly minimize private query parameters
-                            detectedFeatures = JsonObject(mapOf(
+                            normalizedTarget = normalized.domain.ifEmpty { normalized.canonicalUrl },
+                            observedAt = Instant.now().toString(),
+                            localActionTaken = threatResult.decision,
+                            engineVersion = "1.0.0",
+                            policyVersion = threatResult.policyVersion,
+                            telemetrySummary = JsonObject(mapOf(
+                                "raw_url" to JsonPrimitive(normalized.canonicalUrl),
                                 "domain" to JsonPrimitive(normalized.domain),
-                                "domain_sha256" to JsonPrimitive(normalized.domainSha256),
-                                "is_ip_literal" to JsonPrimitive(normalized.isIpLiteral),
-                                "is_punycode" to JsonPrimitive(normalized.isPunycode)
-                            )),
-                            initialDecision = threatResult.decision,
-                            initialRiskScore = threatResult.riskScore,
-                            clientPolicyVersion = threatResult.policyVersion,
-                            context = JsonObject(mapOf(
+                                "risk_score" to JsonPrimitive(threatResult.riskScore),
+                                "confidence_score" to JsonPrimitive(threatResult.confidence),
+                                "explanation" to JsonPrimitive(threatResult.explanation),
                                 "client_id" to JsonPrimitive(app.settingsRepository.clientId),
-                                "provenance" to JsonPrimitive(threatResult.provenance.name.lowercase())
+                                "threat_types" to JsonPrimitive(if (threatResult.decision == Decision.BLOCK) "phishing" else "suspicious")
                             ))
                         )
                         app.apiClient.reportObservation(report)
@@ -111,21 +109,17 @@ class AnalysisViewModel : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val report = ThreatObservationReport(
-                    observationId = "fp-m-${UUID.randomUUID().toString().take(8)}",
-                    reportedAt = Instant.now().toString(),
+                    observationId = UUID.randomUUID().toString(),
                     source = "mobile_app",
-                    normalizedIdentifier = currentNorm?.urlSha256 ?: "manual-dispute",
-                    observedUrl = null,
-                    detectedFeatures = JsonObject(mapOf(
+                    normalizedTarget = currentNorm?.domain ?: currentNorm?.canonicalUrl ?: "manual-dispute.example",
+                    observedAt = Instant.now().toString(),
+                    localActionTaken = currentResult.decision,
+                    engineVersion = "1.0.0",
+                    policyVersion = currentResult.policyVersion,
+                    telemetrySummary = JsonObject(mapOf(
                         "disputed_decision" to JsonPrimitive(currentResult.decision.name),
-                        "user_reason" to JsonPrimitive(reason)
-                    )),
-                    initialDecision = currentResult.decision,
-                    initialRiskScore = currentResult.riskScore,
-                    clientPolicyVersion = currentResult.policyVersion,
-                    context = JsonObject(mapOf(
-                        "client_id" to JsonPrimitive(app.settingsRepository.clientId),
-                        "user_reason" to JsonPrimitive(reason)
+                        "user_reason" to JsonPrimitive(reason),
+                        "client_id" to JsonPrimitive(app.settingsRepository.clientId)
                     ))
                 )
 

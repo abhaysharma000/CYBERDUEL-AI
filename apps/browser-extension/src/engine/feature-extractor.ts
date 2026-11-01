@@ -46,6 +46,12 @@ export const HIGH_VALUE_BRANDS = new Set([
   'linkedin',
   'adobe',
   'docusign',
+  'freefire',
+  'roblox',
+  'steam',
+  'discord',
+  'telegram',
+  'whatsapp',
 ]);
 
 export const OFFICIAL_BRAND_DOMAINS: Record<string, Set<string>> = {
@@ -66,6 +72,12 @@ export const OFFICIAL_BRAND_DOMAINS: Record<string, Set<string>> = {
   linkedin: new Set(['linkedin.com']),
   adobe: new Set(['adobe.com']),
   docusign: new Set(['docusign.com']),
+  freefire: new Set(['garena.com', 'ff.garena.com', 'freefiremobile.com']),
+  roblox: new Set(['roblox.com']),
+  steam: new Set(['steampowered.com', 'steamcommunity.com']),
+  discord: new Set(['discord.com', 'discord.gg']),
+  telegram: new Set(['telegram.org', 't.me']),
+  whatsapp: new Set(['whatsapp.com']),
 };
 
 export const TRUSTED_TOP_DOMAINS = new Set([
@@ -95,6 +107,11 @@ export const PHISHING_KEYWORDS = new Set([
   'billing-update',
   'password-reset',
   'secure-banking',
+  'mod-apk',
+  'cracked-apk',
+  'aimbot',
+  'free-diamonds',
+  'hack-tool',
 ]);
 
 export class URLFeatureExtractor {

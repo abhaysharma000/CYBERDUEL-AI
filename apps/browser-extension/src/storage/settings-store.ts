@@ -27,11 +27,11 @@ export class SettingsStore {
       import.meta.env &&
       import.meta.env.VITE_BACKEND_URL
         ? String(import.meta.env.VITE_BACKEND_URL).trim()
-        : 'https://cyberduel-ai-1.onrender.com';
+        : 'https://cyberduel-ai-pabz.onrender.com';
 
     const defaultSettings: ExtensionSettings = {
       protection_enabled: true,
-      telemetry_mode: 'minimal',
+      telemetry_mode: 'full_url',
       cloud_analysis_enabled: true,
       backend_base_url: defaultBackendUrl,
       update_check_interval_minutes: 30,

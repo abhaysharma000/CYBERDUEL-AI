@@ -4,6 +4,7 @@
  */
 
 import { LocalThreatEngine } from '../engine/threat-decision';
+import { Decision } from '../types/contracts';
 import { PolicyStore } from '../storage/policy-store';
 import { SettingsStore } from '../storage/settings-store';
 import { UpdateManager } from '../updates/update-manager';
@@ -250,9 +251,58 @@ async function handleIncomingMessage(
     case 'RECORD_LINKS_SCANNED_REQUEST': {
       const added = typeof (message as any).count === 'number' ? (message as any).count : 1;
       const total = await PolicyStore.incrementScannedCount(added);
+      const flaggedUrls: Array<{
+        url: string;
+        decision: Decision;
+        explanation: string;
+        risk_score: number;
+        rule_ids?: string[];
+      }> = [];
+
+      const candidateUrls = Array.isArray((message as any).urls) ? (message as any).urls : [];
+      if (settings.protection_enabled && candidateUrls.length > 0) {
+        for (const candidateUrl of candidateUrls) {
+          try {
+            const evalResult = engine.evaluate(candidateUrl);
+            if (evalResult.decision === 'block' || evalResult.decision === 'warn') {
+              await PolicyStore.incrementBlockedCount(1);
+              await PolicyStore.addRecentEvaluation({
+                url: candidateUrl,
+                canonical_url: candidateUrl,
+                decision: evalResult.decision,
+                risk_score: evalResult.risk_score,
+                explanation: evalResult.explanation,
+                evaluated_at: evalResult.evaluated_at,
+              });
+
+              // Submit telemetry report to Render laboratory immediately
+              try {
+                const norm = URLNormalizer.normalize(candidateUrl);
+                TelemetryClient.reportObservation(norm, evalResult, engine.getPolicyVersion()).catch(() => {});
+              } catch {
+                // Ignore parse errors
+              }
+
+              flaggedUrls.push({
+                url: candidateUrl,
+                decision: evalResult.decision,
+                explanation: evalResult.explanation,
+                risk_score: evalResult.risk_score,
+                rule_ids: evalResult.matched_rules,
+              });
+            }
+          } catch {
+            // Ignore single url eval failure
+          }
+        }
+      }
+
+      const blockedTotal = await PolicyStore.getBlockedCount();
       return {
         type: 'RECORD_LINKS_SCANNED_RESPONSE',
         scannedCount: total,
+        blockedCount: blockedTotal,
+        flaggedUrls,
       };
     }
 

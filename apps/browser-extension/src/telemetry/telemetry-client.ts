@@ -13,13 +13,22 @@ import { SettingsStore } from '../storage/settings-store';
 import { computeSha256 } from '../crypto/sha256';
 
 export class TelemetryClient {
+  private static generateUuidV4(): string {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+    });
+  }
+
   private static async getBaseUrl(): Promise<string> {
     const settings = await SettingsStore.getSettings();
     return settings.backend_base_url.replace(/\/+$/, '');
   }
 
   /**
-   * Submit privacy-minimized threat observation report to /telemetry/observations.
+   * Submit privacy-conscious threat observation report to /telemetry/observations.
+   * Transmits suspicious or blocked links directly to the Render server laboratory.
    */
   public static async reportObservation(
     urlData: NormalizedURLData,
@@ -33,26 +42,25 @@ export class TelemetryClient {
 
     try {
       const baseUrl = await this.getBaseUrl();
-      const report: ThreatObservationReport = {
-        observation_id: 'obs-' + Math.random().toString(36).substring(2, 10),
-        reported_at: new Date().toISOString(),
+      const report = {
+        observation_id: this.generateUuidV4(),
         source: 'browser_extension',
-        normalized_identifier: urlData.url_sha256,
-        observed_url: settings.telemetry_mode === 'full_url' ? urlData.canonical_url : null,
-        detected_features: {
+        normalized_target: urlData.domain || urlData.canonical_url,
+        observed_at: new Date().toISOString(),
+        local_action_taken: localResult.decision,
+        engine_version: '1.0.0',
+        policy_version: policyVersion,
+        telemetry_summary: {
+          raw_url: urlData.canonical_url,
+          redacted_url: urlData.canonical_url,
           domain: urlData.domain,
-          domain_sha256: urlData.domain_sha256,
-          is_ip_literal: urlData.is_ip_literal,
-          is_punycode: urlData.is_punycode,
-          has_embedded_credentials: urlData.has_embedded_credentials,
-        },
-        initial_decision: localResult.decision,
-        initial_risk_score: localResult.risk_score,
-        client_policy_version: policyVersion,
-        context: {
-          client_id: settings.client_id,
+          risk_score: localResult.risk_score,
+          confidence_score: localResult.confidence || 0.95,
+          explanation: localResult.explanation,
           matched_rules: localResult.matched_rules,
           provenance: localResult.provenance,
+          client_id: settings.client_id,
+          threat_types: localResult.decision === 'block' ? ['phishing', 'malicious'] : ['suspicious'],
         },
       };
 

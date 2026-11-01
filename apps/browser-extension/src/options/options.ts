@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       optProtectionEnabled.checked = s.protection_enabled;
       optChannelSelect.value = s.channel || 'stable';
-      optBackendUrl.value = s.backend_base_url || 'https://cyberduel-ai-1.onrender.com';
+      optBackendUrl.value = s.backend_base_url || 'https://cyberduel-ai-pabz.onrender.com';
       optIntervalSelect.value = String(s.update_check_interval_minutes || 30);
 
       if (s.telemetry_mode === 'disabled') {

@@ -21,6 +21,7 @@ import { EvaluateURLRequest, EvaluateURLResponse } from '../types/messages';
     try {
       const anchors = document.querySelectorAll<HTMLAnchorElement>('a[href]');
       let newLinksCount = 0;
+      const candidateUrls: string[] = [];
 
       for (let i = 0; i < anchors.length; i++) {
         const href = anchors[i].href;
@@ -31,18 +32,71 @@ import { EvaluateURLRequest, EvaluateURLResponse } from '../types/messages';
         ) {
           scannedHrefs.add(href);
           newLinksCount++;
+          if (candidateUrls.length < 50) {
+            candidateUrls.push(href);
+          }
         }
       }
 
       if (newLinksCount > 0 && chrome.runtime?.id) {
-        chrome.runtime.sendMessage({
-          type: 'RECORD_LINKS_SCANNED_REQUEST',
-          count: newLinksCount,
-          timestamp: new Date().toISOString(),
-        });
+        chrome.runtime.sendMessage(
+          {
+            type: 'RECORD_LINKS_SCANNED_REQUEST',
+            count: newLinksCount,
+            urls: candidateUrls,
+            timestamp: new Date().toISOString(),
+          },
+          (response) => {
+            if (chrome.runtime.lastError || !response || !response.flaggedUrls) {
+              return;
+            }
+
+            const flagged = response.flaggedUrls;
+            if (Array.isArray(flagged) && flagged.length > 0) {
+              for (const item of flagged) {
+                flagThreatInDom(item.url, item.decision, item.explanation);
+              }
+            }
+          }
+        );
       }
     } catch {
       // Ignore context errors
+    }
+  }
+
+  function flagThreatInDom(url: string, decision: string, explanation: string) {
+    try {
+      const matchingAnchors = document.querySelectorAll<HTMLAnchorElement>(`a[href="${CSS.escape(url)}"], a[href^="${CSS.escape(url)}"]`);
+      matchingAnchors.forEach((a) => {
+        if (a.getAttribute('data-cyberduel-inspected')) return;
+        a.setAttribute('data-cyberduel-inspected', 'true');
+        a.setAttribute('data-cyberduel-threat', decision);
+
+        a.style.outline = decision === 'block' ? '2px dashed #ef4444' : '2px dashed #f59e0b';
+        a.style.outlineOffset = '2px';
+        a.title = `🛡️ CyberDuel AI Guard: ${explanation}`;
+
+        const badge = document.createElement('span');
+        badge.textContent = decision === 'block' ? ' ⚠️ BLOCKED THREAT' : ' ⚡ SUSPICIOUS LINK';
+        badge.style.cssText = `
+          display: inline-block;
+          font-size: 10px;
+          font-weight: 700;
+          font-family: monospace;
+          background: ${decision === 'block' ? '#dc2626' : '#d97706'};
+          color: #ffffff;
+          padding: 1px 5px;
+          border-radius: 3px;
+          margin-left: 4px;
+          vertical-align: middle;
+          letter-spacing: 0.5px;
+          pointer-events: none;
+        `;
+        a.appendChild(badge);
+      });
+    } catch {
+      // Ignore DOM selector issues
     }
   }
 

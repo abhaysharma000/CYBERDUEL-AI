@@ -7,14 +7,12 @@ import kotlinx.serialization.json.JsonObject
 @Serializable
 data class ThreatObservationReport(
     @SerialName("observation_id") val observationId: String,
-    @SerialName("reported_at") val reportedAt: String,
-    @SerialName("source") val source: String = "mobile_agent",
-    @SerialName("normalized_identifier") val normalizedIdentifier: String, // SHA-256 target digest
-    @SerialName("observed_url") val observedUrl: String? = null,
-    @SerialName("detected_features") val detectedFeatures: JsonObject,
-    @SerialName("initial_decision") val initialDecision: Decision,
-    @SerialName("initial_risk_score") val initialRiskScore: Double,
-    @SerialName("client_policy_version") val clientPolicyVersion: String,
-    @SerialName("context") val context: JsonObject
+    @SerialName("source") val source: String = "mobile_app",
+    @SerialName("normalized_target") val normalizedTarget: String,
+    @SerialName("observed_at") val observedAt: String,
+    @SerialName("local_action_taken") val localActionTaken: Decision? = null,
+    @SerialName("engine_version") val engineVersion: String = "1.0.0",
+    @SerialName("policy_version") val policyVersion: String,
+    @SerialName("telemetry_summary") val telemetrySummary: JsonObject = JsonObject(emptyMap())
 )
 

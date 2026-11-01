@@ -17,6 +17,16 @@ export const SUSPICIOUS_TLDS = new Set([
   'icu',
   'rest',
   'work',
+  'xyz',
+  'click',
+  'fit',
+  'club',
+  'surf',
+  'loan',
+  'gdn',
+  'party',
+  'kim',
+  'men',
 ]);
 
 export interface HeuristicAnalysisOutcome {

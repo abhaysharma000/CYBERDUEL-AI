@@ -68,11 +68,20 @@ export interface ProtectionStatusData {
 export interface RecordLinksScannedRequest extends BaseMessage {
   type: 'RECORD_LINKS_SCANNED_REQUEST';
   count: number;
+  urls?: string[];
 }
 
 export interface RecordLinksScannedResponse extends BaseMessage {
   type: 'RECORD_LINKS_SCANNED_RESPONSE';
   scannedCount: number;
+  blockedCount?: number;
+  flaggedUrls?: Array<{
+    url: string;
+    decision: Decision;
+    explanation: string;
+    risk_score: number;
+    rule_ids?: string[];
+  }>;
 }
 
 export interface GetProtectionStatusResponse extends BaseMessage {
