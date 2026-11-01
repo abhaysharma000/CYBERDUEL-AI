@@ -1,6 +1,7 @@
 package ai.cyberduel.mobile.ui.screens
 
 import android.content.Intent
+import android.net.Uri
 import android.provider.Settings
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.background
@@ -20,6 +21,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -71,6 +73,7 @@ fun HomeScreen(
 ) {
     val state by viewModel.uiState.collectAsState()
     var inputUrl by remember { mutableStateOf("") }
+    var showRestrictedDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.loadState()
@@ -204,7 +207,11 @@ fun HomeScreen(
 
                         Button(
                             onClick = {
-                                context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                                if (state.isBrowserGuardEnabled) {
+                                    context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                                } else {
+                                    showRestrictedDialog = true
+                                }
                             },
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = if (state.isBrowserGuardEnabled) CyberSurfaceVariant else CyberPrimary
@@ -220,6 +227,86 @@ fun HomeScreen(
                         }
                     }
                 }
+            }
+
+            if (showRestrictedDialog) {
+                AlertDialog(
+                    onDismissRequest = { showRestrictedDialog = false },
+                    title = {
+                        Text(
+                            text = "Enable Web Shield Protection",
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            fontSize = 17.sp
+                        )
+                    },
+                    text = {
+                        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                            Text(
+                                text = "On Android 13/14/15, sideloaded apps require permission approval before enabling Accessibility:",
+                                color = TextSecondary,
+                                fontSize = 13.sp
+                            )
+                            Card(
+                                colors = CardDefaults.cardColors(containerColor = CyberBackground),
+                                shape = RoundedCornerShape(8.dp)
+                            ) {
+                                Column(
+                                    modifier = Modifier.padding(10.dp),
+                                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                                ) {
+                                    Text(
+                                        text = "1. Tap 'Open App Info' below.",
+                                        color = TextPrimary,
+                                        fontSize = 12.sp
+                                    )
+                                    Text(
+                                        text = "2. Tap the ⋮ (three dots) in top-right corner.",
+                                        color = TextPrimary,
+                                        fontSize = 12.sp
+                                    )
+                                    Text(
+                                        text = "3. Tap 'Allow restricted settings' (verify with PIN/fingerprint).",
+                                        color = CyberPrimary,
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 12.sp
+                                    )
+                                    Text(
+                                        text = "4. Tap 'Go to Accessibility' and toggle CyberDuel AI ON.",
+                                        color = TextPrimary,
+                                        fontSize = 12.sp
+                                    )
+                                }
+                            }
+                        }
+                    },
+                    confirmButton = {
+                        Button(
+                            onClick = {
+                                showRestrictedDialog = false
+                                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                                    data = Uri.fromParts("package", context.packageName, null)
+                                }
+                                context.startActivity(intent)
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = CyberPrimary)
+                        ) {
+                            Text("Open App Info (3 Dots)", fontSize = 12.sp)
+                        }
+                    },
+                    dismissButton = {
+                        Button(
+                            onClick = {
+                                showRestrictedDialog = false
+                                context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = CyberSurfaceVariant)
+                        ) {
+                            Text("Go to Accessibility", fontSize = 12.sp)
+                        }
+                    },
+                    containerColor = CyberSurface
+                )
             }
         }
 
