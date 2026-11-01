@@ -84,6 +84,8 @@ dist/
 build/
 */dist/
 */*/dist/
+!apps/dashboard/dist/
+!apps/dashboard/dist/**
 */build/
 */*/build/
 
