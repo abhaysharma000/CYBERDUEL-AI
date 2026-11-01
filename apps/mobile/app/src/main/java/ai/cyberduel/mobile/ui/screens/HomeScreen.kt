@@ -1,5 +1,8 @@
 package ai.cyberduel.mobile.ui.screens
 
+import android.content.Intent
+import android.provider.Settings
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -159,6 +162,63 @@ fun HomeScreen(
                             uncheckedTrackColor = CyberSurfaceVariant
                         )
                     )
+                }
+            }
+        }
+
+        // Phone Browser Web Shield Status Card
+        item {
+            val context = LocalContext.current
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                colors = CardDefaults.cardColors(containerColor = CyberSurface),
+                shape = RoundedCornerShape(16.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = Modifier.weight(1f)) {
+                            Text(
+                                text = "🌐 Mobile Browser Web Shield",
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 15.sp,
+                                color = if (state.isBrowserGuardEnabled) DecisionAllow else DecisionWarn
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = if (state.isBrowserGuardEnabled)
+                                    "Active: Chrome, Brave & Browsers Protected"
+                                else
+                                    "Setup Required: Monitor Chrome & Brave links",
+                                fontSize = 12.sp,
+                                color = TextSecondary
+                            )
+                        }
+
+                        Button(
+                            onClick = {
+                                context.startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (state.isBrowserGuardEnabled) CyberSurfaceVariant else CyberPrimary
+                            ),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
+                            Text(
+                                text = if (state.isBrowserGuardEnabled) "Config" else "Enable",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color.White
+                            )
+                        }
+                    }
                 }
             }
         }

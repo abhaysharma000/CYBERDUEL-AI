@@ -42,6 +42,19 @@
                 <data android:scheme="https" />
             </intent-filter>
         </activity>
+
+        <!-- Real-Time Mobile Browser Web Shield Service (Chrome, Brave, Samsung Internet) -->
+        <service
+            android:name=".service.BrowserProtectionService"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/browser_accessibility_service" />
+        </service>
     </application>
 
 </manifest>

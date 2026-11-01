@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 
 data class HomeUiState(
     val isProtectionEnabled: Boolean = true,
+    val isBrowserGuardEnabled: Boolean = false,
     val policyVersion: String = "2026.10.1",
     val sequenceNumber: Long = 1L,
     val totalScans: Int = 0,
@@ -35,9 +36,11 @@ class HomeViewModel : ViewModel() {
         val history = app.settingsRepository.getHistory()
         val blockedCount = history.count { it.decision == Decision.BLOCK }
         val warnedCount = history.count { it.decision == Decision.WARN }
+        val isGuardActive = ai.cyberduel.mobile.service.BrowserProtectionService.isServiceRunning(app.applicationContext)
 
         _uiState.value = HomeUiState(
             isProtectionEnabled = app.settingsRepository.isProtectionEnabled,
+            isBrowserGuardEnabled = isGuardActive,
             policyVersion = policy.policyVersion,
             sequenceNumber = policy.sequenceNumber,
             totalScans = history.size,

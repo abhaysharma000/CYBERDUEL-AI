@@ -49,6 +49,11 @@ class MainActivity : ComponentActivity() {
             if (url.startsWith("http://") || url.startsWith("https://")) {
                 sharedUrlToInspect = url
             }
+        } else if (ai.cyberduel.mobile.service.BrowserProtectionService.ACTION_THREAT_BLOCKED == intent.action) {
+            val blockedUrl = intent.getStringExtra(ai.cyberduel.mobile.service.BrowserProtectionService.EXTRA_BLOCKED_URL)
+            if (!blockedUrl.isNullOrEmpty()) {
+                sharedUrlToInspect = blockedUrl
+            }
         }
     }
 }
