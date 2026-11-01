@@ -16,11 +16,19 @@ export class UpdateClient {
   private baseUrl: string;
 
   constructor(baseUrl = 'https://cyberduel-ai-pabz.onrender.com') {
-    this.baseUrl = baseUrl.replace(/\/+$/, '');
+    this.baseUrl = this.normalizeUrl(baseUrl);
+  }
+
+  private normalizeUrl(url: string): string {
+    let clean = (url || '').trim().replace(/\/+$/, '');
+    if (!clean || clean.includes('cyberduel-ai-1.onrender.com') || clean.includes('localhost')) {
+      clean = 'https://cyberduel-ai-pabz.onrender.com';
+    }
+    return clean;
   }
 
   public setBaseUrl(url: string): void {
-    this.baseUrl = url.replace(/\/+$/, '');
+    this.baseUrl = this.normalizeUrl(url);
   }
 
   public async checkForUpdates(request: UpdateCheckRequest): Promise<UpdateCheckResponse> {
@@ -29,6 +37,7 @@ export class UpdateClient {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Accept: 'application/json',
       },
       body: JSON.stringify(request),
     });
@@ -37,7 +46,14 @@ export class UpdateClient {
       throw new Error(`Update check failed with status ${res.status}: ${res.statusText}`);
     }
 
-    return (await res.json()) as UpdateCheckResponse;
+    const raw = await res.text();
+    try {
+      return JSON.parse(raw) as UpdateCheckResponse;
+    } catch {
+      throw new Error(
+        `Cloud server returned non-JSON response. Please verify the server URL in Options: ${this.baseUrl}`
+      );
+    }
   }
 
   public async fetchManifest(versionOrId: string): Promise<ReleaseManifest> {

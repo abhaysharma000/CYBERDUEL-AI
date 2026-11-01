@@ -11,10 +11,23 @@ export class SettingsStore {
   private static memorySettings: ExtensionSettings | null = null;
 
   public static async getSettings(): Promise<ExtensionSettings> {
+    const liveBackendUrl = 'https://cyberduel-ai-pabz.onrender.com';
+
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
       const data = await chrome.storage.local.get(this.SETTINGS_KEY);
       if (data && data[this.SETTINGS_KEY]) {
-        return data[this.SETTINGS_KEY] as ExtensionSettings;
+        const stored = data[this.SETTINGS_KEY] as ExtensionSettings;
+        const url = (stored.backend_base_url || '').trim().replace(/\/+$/, '');
+        // Auto-migrate stale endpoints (cyberduel-ai-1, localhost, or empty)
+        if (
+          !url ||
+          url.includes('cyberduel-ai-1.onrender.com') ||
+          url.includes('localhost')
+        ) {
+          stored.backend_base_url = liveBackendUrl;
+          await this.saveSettings(stored);
+        }
+        return stored;
       }
     }
 
@@ -27,7 +40,7 @@ export class SettingsStore {
       import.meta.env &&
       import.meta.env.VITE_BACKEND_URL
         ? String(import.meta.env.VITE_BACKEND_URL).trim()
-        : 'https://cyberduel-ai-pabz.onrender.com';
+        : liveBackendUrl;
 
     const defaultSettings: ExtensionSettings = {
       protection_enabled: true,

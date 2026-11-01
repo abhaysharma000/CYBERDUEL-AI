@@ -45,7 +45,14 @@ class SettingsRepository(context: Context) {
         set(value) = prefs.edit().putString(KEY_RELEASE_CHANNEL, value.name).apply()
 
     var backendUrl: String
-        get() = prefs.getString(KEY_BACKEND_URL, DEFAULT_BACKEND_URL) ?: DEFAULT_BACKEND_URL
+        get() {
+            val url = prefs.getString(KEY_BACKEND_URL, DEFAULT_BACKEND_URL) ?: DEFAULT_BACKEND_URL
+            if (url.contains("cyberduel-ai-1.onrender.com") || url.contains("localhost")) {
+                prefs.edit().putString(KEY_BACKEND_URL, DEFAULT_BACKEND_URL).apply()
+                return DEFAULT_BACKEND_URL
+            }
+            return url
+        }
         set(value) = prefs.edit().putString(KEY_BACKEND_URL, value.trimEnd('/')).apply()
 
     val clientId: String
