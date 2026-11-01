@@ -81,9 +81,10 @@ def create_app() -> FastAPI:
 
     # 6. Mount Static Dashboard SPA (when built distribution exists)
     from pathlib import Path
-    from fastapi.staticfiles import StaticFiles
-    from fastapi.responses import FileResponse
+
     from fastapi import HTTPException
+    from fastapi.responses import FileResponse
+    from fastapi.staticfiles import StaticFiles
 
     dist_candidates = [
         Path(__file__).resolve().parent.parent.parent.parent / "apps" / "dashboard" / "dist",

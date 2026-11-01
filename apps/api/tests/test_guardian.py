@@ -9,30 +9,23 @@ Validates:
 
 from __future__ import annotations
 
-import pytest
-from httpx import ASGITransport, AsyncClient
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from uuid import uuid4
 
-from apps.api.app.main import app
-from apps.api.app.services.blue_ai import CandidateDefenseBuilder
-from apps.api.app.services.guardian.decision_engine import GuardianDecisionEngine
-from apps.api.app.services.guardian.monitor import GuardianAgentMonitor
-from apps.api.app.services.guardian.supervisor import CyberDuelGuardian
+import pytest
 from cyberduel_contracts.enums import Decision, EvaluationVerdict, ProposalType, ThreatSeverity
 from cyberduel_contracts.evaluation import ConfusionMatrix, EvaluationReport, ImprovementMetrics
 from cyberduel_contracts.guardian import (
     GuardianDecisionOutcome,
-    GuardianMissionRequest,
-    GuardianState,
 )
 from cyberduel_contracts.policy import (
-    CandidateDefense,
     DeclarativeRuleModel,
     DefenseProposal,
     RulePredicateModel,
 )
+from httpx import AsyncClient
+
+from apps.api.app.services.blue_ai import CandidateDefenseBuilder
+from apps.api.app.services.guardian.decision_engine import GuardianDecisionEngine
 
 
 @pytest.mark.asyncio
@@ -49,7 +42,10 @@ async def test_guardian_status_endpoint(async_client: AsyncClient) -> None:
     assert "blue_ai" in data["agent_health"]
     assert "evaluator" in data["agent_health"]
     assert data["agent_health"]["evaluator"]["details"]["uses_llm"] is False
-    assert data["agent_health"]["evaluator"]["details"]["acceptance_criteria"] == "zero_regressions_required"
+    assert (
+        data["agent_health"]["evaluator"]["details"]["acceptance_criteria"]
+        == "zero_regressions_required"
+    )
     assert "qwen_status" in data
     assert "active_policy_version" in data
 

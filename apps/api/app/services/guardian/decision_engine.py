@@ -8,10 +8,8 @@ derived strictly from real evaluation reports and deterministic policy evaluatio
 from __future__ import annotations
 
 import logging
-from typing import Any
-from uuid import UUID
 
-from cyberduel_contracts.enums import Decision, EvaluationVerdict
+from cyberduel_contracts.enums import EvaluationVerdict
 from cyberduel_contracts.evaluation import EvaluationReport
 from cyberduel_contracts.guardian import (
     GuardianDecisionExplanation,
@@ -84,12 +82,16 @@ class GuardianDecisionEngine:
                 "May inadvertently interrupt benign enterprise traffic."
             )
             confidence = 0.70
-            uncertainty = "Elevated: predicates exhibit potential overbreadth requiring manual review."
+            uncertainty = (
+                "Elevated: predicates exhibit potential overbreadth requiring manual review."
+            )
 
         # Recommendation and User Impact
         if passed:
             recommendation = "promote"
-            next_action = "Authorize Ed25519 cryptographic signing and initiate staged canary rollout."
+            next_action = (
+                "Authorize Ed25519 cryptographic signing and initiate staged canary rollout."
+            )
             user_impact = (
                 "Users will be proactively shielded from novel homoglyph/IDN spoofing attacks "
                 "without any observed disruption to legitimate navigation."

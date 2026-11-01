@@ -56,7 +56,4 @@ class GuardianMissionRecord(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     completed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     terminal_reason: Mapped[str | None] = mapped_column(Text, nullable=True)
 
-    __table_args__ = (
-        Index("ix_guardian_missions_state_created", "state", "created_at"),
-    )
-
+    __table_args__ = (Index("ix_guardian_missions_state_created", "state", "created_at"),)

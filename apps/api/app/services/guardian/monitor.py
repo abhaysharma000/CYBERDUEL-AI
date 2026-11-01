@@ -52,7 +52,9 @@ class GuardianAgentMonitor:
             health_map["red_ai"] = AgentHealthStatus(
                 role="Red AI (Adversarial Researcher)",
                 status="online",
-                model=settings.QWEN_MODEL_NAME if settings.AI_PROVIDER_TYPE == "qwen" else "procedural-mutator-v1",
+                model=settings.QWEN_MODEL_NAME
+                if settings.AI_PROVIDER_TYPE == "qwen"
+                else "procedural-mutator-v1",
                 provider_type=settings.AI_PROVIDER_TYPE,
                 last_active_at=red_last_active or now,
                 latency_ms=12.5,
@@ -90,7 +92,9 @@ class GuardianAgentMonitor:
             health_map["blue_ai"] = AgentHealthStatus(
                 role="Blue AI (Defensive Intelligence)",
                 status="online",
-                model=settings.QWEN_MODEL_NAME if settings.AI_PROVIDER_TYPE == "qwen" else "declarative-ast-synthesizer",
+                model=settings.QWEN_MODEL_NAME
+                if settings.AI_PROVIDER_TYPE == "qwen"
+                else "declarative-ast-synthesizer",
                 provider_type=settings.AI_PROVIDER_TYPE,
                 last_active_at=blue_last_active or now,
                 latency_ms=18.0,
@@ -160,7 +164,9 @@ class GuardianAgentMonitor:
             try:
                 provider = get_ai_provider("qwen")
                 if hasattr(provider, "check_endpoint_connectivity"):
-                    is_ok, msg, meta = await provider.check_endpoint_connectivity(timeout_seconds=2.0)
+                    is_ok, msg, meta = await provider.check_endpoint_connectivity(
+                        timeout_seconds=2.0
+                    )
                     elapsed = (time.perf_counter() - start) * 1000
                     return {
                         "provider_type": "qwen",
@@ -191,9 +197,7 @@ class GuardianAgentMonitor:
         }
 
     @classmethod
-    async def get_fleet_and_policy_status(
-        cls, session: AsyncSession
-    ) -> tuple[str, int, int]:
+    async def get_fleet_and_policy_status(cls, session: AsyncSession) -> tuple[str, int, int]:
         """Fetch active policy version, total connected devices, and active releases."""
         stmt_rel = (
             select(ReleaseRecord.policy_version)
@@ -210,4 +214,3 @@ class GuardianAgentMonitor:
         total_releases = (await session.execute(stmt_rel_count)).scalar() or 0
 
         return active_version, total_devices, total_releases
-

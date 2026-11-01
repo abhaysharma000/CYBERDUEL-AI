@@ -70,6 +70,11 @@ export interface RecordLinksScannedRequest extends BaseMessage {
   count: number;
 }
 
+export interface RecordLinksScannedResponse extends BaseMessage {
+  type: 'RECORD_LINKS_SCANNED_RESPONSE';
+  scannedCount: number;
+}
+
 export interface GetProtectionStatusResponse extends BaseMessage {
   type: 'GET_PROTECTION_STATUS_RESPONSE';
   status: ProtectionStatusData;
@@ -169,4 +174,6 @@ export type ExtensionMessage =
   | ValidateContinuationTokenRequest
   | ValidateContinuationTokenResponse
   | ResetFactoryPolicyRequest
-  | ResetFactoryPolicyResponse;
+  | ResetFactoryPolicyResponse
+  | RecordLinksScannedRequest
+  | RecordLinksScannedResponse;

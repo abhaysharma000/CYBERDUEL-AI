@@ -62,9 +62,13 @@ class GuardianDecisionExplanation(BaseModel):
     false_positive_concerns: str = Field(default="None identified against held-out benchmark suite")
     evaluator_verdict: str = Field(default="pass")
     release_recommendation: str = Field(default="promote")
-    user_impact: str = Field(default="Proactive protection against evasive threat without benign interruption")
+    user_impact: str = Field(
+        default="Proactive protection against evasive threat without benign interruption"
+    )
     confidence: float = Field(default=0.98, ge=0.0, le=1.0)
-    uncertainty: str = Field(default="Low: verified against golden benchmark corpus with zero regressions")
+    uncertainty: str = Field(
+        default="Low: verified against golden benchmark corpus with zero regressions"
+    )
     recommended_next_action: str = Field(default="Deploy cryptographic signed update to edge fleet")
     reasoning_summary: str = Field(default="")
 
@@ -139,4 +143,3 @@ class GuardianStatusResponse(BaseModel):
     active_policy_version: str = "1.1.0"
     total_missions_executed: int = 0
     latest_decision: GuardianDecisionExplanation | None = None
-

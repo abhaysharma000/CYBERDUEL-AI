@@ -6,7 +6,6 @@ the CyberDuel Live Defense Challenge, and chronological activity audit trails.
 
 from __future__ import annotations
 
-from typing import Annotated
 from uuid import UUID
 
 from cyberduel_contracts.guardian import (
@@ -15,11 +14,10 @@ from cyberduel_contracts.guardian import (
     GuardianMissionRequest,
     GuardianStatusResponse,
 )
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from apps.api.app.core.config import Settings, get_settings
 from apps.api.app.core.rate_limit import rate_limit_dependency
 from apps.api.app.db.session import get_db_session
 from apps.api.app.models.guardian import GuardianMissionRecord
@@ -134,4 +132,3 @@ async def get_guardian_mission(
             except Exception:
                 continue
     return guardian._to_contract(rec, tl)
-

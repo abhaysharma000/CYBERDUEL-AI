@@ -8,17 +8,14 @@ from __future__ import annotations
 
 import logging
 from datetime import UTC, datetime
-from uuid import UUID, uuid4
+from uuid import uuid4
 
 from cyberduel_contracts.enums import (
     Decision,
     EvaluationVerdict,
-    ExpectedClass,
     ProposalType,
     ReleaseChannel,
-    ReleaseStatus,
     RolloutStage,
-    ScenarioFamily,
     ThreatSeverity,
 )
 from cyberduel_contracts.evaluation import (
@@ -28,34 +25,27 @@ from cyberduel_contracts.evaluation import (
 from cyberduel_contracts.guardian import (
     GuardianActivityEvent,
     GuardianDecisionExplanation,
-    GuardianDecisionOutcome,
     GuardianMissionContract,
     GuardianMissionRequest,
     GuardianState,
     GuardianStatusResponse,
 )
-from cyberduel_contracts.lab import ExperimentConfig, ScenarioContract
+from cyberduel_contracts.lab import ExperimentConfig
 from cyberduel_contracts.policy import (
-    CandidateDefense,
     DeclarativeRuleModel,
     DefenseProposal,
     RulePredicateModel,
 )
 from cyberduel_policy_engine.sandbox import DeclarativeRuleEngine
-from cyberduel_threat_intel.normalizer import URLNormalizer
-from cyberduel_threat_intel.scoring import RiskScoringEngine
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from apps.api.app.models.evaluations import (
-    BenchmarkManifestRecord,
     EvaluationReportRecord,
     EvaluationRequestRecord,
 )
 from apps.api.app.models.guardian import GuardianMissionRecord
-from apps.api.app.models.lab import FailureFindingRecord, LabExperimentRecord
-from apps.api.app.models.policies import CandidateDefenseRecord
-from apps.api.app.models.releases import ReleaseRecord
+from apps.api.app.models.lab import FailureFindingRecord
 from apps.api.app.services.blue_ai import (
     CandidateDefenseBuilder,
     DefenseHypothesisEngine,
@@ -88,15 +78,13 @@ class CyberDuelGuardian:
         """Collect real live operational status across all agent subsystems."""
         health_map = await GuardianAgentMonitor.get_agent_health(self.session)
         qwen_status = await GuardianAgentMonitor.get_qwen_connectivity()
-        active_version, total_devices, _ = (
-            await GuardianAgentMonitor.get_fleet_and_policy_status(self.session)
+        active_version, total_devices, _ = await GuardianAgentMonitor.get_fleet_and_policy_status(
+            self.session
         )
 
         # Check latest mission
         stmt_mission = (
-            select(GuardianMissionRecord)
-            .order_by(GuardianMissionRecord.started_at.desc())
-            .limit(1)
+            select(GuardianMissionRecord).order_by(GuardianMissionRecord.started_at.desc()).limit(1)
         )
         latest_rec = (await self.session.execute(stmt_mission)).scalar_one_or_none()
 
@@ -109,18 +97,21 @@ class CyberDuelGuardian:
                 state = GuardianState(latest_rec.state)
             except ValueError:
                 state = GuardianState.IDLE
-            active_id = latest_rec.id if state not in (
-                GuardianState.IDLE,
-                GuardianState.RELEASED,
-                GuardianState.FAILED,
-                GuardianState.REJECTED,
-                GuardianState.BLOCKED,
-            ) else None
+            active_id = (
+                latest_rec.id
+                if state
+                not in (
+                    GuardianState.IDLE,
+                    GuardianState.RELEASED,
+                    GuardianState.FAILED,
+                    GuardianState.REJECTED,
+                    GuardianState.BLOCKED,
+                )
+                else None
+            )
             if latest_rec.decision_explanation:
                 try:
-                    latest_decision = GuardianDecisionExplanation(
-                        **latest_rec.decision_explanation
-                    )
+                    latest_decision = GuardianDecisionExplanation(**latest_rec.decision_explanation)
                 except Exception:
                     latest_decision = None
 
@@ -139,9 +130,7 @@ class CyberDuelGuardian:
             latest_decision=latest_decision,
         )
 
-    async def get_activity_timeline(
-        self, limit: int = 50
-    ) -> list[GuardianActivityEvent]:
+    async def get_activity_timeline(self, limit: int = 50) -> list[GuardianActivityEvent]:
         """Query real chronological timeline events recorded across Guardian operations."""
         stmt = (
             select(GuardianMissionRecord.timeline)
@@ -163,9 +152,7 @@ class CyberDuelGuardian:
         events.sort(key=lambda x: x.created_at, reverse=True)
         return events[:limit]
 
-    async def execute_mission(
-        self, request: GuardianMissionRequest
-    ) -> GuardianMissionContract:
+    async def execute_mission(self, request: GuardianMissionRequest) -> GuardianMissionContract:
         """Run full autonomous supervised research-to-release workflow."""
         if request.is_live_challenge:
             return await self.execute_live_challenge(request)
@@ -174,7 +161,9 @@ class CyberDuelGuardian:
         started_at = datetime.now(UTC)
         timeline: list[GuardianActivityEvent] = []
 
-        def log_event(step_name: str, stage: GuardianState, message: str, evidence: dict | None = None) -> None:
+        def log_event(
+            step_name: str, stage: GuardianState, message: str, evidence: dict | None = None
+        ) -> None:
             ev = GuardianActivityEvent(
                 mission_id=mission_id,
                 step_name=step_name,
@@ -187,7 +176,11 @@ class CyberDuelGuardian:
             timeline.append(ev)
             logger.info(f"[Guardian Mission {mission_id}] {step_name}: {message}")
 
-        log_event("MISSION_INIT", GuardianState.RESEARCHING, f"Guardian created research mission: '{request.mission_name}'")
+        log_event(
+            "MISSION_INIT",
+            GuardianState.RESEARCHING,
+            f"Guardian created research mission: '{request.mission_name}'",
+        )
 
         mission_rec = GuardianMissionRecord(
             id=mission_id,
@@ -205,7 +198,11 @@ class CyberDuelGuardian:
             # -------------------------------------------------------------
             # Stage 1: Red AI Research Execution
             # -------------------------------------------------------------
-            log_event("RED_AI_DISPATCH", GuardianState.RESEARCHING, f"Assigning adversarial research task to Red AI ({request.scenario_count} scenarios)")
+            log_event(
+                "RED_AI_DISPATCH",
+                GuardianState.RESEARCHING,
+                f"Assigning adversarial research task to Red AI ({request.scenario_count} scenarios)",
+            )
             red_agent = RedResearchAgent(session=self.session)
             exp_config = ExperimentConfig(
                 experiment_name=f"Guardian Research: {request.mission_name}",
@@ -230,19 +227,23 @@ class CyberDuelGuardian:
             # -------------------------------------------------------------
             # Stage 2: Blue AI Defense Formulation
             # -------------------------------------------------------------
-            log_event("BLUE_AI_DISPATCH", GuardianState.DEFENDING, "Selecting detection gaps and assigning defensive synthesis to Blue AI.")
+            log_event(
+                "BLUE_AI_DISPATCH",
+                GuardianState.DEFENDING,
+                "Selecting detection gaps and assigning defensive synthesis to Blue AI.",
+            )
             mission_rec.state = GuardianState.DEFENDING.value
 
             # Build candidate from findings
             findings_stmt = select(FailureFindingRecord).where(
                 FailureFindingRecord.experiment_id == summary.experiment_id
             )
-            findings = (await self.session.execute(findings_stmt)).scalars().all()
+            (await self.session.execute(findings_stmt)).scalars().all()
 
             cand_version = f"1.2.{int(datetime.now().timestamp()) % 1000}"
-            hypothesis_engine = DefenseHypothesisEngine()
-            proposal_gen = DefenseProposalGenerator()
-            builder = CandidateDefenseBuilder(session=self.session)
+            DefenseHypothesisEngine()
+            DefenseProposalGenerator()
+            CandidateDefenseBuilder(session=self.session)
 
             # Synthesize AST rule
             rule_id = f"RULE-DEF-{int(datetime.now().timestamp()) % 10000}"
@@ -293,7 +294,11 @@ class CyberDuelGuardian:
             # -------------------------------------------------------------
             # Stage 3: Independent Evaluation
             # -------------------------------------------------------------
-            log_event("EVALUATION_DISPATCH", GuardianState.EVALUATING, "Submitting candidate to Independent Evaluator for benchmark audit.")
+            log_event(
+                "EVALUATION_DISPATCH",
+                GuardianState.EVALUATING,
+                "Submitting candidate to Independent Evaluator for benchmark audit.",
+            )
             eval_req_id = uuid4()
             eval_req = EvaluationRequest(
                 request_id=eval_req_id,
@@ -365,7 +370,11 @@ class CyberDuelGuardian:
             mission_rec.decision_explanation = explanation.model_dump(mode="json")
 
             if eval_report.verdict != EvaluationVerdict.PASS:
-                log_event("EVALUATION_FAILED", GuardianState.REJECTED, f"Evaluator rejected candidate: {eval_report.rejection_reasons}")
+                log_event(
+                    "EVALUATION_FAILED",
+                    GuardianState.REJECTED,
+                    f"Evaluator rejected candidate: {eval_report.rejection_reasons}",
+                )
                 mission_rec.state = GuardianState.REJECTED.value
                 mission_rec.terminal_reason = "Candidate failed independent benchmark evaluation."
                 mission_rec.timeline = [e.model_dump(mode="json") for e in timeline]
@@ -385,7 +394,11 @@ class CyberDuelGuardian:
             # Stage 5: Cryptographic Release & Rollout
             # -------------------------------------------------------------
             if request.auto_release:
-                log_event("RELEASE_SIGNING", GuardianState.APPROVAL_PENDING, "Authorizing release and generating detached Ed25519 signature.")
+                log_event(
+                    "RELEASE_SIGNING",
+                    GuardianState.APPROVAL_PENDING,
+                    "Authorizing release and generating detached Ed25519 signature.",
+                )
                 rel_rec, _ = await self.approval_service.authorize_and_stage_release(
                     session=self.session,
                     candidate_id=candidate_pkg.defense_id,
@@ -444,7 +457,9 @@ class CyberDuelGuardian:
         synthetic_threat_url = "https://xn--pypal-verify-14a.example.test/signin"
         benign_control_url = "https://internal-portal.example.test/dashboard"
 
-        def log_event(step_name: str, stage: GuardianState, message: str, evidence: dict | None = None) -> None:
+        def log_event(
+            step_name: str, stage: GuardianState, message: str, evidence: dict | None = None
+        ) -> None:
             ev = GuardianActivityEvent(
                 mission_id=mission_id,
                 step_name=step_name,
@@ -715,7 +730,10 @@ class CyberDuelGuardian:
             "STAGE_5_GUARDIAN_DECISION",
             GuardianState.APPROVAL_PENDING,
             f"Stage 5: Guardian prioritized candidate {cand_version}: {explanation.reasoning_summary}",
-            {"release_recommendation": explanation.release_recommendation, "confidence": explanation.confidence},
+            {
+                "release_recommendation": explanation.release_recommendation,
+                "confidence": explanation.confidence,
+            },
         )
 
         # Stage 6: Secure Policy Release & Ed25519 Signing
