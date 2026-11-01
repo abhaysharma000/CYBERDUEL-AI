@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { useAuth } from "../../auth/AuthContext";
 import { Badge } from "../common/Badge";
-import { User, LogOut, ChevronDown, Check, ShieldCheck } from "lucide-react";
+import { User, LogOut, ChevronDown, Check, ShieldCheck, Menu } from "lucide-react";
 import { Role } from "../../types";
 
-export const Header: React.FC = () => {
+interface HeaderProps {
+  onMenuClick?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ onMenuClick }) => {
   const { user, availableOperators, switchOperator, logout } = useAuth();
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -24,17 +28,26 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="h-16 bg-[#0c0c0f]/80 backdrop-blur-md border-b border-[#27181c] px-8 flex items-center justify-between z-20 sticky top-0">
-      {/* Left Status Bar */}
-      <div className="flex items-center gap-4">
+    <header className="h-16 bg-[#0c0c0f]/90 backdrop-blur-md border-b border-[#27181c] px-4 sm:px-6 md:px-8 flex items-center justify-between z-20 sticky top-0">
+      {/* Left Status Bar & Hamburger Toggle */}
+      <div className="flex items-center gap-3 sm:gap-4">
+        {onMenuClick && (
+          <button
+            onClick={onMenuClick}
+            className="p-2 -ml-1 rounded-lg text-slate-300 hover:text-white hover:bg-[#1c1215] md:hidden focus:outline-none transition-colors"
+            aria-label="Open navigation drawer"
+          >
+            <Menu className="w-5 h-5 text-red-400" />
+          </button>
+        )}
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-sm shadow-emerald-500/50"></span>
           <span className="text-xs font-mono font-medium text-slate-300">
             SEC-NODE: <span className="text-emerald-400 font-semibold">ONLINE</span>
           </span>
         </div>
-        <span className="text-slate-700">|</span>
-        <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400">
+        <span className="text-slate-700 hidden sm:inline">|</span>
+        <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-slate-400">
           <ShieldCheck className="w-3.5 h-3.5 text-red-400" />
           <span>AIR-GAPPED EXPERIMENT RANGE</span>
         </div>
@@ -46,14 +59,16 @@ export const Header: React.FC = () => {
         <div className="relative">
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            className="flex items-center gap-2.5 px-3 py-1.5 bg-[#131316] border border-[#27181c] hover:border-slate-600 rounded-lg text-xs font-medium text-slate-200 transition-colors shadow-sm"
+            className="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 bg-[#131316] border border-[#27181c] hover:border-slate-600 rounded-lg text-xs font-medium text-slate-200 transition-colors shadow-sm"
           >
-            <User className="w-3.5 h-3.5 text-red-400" />
-            <span className="font-mono">{user?.display_name || user?.username || "Operator"}</span>
-            <Badge variant={getRoleBadgeVariant(user?.role)} size="sm">
+            <User className="w-3.5 h-3.5 text-red-400 shrink-0" />
+            <span className="font-mono max-w-[100px] sm:max-w-none truncate">
+              {user?.display_name || user?.username || "Operator"}
+            </span>
+            <Badge variant={getRoleBadgeVariant(user?.role)} size="sm" className="hidden xs:inline-flex">
               {user?.role?.toUpperCase()}
             </Badge>
-            <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
+            <ChevronDown className="w-3.5 h-3.5 text-slate-500 shrink-0" />
           </button>
 
           {dropdownOpen && (
@@ -112,4 +127,3 @@ export const Header: React.FC = () => {
     </header>
   );
 };
-

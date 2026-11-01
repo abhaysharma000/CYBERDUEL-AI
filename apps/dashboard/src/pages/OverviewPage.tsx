@@ -66,7 +66,7 @@ export const OverviewPage: React.FC = () => {
             Real-time defensive intelligence, adversarial research pipelines, and release governance.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={fetchOverview}
             className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors shadow-sm"
@@ -121,7 +121,7 @@ export const OverviewPage: React.FC = () => {
         {/* Release Status Card */}
         <div className="lg:col-span-2 bg-[#131316] border border-[#27181c] rounded-2xl p-6 shadow-xl">
           <div className="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-5">
-            <div className="flex items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <div className="p-2.5 rounded-xl bg-red-950/60 border border-red-800/40 text-red-400">
                 <Package className="w-5 h-5" />
               </div>

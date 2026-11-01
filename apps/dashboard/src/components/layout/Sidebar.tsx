@@ -12,6 +12,7 @@ import {
   FileText,
   Server,
   Zap,
+  X,
 } from "lucide-react";
 import clsx from "clsx";
 
@@ -22,7 +23,12 @@ interface NavItem {
   badge?: string;
 }
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ isOpen = false, onClose }) => {
   const navigation: NavItem[] = [
     { name: "Command Overview", path: "/", icon: Activity },
     { name: "Guardian Control", path: "/guardian", icon: ShieldAlert, badge: "AI" },
@@ -37,20 +43,41 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-64 bg-[#0c0c0f] border-r border-[#27181c] flex flex-col shrink-0 min-h-screen">
+    <aside
+      className={clsx(
+        "bg-[#0c0c0f] border-r border-[#27181c] flex flex-col shrink-0 min-h-screen z-50",
+        // Desktop styles: static, fixed width 64
+        "md:static md:translate-x-0 md:w-64",
+        // Mobile styles: fixed drawer, width 72, transition
+        "fixed inset-y-0 left-0 w-72 transition-transform duration-300 ease-in-out",
+        isOpen ? "translate-x-0 shadow-2xl shadow-black/80" : "-translate-x-full"
+      )}
+    >
       {/* Brand Header */}
-      <div className="h-16 flex items-center px-6 gap-3 border-b border-[#27181c]">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 via-rose-600 to-amber-500 flex items-center justify-center shadow-lg shadow-red-500/30 text-white font-bold">
-          <Zap className="w-5 h-5 fill-current" />
+      <div className="h-16 flex items-center justify-between px-6 border-b border-[#27181c]">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 via-rose-600 to-amber-500 flex items-center justify-center shadow-lg shadow-red-500/30 text-white font-bold">
+            <Zap className="w-5 h-5 fill-current" />
+          </div>
+          <div>
+            <h1 className="font-bold text-sm tracking-wide text-white flex items-center gap-1.5 font-mono">
+              CYBERDUEL <span className="text-red-400">AI</span>
+            </h1>
+            <p className="text-[10px] text-slate-400 uppercase tracking-widest font-mono">
+              COMMAND CENTER
+            </p>
+          </div>
         </div>
-        <div>
-          <h1 className="font-bold text-sm tracking-wide text-white flex items-center gap-1.5 font-mono">
-            CYBERDUEL <span className="text-red-400">AI</span>
-          </h1>
-          <p className="text-[10px] text-slate-400 uppercase tracking-widest font-mono">
-            COMMAND CENTER
-          </p>
-        </div>
+
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-[#1c1215] md:hidden transition-colors"
+            aria-label="Close navigation menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* Navigation Links */}
@@ -63,6 +90,9 @@ export const Sidebar: React.FC = () => {
             key={item.path}
             to={item.path}
             end={item.path === "/"}
+            onClick={() => {
+              if (onClose) onClose();
+            }}
             className={({ isActive }) =>
               clsx(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group",
@@ -102,4 +132,3 @@ export const Sidebar: React.FC = () => {
     </aside>
   );
 };
-

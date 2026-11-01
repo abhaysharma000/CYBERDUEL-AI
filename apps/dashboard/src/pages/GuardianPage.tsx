@@ -101,9 +101,9 @@ export const GuardianPage: React.FC = () => {
       {/* Header Banner */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
-          <div className="flex items-center gap-3 mb-1">
-            <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
-              <ShieldAlert className="w-7 h-7 text-red-500" />
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-1">
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
+              <ShieldAlert className="w-6 h-6 sm:w-7 sm:h-7 text-red-500" />
               CYBERDUEL GUARDIAN
             </h2>
             <Badge variant="info" size="md">
@@ -116,13 +116,13 @@ export const GuardianPage: React.FC = () => {
               STATE: {guardianState.toUpperCase()}
             </Badge>
           </div>
-          <p className="text-sm text-slate-400">
+          <p className="text-xs sm:text-sm text-slate-400">
             Coordinates autonomous adversarial discovery (Red AI), declarative rule synthesis (Blue AI),
             independent mathematical evaluation, and cryptographic Ed25519 policy distribution to edge clients.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <button
             onClick={fetchGuardianData}
             className="flex items-center gap-2 px-3 py-2 text-xs font-mono font-medium rounded-lg bg-[#1c1215] border border-[#27181c] text-slate-300 hover:text-white hover:bg-[#27181c] transition-colors"
@@ -168,7 +168,7 @@ export const GuardianPage: React.FC = () => {
       )}
 
       {/* Agent Fleet Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Guardian Supervisor */}
         <div className="p-4 rounded-xl border border-red-500/30 bg-[#0c0c0f] relative overflow-hidden">
           <div className="flex items-center justify-between mb-2">
@@ -259,7 +259,7 @@ export const GuardianPage: React.FC = () => {
         </div>
 
         {/* 9-Stage Visual Progression */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Stage 1 */}
           <div className="p-4 rounded-lg bg-[#1c1215] border border-[#27181c]">
             <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
