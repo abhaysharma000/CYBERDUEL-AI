@@ -210,3 +210,4 @@ class GuardianAgentMonitor:
         total_releases = (await session.execute(stmt_rel_count)).scalar() or 0
 
         return active_version, total_devices, total_releases
+

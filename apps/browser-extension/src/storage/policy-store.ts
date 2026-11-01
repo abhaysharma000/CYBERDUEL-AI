@@ -11,11 +11,53 @@ export class PolicyStore {
   private static readonly STORAGE_KEY = 'cyberduel_policy_state';
   private static readonly RECENT_EVALS_KEY = 'cyberduel_recent_evals';
   private static readonly TOKENS_KEY = 'cyberduel_continuation_tokens';
+  private static readonly SCANNED_COUNT_KEY = 'cyberduel_scanned_count';
+  private static readonly BLOCKED_COUNT_KEY = 'cyberduel_blocked_count';
 
   // In-memory fallback cache for environments without chrome.storage
   private static memoryState: StoredPolicyState | null = null;
   private static memoryEvals: RecentEvaluation[] = [];
   private static memoryTokens: BoundedContinuationToken[] = [];
+  private static memoryScannedCount = 0;
+  private static memoryBlockedCount = 0;
+
+  public static async getScannedCount(): Promise<number> {
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      const data = await chrome.storage.local.get(this.SCANNED_COUNT_KEY);
+      return (data[this.SCANNED_COUNT_KEY] as number) || 0;
+    }
+    return this.memoryScannedCount;
+  }
+
+  public static async getBlockedCount(): Promise<number> {
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      const data = await chrome.storage.local.get(this.BLOCKED_COUNT_KEY);
+      return (data[this.BLOCKED_COUNT_KEY] as number) || 0;
+    }
+    return this.memoryBlockedCount;
+  }
+
+  public static async incrementScannedCount(amount: number = 1): Promise<number> {
+    const current = await this.getScannedCount();
+    const next = current + amount;
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      await chrome.storage.local.set({ [this.SCANNED_COUNT_KEY]: next });
+    } else {
+      this.memoryScannedCount = next;
+    }
+    return next;
+  }
+
+  public static async incrementBlockedCount(amount: number = 1): Promise<number> {
+    const current = await this.getBlockedCount();
+    const next = current + amount;
+    if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {
+      await chrome.storage.local.set({ [this.BLOCKED_COUNT_KEY]: next });
+    } else {
+      this.memoryBlockedCount = next;
+    }
+    return next;
+  }
 
   public static async getState(): Promise<StoredPolicyState> {
     if (typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local) {

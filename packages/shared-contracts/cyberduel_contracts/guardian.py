@@ -139,3 +139,4 @@ class GuardianStatusResponse(BaseModel):
     active_policy_version: str = "1.1.0"
     total_missions_executed: int = 0
     latest_decision: GuardianDecisionExplanation | None = None
+

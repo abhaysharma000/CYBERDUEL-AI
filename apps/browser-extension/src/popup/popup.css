@@ -149,6 +149,60 @@ input:checked + .slider:before {
   transform: translateX(18px);
 }
 
+/* Metrics Hero Card */
+.metrics-hero-card {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(22, 27, 34, 0.95), rgba(13, 17, 23, 0.95));
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 8px;
+  padding: 10px 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.metric-hero-item {
+  flex: 1;
+  text-align: center;
+}
+
+.metric-hero-divider {
+  width: 1px;
+  height: 38px;
+  background-color: var(--border-color);
+  margin: 0 10px;
+}
+
+.metric-hero-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-sub);
+  margin-bottom: 2px;
+}
+
+.metric-hero-value {
+  font-size: 20px;
+  font-weight: 800;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  line-height: 1.1;
+}
+
+.text-cyan {
+  color: #38bdf8;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+}
+
+.text-rose {
+  color: #f43f5e;
+  text-shadow: 0 0 10px rgba(244, 63, 94, 0.3);
+}
+
+.metric-hero-sub {
+  font-size: 9px;
+  color: var(--text-sub);
+  margin-top: 2px;
+}
+
 /* Stats Grid */
 .stats-grid {
   display: grid;

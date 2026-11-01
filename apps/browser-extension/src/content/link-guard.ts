@@ -14,6 +14,62 @@ import { EvaluateURLRequest, EvaluateURLResponse } from '../types/messages';
 
   document.addEventListener('click', handleLinkClick, true);
 
+  // 1. Real-Time In-Page Link Scanner
+  const scannedHrefs = new Set<string>();
+
+  function scanDomLinks() {
+    try {
+      const anchors = document.querySelectorAll<HTMLAnchorElement>('a[href]');
+      let newLinksCount = 0;
+
+      for (let i = 0; i < anchors.length; i++) {
+        const href = anchors[i].href;
+        if (
+          href &&
+          (href.startsWith('http://') || href.startsWith('https://')) &&
+          !scannedHrefs.has(href)
+        ) {
+          scannedHrefs.add(href);
+          newLinksCount++;
+        }
+      }
+
+      if (newLinksCount > 0 && chrome.runtime?.id) {
+        chrome.runtime.sendMessage({
+          type: 'RECORD_LINKS_SCANNED_REQUEST',
+          count: newLinksCount,
+          timestamp: new Date().toISOString(),
+        });
+      }
+    } catch {
+      // Ignore context errors
+    }
+  }
+
+  // Scan immediately on load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scanDomLinks);
+  } else {
+    scanDomLinks();
+  }
+
+  // Scan dynamically injected links (SPA / infinite scroll)
+  let scanTimer: number | null = null;
+  const observer = new MutationObserver(() => {
+    if (scanTimer) clearTimeout(scanTimer);
+    scanTimer = window.setTimeout(scanDomLinks, 1000);
+  });
+
+  if (document.body) {
+    observer.observe(document.body, { childList: true, subtree: true });
+  } else {
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.body) {
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+    });
+  }
+
   function handleLinkClick(event: MouseEvent) {
     // 1. Only process primary mouse clicks (left click)
     if (event.button !== 0) {

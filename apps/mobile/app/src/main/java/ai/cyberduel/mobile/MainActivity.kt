@@ -44,6 +44,11 @@ class MainActivity : ComponentActivity() {
             if (extractedUrls.isNotEmpty()) {
                 sharedUrlToInspect = extractedUrls.first()
             }
+        } else if (Intent.ACTION_VIEW == intent.action && intent.data != null) {
+            val url = intent.data.toString()
+            if (url.startsWith("http://") || url.startsWith("https://")) {
+                sharedUrlToInspect = url
+            }
         }
     }
 }

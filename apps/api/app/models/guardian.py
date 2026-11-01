@@ -59,3 +59,4 @@ class GuardianMissionRecord(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     __table_args__ = (
         Index("ix_guardian_missions_state_created", "state", "created_at"),
     )
+

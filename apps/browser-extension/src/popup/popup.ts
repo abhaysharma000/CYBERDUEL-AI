@@ -19,6 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const statusLabel = document.getElementById('statusLabel')!;
   const protectionToggle = document.getElementById('protectionToggle') as HTMLInputElement;
   const switchSubtitle = document.getElementById('switchSubtitle')!;
+  const scannedLinksVal = document.getElementById('scannedLinksVal');
+  const threatsBlockedVal = document.getElementById('threatsBlockedVal');
   const policyVerVal = document.getElementById('policyVerVal')!;
   const policySeqVal = document.getElementById('policySeqVal')!;
   const dnrRulesVal = document.getElementById('dnrRulesVal')!;
@@ -77,6 +79,13 @@ document.addEventListener('DOMContentLoaded', () => {
     policySeqVal.textContent = status.sequenceNumber ? `Seq ${status.sequenceNumber}` : '—';
     dnrRulesVal.textContent = `${status.activeDNRRuleCount}`;
     cloudSyncVal.textContent = status.cloudConnected ? 'Live' : 'Cached';
+
+    if (scannedLinksVal) {
+      scannedLinksVal.textContent = (status.scannedLinksCount || 0).toLocaleString();
+    }
+    if (threatsBlockedVal) {
+      threatsBlockedVal.textContent = (status.threatsBlockedCount || 0).toLocaleString();
+    }
 
     if (status.lastUpdateCheckedAt) {
       const dt = new Date(status.lastUpdateCheckedAt);
@@ -147,6 +156,9 @@ document.addEventListener('DOMContentLoaded', () => {
       evalScore.textContent = `Risk: ${res.risk_score.toFixed(2)}`;
       evalExplanation.textContent = res.explanation;
       evalProvenance.textContent = `Provenance: ${res.provenance.replace('_', ' ').toUpperCase()} • Policy ${res.policy_version}`;
+
+      // Refresh live counters
+      refreshProtectionStatus();
     });
   }
 

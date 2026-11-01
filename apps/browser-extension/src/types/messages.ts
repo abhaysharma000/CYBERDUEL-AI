@@ -24,7 +24,9 @@ export type MessageType =
   | 'VALIDATE_CONTINUATION_TOKEN_REQUEST'
   | 'VALIDATE_CONTINUATION_TOKEN_RESPONSE'
   | 'RESET_FACTORY_POLICY_REQUEST'
-  | 'RESET_FACTORY_POLICY_RESPONSE';
+  | 'RESET_FACTORY_POLICY_RESPONSE'
+  | 'RECORD_LINKS_SCANNED_REQUEST'
+  | 'RECORD_LINKS_SCANNED_RESPONSE';
 
 export interface BaseMessage {
   type: MessageType;
@@ -59,6 +61,13 @@ export interface ProtectionStatusData {
   recentEvaluationsCount: number;
   updateStatus: 'idle' | 'checking' | 'downloading' | 'verified' | 'installed' | 'error';
   lastErrorMessage?: string | null;
+  scannedLinksCount: number;
+  threatsBlockedCount: number;
+}
+
+export interface RecordLinksScannedRequest extends BaseMessage {
+  type: 'RECORD_LINKS_SCANNED_REQUEST';
+  count: number;
 }
 
 export interface GetProtectionStatusResponse extends BaseMessage {

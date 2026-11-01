@@ -94,4 +94,8 @@ storage/releases/*.json
 # Legacy reference files
 old/
 
+CyberDuel-Browser-Extension/
+CyberDuel-Mobile.apk
+
+
 
