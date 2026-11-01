@@ -128,11 +128,11 @@ export const ReleasesPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
-              <Package className="w-6 h-6 text-blue-500" />
+              <Package className="w-6 h-6 text-red-500" />
               SECURITY RELEASE MANAGEMENT
             </h2>
             <Badge variant="cyan" size="sm">CRYPTOGRAPHIC ED25519</Badge>
@@ -145,9 +145,9 @@ export const ReleasesPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={fetchData}
-            className="flex items-center gap-2 px-3.5 py-2 bg-[#111827] hover:bg-slate-800 text-slate-200 border border-[#1f293d] rounded-lg text-xs font-mono font-medium transition-colors"
+            className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors"
           >
-            <RefreshCw className="w-3.5 h-3.5 text-blue-400" />
+            <RefreshCw className="w-3.5 h-3.5 text-red-400" />
             Refresh
           </button>
           {canManageReleases && (
@@ -161,7 +161,7 @@ export const ReleasesPage: React.FC = () => {
               </button>
               <button
                 onClick={() => setIsAuthModalOpen(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-mono font-medium transition-colors shadow-lg shadow-blue-900/30"
+                className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-mono font-medium transition-colors shadow-lg shadow-red-900/40"
               >
                 <Plus className="w-3.5 h-3.5" />
                 Authorize Release
@@ -189,7 +189,7 @@ export const ReleasesPage: React.FC = () => {
               {releases.map((rel) => (
                 <div
                   key={rel.release_id}
-                  className="p-6 bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl space-y-4"
+                  className="p-6 bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl space-y-4"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800/80">
                     <div className="flex items-center gap-3">
@@ -210,12 +210,12 @@ export const ReleasesPage: React.FC = () => {
                         {rel.status.toUpperCase()}
                       </Badge>
                       <span className="text-xs font-mono text-slate-400 uppercase">
-                        Channel: <span className="text-cyan-400">{rel.channel}</span>
+                        Channel: <span className="text-red-400">{rel.channel}</span>
                       </span>
                     </div>
 
                     <div className="text-xs font-mono text-slate-400 flex items-center gap-2">
-                      <Key className="w-3.5 h-3.5 text-blue-400" />
+                      <Key className="w-3.5 h-3.5 text-red-400" />
                       Key: <span className="text-slate-300">{rel.publisher_key_id}</span>
                     </div>
                   </div>
@@ -246,7 +246,7 @@ export const ReleasesPage: React.FC = () => {
                         {rel.current_rollout_percentage < 100 && rel.status !== "paused" && (
                           <button
                             onClick={() => handleAdvanceRollout(rel.release_id, rel.current_rollout_percentage)}
-                            className="flex items-center gap-1.5 px-3 py-1.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 rounded-lg text-xs font-mono transition-colors"
+                            className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 rounded-lg text-xs font-mono transition-colors"
                           >
                             <ArrowRight className="w-3.5 h-3.5" />
                             Advance Rollout Stage
@@ -298,7 +298,7 @@ export const ReleasesPage: React.FC = () => {
               required
               value={authForm.policy_version}
               onChange={(e) => setAuthForm({ ...authForm, policy_version: e.target.value })}
-              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-red-500"
             />
           </div>
 
@@ -307,7 +307,7 @@ export const ReleasesPage: React.FC = () => {
             <select
               value={authForm.target_channel}
               onChange={(e) => setAuthForm({ ...authForm, target_channel: e.target.value })}
-              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-red-500"
             >
               <option value="stable">Stable (Global Fleet)</option>
               <option value="canary">Canary (10% Pre-release)</option>
@@ -327,7 +327,7 @@ export const ReleasesPage: React.FC = () => {
               onChange={(e) =>
                 setAuthForm({ ...authForm, initial_rollout_percentage: parseInt(e.target.value) || 10 })
               }
-              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-red-500"
             />
           </div>
 
@@ -338,7 +338,7 @@ export const ReleasesPage: React.FC = () => {
               required
               value={authForm.key_id}
               onChange={(e) => setAuthForm({ ...authForm, key_id: e.target.value })}
-              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-red-500"
             />
           </div>
 
@@ -353,7 +353,7 @@ export const ReleasesPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-mono font-medium disabled:opacity-50"
+              className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-mono font-medium disabled:opacity-50"
             >
               {isSubmitting ? "Signing & Staging..." : "Sign & Stage Release"}
             </button>

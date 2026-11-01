@@ -27,10 +27,10 @@ export const Badge: React.FC<BadgeProps> = ({
     success: "bg-emerald-950/70 text-emerald-400 border-emerald-800/60",
     danger: "bg-rose-950/70 text-rose-400 border-rose-800/60",
     warning: "bg-amber-950/70 text-amber-400 border-amber-800/60",
-    info: "bg-blue-950/70 text-blue-400 border-blue-800/60",
+    info: "bg-red-950/70 text-red-400 border-red-800/60",
     neutral: "bg-slate-800/70 text-slate-300 border-slate-700/60",
     purple: "bg-purple-950/70 text-purple-400 border-purple-800/60",
-    cyan: "bg-cyan-950/70 text-cyan-400 border-cyan-800/60",
+    cyan: "bg-cyan-950/70 text-red-400 border-cyan-800/60",
   };
 
   const sizeStyles = {

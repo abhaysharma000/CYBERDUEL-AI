@@ -85,11 +85,11 @@ export const BlueAiPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
-              <Shield className="w-6 h-6 text-blue-500" />
+              <Shield className="w-6 h-6 text-red-500" />
               BLUE AI DEFENSE ENGINE
             </h2>
             <Badge variant="info" size="sm">ADAPTIVE DEFENSE</Badge>
@@ -102,15 +102,15 @@ export const BlueAiPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={fetchData}
-            className="flex items-center gap-2 px-3.5 py-2 bg-[#111827] hover:bg-slate-800 text-slate-200 border border-[#1f293d] rounded-lg text-xs font-mono font-medium transition-colors"
+            className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors"
           >
-            <RefreshCw className="w-3.5 h-3.5 text-blue-400" />
+            <RefreshCw className="w-3.5 h-3.5 text-red-400" />
             Refresh
           </button>
           {canResearch && (
             <button
               onClick={() => setIsCreateModalOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-mono font-medium transition-colors shadow-lg shadow-blue-900/30"
+              className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-mono font-medium transition-colors shadow-lg shadow-red-900/40"
             >
               <Plus className="w-3.5 h-3.5" />
               Propose Candidate
@@ -129,17 +129,17 @@ export const BlueAiPage: React.FC = () => {
           {failureGroups.length > 0 && (
             <div className="space-y-3">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-400 flex items-center gap-2">
-                <Layers className="w-4 h-4 text-cyan-400" />
+                <Layers className="w-4 h-4 text-red-400" />
                 Active Failure Groups ({failureGroups.length})
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {failureGroups.map((g) => (
                   <div
                     key={g.group_id}
-                    className="p-4 bg-[#111827] border border-[#1f293d] rounded-xl space-y-2 text-xs font-mono"
+                    className="p-4 bg-[#131316] border border-[#27181c] rounded-xl space-y-2 text-xs font-mono"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-bold text-cyan-400">{g.category}</span>
+                      <span className="font-bold text-red-400">{g.category}</span>
                       <Badge variant="danger" size="sm">
                         {g.total_failures} Failures
                       </Badge>
@@ -157,7 +157,7 @@ export const BlueAiPage: React.FC = () => {
           {/* Candidates Table */}
           <div className="space-y-3">
             <h3 className="text-xs font-mono uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <GitBranch className="w-4 h-4 text-blue-400" />
+              <GitBranch className="w-4 h-4 text-red-400" />
               Proposed Candidate Defenses ({candidates.length})
             </h3>
 
@@ -169,7 +169,7 @@ export const BlueAiPage: React.FC = () => {
                 action={canResearch ? { label: "Propose Candidate", onClick: () => setIsCreateModalOpen(true) } : undefined}
               />
             ) : (
-              <div className="overflow-x-auto bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl">
+              <div className="overflow-x-auto bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl">
                 <table className="w-full text-left text-xs font-mono">
                   <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800">
                     <tr>
@@ -188,7 +188,7 @@ export const BlueAiPage: React.FC = () => {
                         onClick={() => handleSelectCandidate(c)}
                         className="hover:bg-slate-800/40 cursor-pointer transition-colors"
                       >
-                        <td className="py-3.5 px-4 font-bold text-blue-400">v{c.candidate_version}</td>
+                        <td className="py-3.5 px-4 font-bold text-red-400">v{c.candidate_version}</td>
                         <td className="py-3.5 px-4 text-slate-300 uppercase">{c.defense_type}</td>
                         <td className="py-3.5 px-4 text-slate-300 max-w-sm truncate">
                           {c.changes_summary}
@@ -216,7 +216,7 @@ export const BlueAiPage: React.FC = () => {
                               e.stopPropagation();
                               handleSelectCandidate(c);
                             }}
-                            className="text-blue-400 hover:text-blue-300"
+                            className="text-red-400 hover:text-red-300"
                           >
                             <Eye className="w-4 h-4" />
                           </button>
@@ -246,7 +246,7 @@ export const BlueAiPage: React.FC = () => {
               required
               value={candidateForm.candidate_version}
               onChange={(e) => setCandidateForm({ ...candidateForm, candidate_version: e.target.value })}
-              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-red-500"
             />
           </div>
 
@@ -255,7 +255,7 @@ export const BlueAiPage: React.FC = () => {
             <select
               value={candidateForm.defense_type}
               onChange={(e) => setCandidateForm({ ...candidateForm, defense_type: e.target.value })}
-              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-red-500"
             >
               <option value="rule_update">Rule Update (Heuristic / Regex)</option>
               <option value="heuristic_weights">Heuristic Scoring Weights</option>
@@ -271,7 +271,7 @@ export const BlueAiPage: React.FC = () => {
               rows={3}
               value={candidateForm.changes_summary}
               onChange={(e) => setCandidateForm({ ...candidateForm, changes_summary: e.target.value })}
-              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-slate-900 border border-slate-800 rounded-lg text-sm text-slate-100 font-mono focus:outline-none focus:border-red-500"
             />
           </div>
 
@@ -286,7 +286,7 @@ export const BlueAiPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-mono font-medium disabled:opacity-50"
+              className="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-mono font-medium disabled:opacity-50"
             >
               {isSubmitting ? "Submitting..." : "Submit Candidate"}
             </button>
@@ -310,7 +310,7 @@ export const BlueAiPage: React.FC = () => {
             </div>
 
             {selectedCandidate.review_notes && (
-              <div className="p-3 bg-blue-950/40 border border-blue-900/60 rounded-xl text-xs font-mono text-blue-300">
+              <div className="p-3 bg-red-950/40 border border-red-900/60 rounded-xl text-xs font-mono text-red-300">
                 Review Notes: {selectedCandidate.review_notes}
               </div>
             )}

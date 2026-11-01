@@ -25,7 +25,7 @@ export const StatCard: React.FC<StatCardProps> = ({
   onClick,
 }) => {
   const borderVariants = {
-    blue: "hover:border-blue-500/50 focus:border-blue-500",
+    blue: "hover:border-red-500/50 focus:border-red-500",
     red: "hover:border-rose-500/50 focus:border-rose-500",
     emerald: "hover:border-emerald-500/50 focus:border-emerald-500",
     amber: "hover:border-amber-500/50 focus:border-amber-500",
@@ -34,7 +34,7 @@ export const StatCard: React.FC<StatCardProps> = ({
   };
 
   const iconColors = {
-    blue: "text-blue-400 bg-blue-950/60 border-blue-800/40",
+    blue: "text-red-400 bg-red-950/60 border-red-800/40",
     red: "text-rose-400 bg-rose-950/60 border-rose-800/40",
     emerald: "text-emerald-400 bg-emerald-950/60 border-emerald-800/40",
     amber: "text-amber-400 bg-amber-950/60 border-amber-800/40",
@@ -46,7 +46,7 @@ export const StatCard: React.FC<StatCardProps> = ({
     <div
       onClick={onClick}
       className={clsx(
-        "bg-[#111827] border border-[#1f293d] rounded-xl p-5 shadow-lg transition-all duration-200",
+        "bg-[#131316] border border-[#27181c] rounded-xl p-5 shadow-lg transition-all duration-200",
         onClick && "cursor-pointer",
         borderVariants[variant]
       )}

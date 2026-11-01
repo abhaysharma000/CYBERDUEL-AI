@@ -85,11 +85,11 @@ export const GuardianPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300 pb-12">
       {/* Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-3 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
-              <ShieldAlert className="w-7 h-7 text-cyan-400" />
+              <ShieldAlert className="w-7 h-7 text-red-400" />
               CYBERDUEL GUARDIAN
             </h2>
             <Badge variant="cyan" size="md">
@@ -111,7 +111,7 @@ export const GuardianPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={fetchGuardianData}
-            className="flex items-center gap-2 px-3 py-2 text-xs font-mono font-medium rounded-lg bg-[#141d30] border border-[#1f293d] text-slate-300 hover:text-white hover:bg-[#1a253c] transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-xs font-mono font-medium rounded-lg bg-[#1c1215] border border-[#27181c] text-slate-300 hover:text-white hover:bg-[#1a253c] transition-colors"
           >
             <RotateCw className="w-3.5 h-3.5" />
             Refresh
@@ -156,24 +156,24 @@ export const GuardianPage: React.FC = () => {
       {/* Agent Fleet Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {/* Guardian Supervisor */}
-        <div className="p-4 rounded-xl border border-cyan-500/30 bg-[#0d1322] relative overflow-hidden">
+        <div className="p-4 rounded-xl border border-cyan-500/30 bg-[#0c0c0f] relative overflow-hidden">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Supervisor</span>
             <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
           </div>
           <div className="text-lg font-bold text-white font-mono flex items-center gap-2">
-            <ShieldAlert className="w-5 h-5 text-cyan-400" />
+            <ShieldAlert className="w-5 h-5 text-red-400" />
             Guardian AI
           </div>
           <p className="text-xs text-slate-400 mt-1">Autonomous orchestration & comparative decision engine</p>
-          <div className="mt-3 pt-3 border-t border-[#1f293d] flex items-center justify-between text-[11px] font-mono">
+          <div className="mt-3 pt-3 border-t border-[#27181c] flex items-center justify-between text-[11px] font-mono">
             <span className="text-slate-500">Fleet Version:</span>
             <span className="text-cyan-300 font-bold">v{status?.active_policy_version}</span>
           </div>
         </div>
 
         {/* Red AI Adversary */}
-        <div className="p-4 rounded-xl border border-rose-500/30 bg-[#0d1322]">
+        <div className="p-4 rounded-xl border border-rose-500/30 bg-[#0c0c0f]">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Adversary Agent</span>
             <span className="w-2.5 h-2.5 rounded-full bg-rose-400" />
@@ -183,31 +183,31 @@ export const GuardianPage: React.FC = () => {
             Red AI
           </div>
           <p className="text-xs text-slate-400 mt-1">Synthetic threat exploration & discrepancy clustering</p>
-          <div className="mt-3 pt-3 border-t border-[#1f293d] flex items-center justify-between text-[11px] font-mono">
+          <div className="mt-3 pt-3 border-t border-[#27181c] flex items-center justify-between text-[11px] font-mono">
             <span className="text-slate-500">Status:</span>
             <span className="text-rose-300 font-bold">{agents["red_agent"]?.status.toUpperCase() || "ONLINE"}</span>
           </div>
         </div>
 
         {/* Blue AI Defense */}
-        <div className="p-4 rounded-xl border border-blue-500/30 bg-[#0d1322]">
+        <div className="p-4 rounded-xl border border-red-500/30 bg-[#0c0c0f]">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Defensive Agent</span>
             <span className="w-2.5 h-2.5 rounded-full bg-blue-400" />
           </div>
           <div className="text-lg font-bold text-white font-mono flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-blue-400" />
+            <ShieldCheck className="w-5 h-5 text-red-400" />
             Blue AI
           </div>
           <p className="text-xs text-slate-400 mt-1">Declarative AST rule synthesis & sandbox testing</p>
-          <div className="mt-3 pt-3 border-t border-[#1f293d] flex items-center justify-between text-[11px] font-mono">
+          <div className="mt-3 pt-3 border-t border-[#27181c] flex items-center justify-between text-[11px] font-mono">
             <span className="text-slate-500">Status:</span>
-            <span className="text-blue-300 font-bold">{agents["blue_agent"]?.status.toUpperCase() || "ONLINE"}</span>
+            <span className="text-red-300 font-bold">{agents["blue_agent"]?.status.toUpperCase() || "ONLINE"}</span>
           </div>
         </div>
 
         {/* Independent Evaluator */}
-        <div className="p-4 rounded-xl border border-emerald-500/30 bg-[#0d1322]">
+        <div className="p-4 rounded-xl border border-emerald-500/30 bg-[#0c0c0f]">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Benchmark Gatekeeper</span>
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
@@ -217,7 +217,7 @@ export const GuardianPage: React.FC = () => {
             Evaluator
           </div>
           <p className="text-xs text-slate-400 mt-1">Zero regression enforcement & mathematical auditing</p>
-          <div className="mt-3 pt-3 border-t border-[#1f293d] flex items-center justify-between text-[11px] font-mono">
+          <div className="mt-3 pt-3 border-t border-[#27181c] flex items-center justify-between text-[11px] font-mono">
             <span className="text-slate-500">Benchmark:</span>
             <span className="text-emerald-300 font-bold">benchmark-golden-v1</span>
           </div>
@@ -225,11 +225,11 @@ export const GuardianPage: React.FC = () => {
       </div>
 
       {/* Live Challenge Demonstration Showcase */}
-      <div className="p-6 rounded-xl border border-[#1f293d] bg-[#0d1322]">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#1f293d]">
+      <div className="p-6 rounded-xl border border-[#27181c] bg-[#0c0c0f]">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#27181c]">
           <div>
             <h3 className="text-lg font-bold text-white font-mono flex items-center gap-2">
-              <Zap className="w-5 h-5 text-cyan-400" />
+              <Zap className="w-5 h-5 text-red-400" />
               CYBERDUEL LIVE DEFENSE CHALLENGE (9-STAGE AUTONOMOUS PROOF)
             </h3>
             <p className="text-xs text-slate-400">
@@ -247,7 +247,7 @@ export const GuardianPage: React.FC = () => {
         {/* 9-Stage Visual Progression */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Stage 1 */}
-          <div className="p-4 rounded-lg bg-[#141d30] border border-[#1f293d]">
+          <div className="p-4 rounded-lg bg-[#1c1215] border border-[#27181c]">
             <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
               <span>STAGE 1: ADVERSARIAL INJECTION</span>
               <span className="text-rose-400 font-bold">EVADED</span>
@@ -262,7 +262,7 @@ export const GuardianPage: React.FC = () => {
           </div>
 
           {/* Stage 2 */}
-          <div className="p-4 rounded-lg bg-[#141d30] border border-[#1f293d]">
+          <div className="p-4 rounded-lg bg-[#1c1215] border border-[#27181c]">
             <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
               <span>STAGE 2: RED AI ANALYSIS</span>
               <span className="text-amber-400 font-bold">DISCOVERED</span>
@@ -274,10 +274,10 @@ export const GuardianPage: React.FC = () => {
           </div>
 
           {/* Stage 3 */}
-          <div className="p-4 rounded-lg bg-[#141d30] border border-[#1f293d]">
+          <div className="p-4 rounded-lg bg-[#1c1215] border border-[#27181c]">
             <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
               <span>STAGE 3: BLUE AI DEFENSE</span>
-              <span className="text-cyan-400 font-bold">SYNTHESIZED</span>
+              <span className="text-red-400 font-bold">SYNTHESIZED</span>
             </div>
             <div className="text-sm font-semibold text-white">Declarative AST Rule</div>
             <div className="text-xs font-mono text-cyan-300 truncate mt-1 bg-[#090d16] p-2 rounded border border-cyan-900/40">
@@ -289,7 +289,7 @@ export const GuardianPage: React.FC = () => {
           </div>
 
           {/* Stage 4 */}
-          <div className="p-4 rounded-lg bg-[#141d30] border border-[#1f293d]">
+          <div className="p-4 rounded-lg bg-[#1c1215] border border-[#27181c]">
             <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
               <span>STAGE 4: EVALUATOR AUDIT</span>
               <span className="text-emerald-400 font-bold">PASSED</span>
@@ -306,7 +306,7 @@ export const GuardianPage: React.FC = () => {
           </div>
 
           {/* Stage 5 & 6 */}
-          <div className="p-4 rounded-lg bg-[#141d30] border border-[#1f293d]">
+          <div className="p-4 rounded-lg bg-[#1c1215] border border-[#27181c]">
             <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
               <span>STAGE 5 &amp; 6: GUARDIAN RELEASE</span>
               <span className="text-indigo-400 font-bold">SIGNED</span>
@@ -322,14 +322,14 @@ export const GuardianPage: React.FC = () => {
           </div>
 
           {/* Stage 7 & 8 */}
-          <div className="p-4 rounded-lg bg-[#141d30] border border-[#1f293d]">
+          <div className="p-4 rounded-lg bg-[#1c1215] border border-[#27181c]">
             <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
               <span>STAGE 7 &amp; 8: FLEET ROLLOUT</span>
               <span className="text-purple-400 font-bold">ACTIVE</span>
             </div>
             <div className="text-sm font-semibold text-white">Browser &amp; Android Sync</div>
             <div className="flex items-center gap-3 mt-2 text-xs font-mono text-slate-300">
-              <span className="flex items-center gap-1"><Globe className="w-3.5 h-3.5 text-cyan-400" /> Extension</span>
+              <span className="flex items-center gap-1"><Globe className="w-3.5 h-3.5 text-red-400" /> Extension</span>
               <span className="flex items-center gap-1"><Smartphone className="w-3.5 h-3.5 text-emerald-400" /> Android</span>
             </div>
             <p className="text-[11px] text-slate-400 mt-2">
@@ -361,19 +361,19 @@ export const GuardianPage: React.FC = () => {
 
       {/* Decision Engine Comparative Rationale */}
       {activeMission?.decision_explanation && (
-        <div className="p-6 rounded-xl border border-cyan-500/30 bg-[#0d1322]">
+        <div className="p-6 rounded-xl border border-cyan-500/30 bg-[#0c0c0f]">
           <h3 className="text-base font-bold text-white font-mono flex items-center gap-2 mb-3">
-            <Cpu className="w-5 h-5 text-cyan-400" />
+            <Cpu className="w-5 h-5 text-red-400" />
             GUARDIAN COMPARATIVE REASONING &amp; TRADE-OFF AUDIT
           </h3>
-          <div className="p-4 rounded-lg bg-[#141d30] border border-[#1f293d] space-y-3 font-mono text-xs">
-            <div className="flex items-center justify-between pb-2 border-b border-[#1f293d]">
+          <div className="p-4 rounded-lg bg-[#1c1215] border border-[#27181c] space-y-3 font-mono text-xs">
+            <div className="flex items-center justify-between pb-2 border-b border-[#27181c]">
               <span className="text-slate-400">Release Recommendation:</span>
               <span className="text-emerald-400 font-bold">
                 {activeMission.decision_explanation.release_recommendation ? "APPROVED FOR FLEET" : "HOLD"}
               </span>
             </div>
-            <div className="flex items-center justify-between pb-2 border-b border-[#1f293d]">
+            <div className="flex items-center justify-between pb-2 border-b border-[#27181c]">
               <span className="text-slate-400">Confidence Score:</span>
               <span className="text-cyan-300 font-bold">
                 {(activeMission.decision_explanation.confidence * 100).toFixed(1)}%
@@ -388,7 +388,7 @@ export const GuardianPage: React.FC = () => {
       )}
 
       {/* Real-time Chronological Activity Stream */}
-      <div className="p-6 rounded-xl border border-[#1f293d] bg-[#0d1322]">
+      <div className="p-6 rounded-xl border border-[#27181c] bg-[#0c0c0f]">
         <h3 className="text-base font-bold text-white font-mono flex items-center gap-2 mb-4">
           <Terminal className="w-5 h-5 text-slate-400" />
           GUARDIAN SUPERVISOR AUDIT &amp; TELEMETRY STREAM
@@ -402,11 +402,11 @@ export const GuardianPage: React.FC = () => {
             activity.map((event) => (
               <div
                 key={event.event_id}
-                className="p-3 rounded-lg bg-[#141d30] border border-[#1f293d] flex items-start justify-between text-xs font-mono"
+                className="p-3 rounded-lg bg-[#1c1215] border border-[#27181c] flex items-start justify-between text-xs font-mono"
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-cyan-400 font-bold">[{event.event_type}]</span>
+                    <span className="text-red-400 font-bold">[{event.event_type}]</span>
                     <Badge variant="info" size="sm">
                       {event.state}
                     </Badge>

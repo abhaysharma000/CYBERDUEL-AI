@@ -7,3 +7,4 @@
     android:description="@string/accessibility_service_description"
     android:notificationTimeout="100"
     android:packageNames="com.android.chrome,com.brave.browser,org.chromium.chrome,com.sec.android.app.sbrowser,org.mozilla.firefox,com.microsoft.emmx,com.opera.browser,com.duckduckgo.mobile.android" />
+

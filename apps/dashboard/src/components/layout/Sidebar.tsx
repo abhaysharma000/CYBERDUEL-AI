@@ -37,15 +37,15 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-64 bg-[#0d1322] border-r border-[#1f293d] flex flex-col shrink-0 min-h-screen">
+    <aside className="w-64 bg-[#0c0c0f] border-r border-[#27181c] flex flex-col shrink-0 min-h-screen">
       {/* Brand Header */}
-      <div className="h-16 flex items-center px-6 gap-3 border-b border-[#1f293d]">
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/20 text-white font-bold">
+      <div className="h-16 flex items-center px-6 gap-3 border-b border-[#27181c]">
+        <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-red-600 via-rose-600 to-amber-500 flex items-center justify-center shadow-lg shadow-red-500/30 text-white font-bold">
           <Zap className="w-5 h-5 fill-current" />
         </div>
         <div>
           <h1 className="font-bold text-sm tracking-wide text-white flex items-center gap-1.5 font-mono">
-            CYBERDUEL <span className="text-cyan-400">AI</span>
+            CYBERDUEL <span className="text-red-400">AI</span>
           </h1>
           <p className="text-[10px] text-slate-400 uppercase tracking-widest font-mono">
             COMMAND CENTER
@@ -67,7 +67,7 @@ export const Sidebar: React.FC = () => {
               clsx(
                 "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all group",
                 isActive
-                  ? "bg-blue-600/15 text-blue-400 border border-blue-500/30 font-semibold"
+                  ? "bg-red-600/15 text-red-400 border border-red-500/30 font-semibold"
                   : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
               )
             }
@@ -75,7 +75,7 @@ export const Sidebar: React.FC = () => {
             <item.icon className="w-4 h-4 shrink-0 transition-transform group-hover:scale-110" />
             <span className="truncate">{item.name}</span>
             {item.badge && (
-              <span className="ml-auto text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded font-mono">
+              <span className="ml-auto text-[10px] bg-red-500/20 text-red-300 px-1.5 py-0.5 rounded font-mono">
                 {item.badge}
               </span>
             )}
@@ -84,8 +84,8 @@ export const Sidebar: React.FC = () => {
       </div>
 
       {/* Pipeline Status Indicator */}
-      <div className="p-4 border-t border-[#1f293d]">
-        <div className="bg-[#111827] border border-[#1f293d] rounded-xl p-3 text-xs">
+      <div className="p-4 border-t border-[#27181c]">
+        <div className="bg-[#131316] border border-[#27181c] rounded-xl p-3 text-xs">
           <div className="flex items-center justify-between text-slate-400 mb-2">
             <span className="font-mono text-[11px]">DEFENSIVE CYCLE</span>
             <span className="flex h-2 w-2 relative">
@@ -95,7 +95,7 @@ export const Sidebar: React.FC = () => {
           </div>
           <div className="text-[11px] text-slate-300 font-mono flex items-center justify-between">
             <span>Red → Blue → Eval</span>
-            <span className="text-cyan-400 font-semibold">ACTIVE</span>
+            <span className="text-red-400 font-semibold">ACTIVE</span>
           </div>
         </div>
       </div>

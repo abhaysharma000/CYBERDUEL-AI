@@ -54,7 +54,7 @@ export const OverviewPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Banner: Overview & Status */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono">
@@ -69,14 +69,14 @@ export const OverviewPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={fetchOverview}
-            className="flex items-center gap-2 px-3.5 py-2 bg-[#111827] hover:bg-slate-800 text-slate-200 border border-[#1f293d] rounded-lg text-xs font-mono font-medium transition-colors shadow-sm"
+            className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors shadow-sm"
           >
-            <RefreshCw className="w-3.5 h-3.5 text-blue-400" />
+            <RefreshCw className="w-3.5 h-3.5 text-red-400" />
             Refresh Telemetry
           </button>
           <Link
             to="/releases"
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-xs font-mono font-medium transition-colors shadow-lg shadow-blue-900/30"
+            className="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-lg text-xs font-mono font-medium transition-colors shadow-lg shadow-red-900/40"
           >
             <Package className="w-3.5 h-3.5" />
             Active Release: v{releases.active_production_version || "1.0.0"}
@@ -119,10 +119,10 @@ export const OverviewPage: React.FC = () => {
       {/* Staged Rollout Alert & Pipeline Lifecycle */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Release Status Card */}
-        <div className="lg:col-span-2 bg-[#111827] border border-[#1f293d] rounded-2xl p-6 shadow-xl">
+        <div className="lg:col-span-2 bg-[#131316] border border-[#27181c] rounded-2xl p-6 shadow-xl">
           <div className="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-5">
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-blue-950/60 border border-blue-800/40 text-blue-400">
+              <div className="p-2.5 rounded-xl bg-red-950/60 border border-red-800/40 text-red-400">
                 <Package className="w-5 h-5" />
               </div>
               <div>
@@ -136,7 +136,7 @@ export const OverviewPage: React.FC = () => {
             </div>
             <Link
               to="/releases"
-              className="text-xs font-mono text-blue-400 hover:text-blue-300 flex items-center gap-1 transition-colors"
+              className="text-xs font-mono text-red-400 hover:text-red-300 flex items-center gap-1 transition-colors"
             >
               Manage Releases <ChevronRight className="w-3.5 h-3.5" />
             </Link>
@@ -157,7 +157,7 @@ export const OverviewPage: React.FC = () => {
                 <span className="text-[11px] font-mono text-slate-400 block mb-1">
                   STAGED CANDIDATE
                 </span>
-                <span className="text-xl font-bold font-mono text-cyan-400">
+                <span className="text-xl font-bold font-mono text-red-400">
                   {releases.staged_version ? `v${releases.staged_version}` : "None Staged"}
                 </span>
                 <span className="text-[11px] text-slate-500 block mt-1">
@@ -185,7 +185,7 @@ export const OverviewPage: React.FC = () => {
               </div>
               <div className="h-2.5 w-full bg-slate-800/80 rounded-full overflow-hidden p-0.5">
                 <div
-                  className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full transition-all duration-500 shadow-sm shadow-cyan-500/50"
+                  className="h-full bg-gradient-to-r from-red-500 to-rose-400 rounded-full transition-all duration-500 shadow-sm shadow-cyan-500/50"
                   style={{ width: `${Math.max(releases.current_rollout_percentage, 5)}%` }}
                 />
               </div>
@@ -194,7 +194,7 @@ export const OverviewPage: React.FC = () => {
         </div>
 
         {/* Fleet Quick Status */}
-        <div className="bg-[#111827] border border-[#1f293d] rounded-2xl p-6 shadow-xl flex flex-col justify-between">
+        <div className="bg-[#131316] border border-[#27181c] rounded-2xl p-6 shadow-xl flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-5">
               <div className="flex items-center gap-2.5">
@@ -228,7 +228,7 @@ export const OverviewPage: React.FC = () => {
                   <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
                   Active in Last 24 Hours
                 </span>
-                <span className="font-mono font-bold text-cyan-400">{clients.active_last_24h}</span>
+                <span className="font-mono font-bold text-red-400">{clients.active_last_24h}</span>
               </div>
 
               <div className="flex items-center justify-between text-sm pt-3 border-t border-slate-800">
@@ -252,7 +252,7 @@ export const OverviewPage: React.FC = () => {
       {/* Research Cycle & Recent Audit Log Stream */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Research Pipeline Card */}
-        <div className="bg-[#111827] border border-[#1f293d] rounded-2xl p-6 shadow-xl">
+        <div className="bg-[#131316] border border-[#27181c] rounded-2xl p-6 shadow-xl">
           <div className="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-5">
             <div className="flex items-center gap-2.5">
               <Layers className="w-5 h-5 text-indigo-400" />
@@ -291,7 +291,7 @@ export const OverviewPage: React.FC = () => {
               </div>
               <Link
                 to="/blue"
-                className="px-3 py-1.5 bg-blue-950/60 hover:bg-blue-900 text-blue-300 border border-blue-800/60 rounded-lg text-xs font-mono transition-colors"
+                className="px-3 py-1.5 bg-red-950/60 hover:bg-blue-900 text-red-300 border border-red-800/60 rounded-lg text-xs font-mono transition-colors"
               >
                 Review
               </Link>
@@ -315,7 +315,7 @@ export const OverviewPage: React.FC = () => {
         </div>
 
         {/* Recent Audit Trail Feed */}
-        <div className="bg-[#111827] border border-[#1f293d] rounded-2xl p-6 shadow-xl">
+        <div className="bg-[#131316] border border-[#27181c] rounded-2xl p-6 shadow-xl">
           <div className="flex items-center justify-between pb-4 border-b border-slate-800/80 mb-5">
             <div className="flex items-center gap-2.5">
               <Clock className="w-5 h-5 text-amber-400" />

@@ -73,7 +73,7 @@ export const EvaluationsPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
@@ -90,7 +90,7 @@ export const EvaluationsPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={fetchData}
-            className="flex items-center gap-2 px-3.5 py-2 bg-[#111827] hover:bg-slate-800 text-slate-200 border border-[#1f293d] rounded-lg text-xs font-mono font-medium transition-colors"
+            className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors"
           >
             <RefreshCw className="w-3.5 h-3.5 text-emerald-400" />
             Refresh
@@ -128,7 +128,7 @@ export const EvaluationsPage: React.FC = () => {
                 description="No candidate defenses have been evaluated against benchmark manifests yet."
               />
             ) : (
-              <div className="overflow-x-auto bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl">
+              <div className="overflow-x-auto bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl">
                 <table className="w-full text-left text-xs font-mono">
                   <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800">
                     <tr>
@@ -155,7 +155,7 @@ export const EvaluationsPage: React.FC = () => {
                         <td className="py-3.5 px-4 text-slate-400">
                           v{ev.baseline_version || "1.0.0"}
                         </td>
-                        <td className="py-3.5 px-4 text-cyan-400">{ev.benchmark_manifest_id}</td>
+                        <td className="py-3.5 px-4 text-red-400">{ev.benchmark_manifest_id}</td>
                         <td className="py-3.5 px-4">
                           <Badge
                             variant={ev.verdict === "accept" || ev.verdict === "pass" ? "success" : "danger"}
@@ -201,16 +201,16 @@ export const EvaluationsPage: React.FC = () => {
           {/* Autonomous Improvement Cycles */}
           <div className="space-y-3">
             <h3 className="text-xs font-mono uppercase tracking-wider text-slate-400 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-cyan-400" />
+              <Sparkles className="w-4 h-4 text-red-400" />
               Autonomous Bounded Improvement Cycles ({cycles.length})
             </h3>
 
             {cycles.length === 0 ? (
-              <p className="text-xs font-mono text-slate-500 py-6 text-center bg-[#111827] border border-[#1f293d] rounded-xl">
+              <p className="text-xs font-mono text-slate-500 py-6 text-center bg-[#131316] border border-[#27181c] rounded-xl">
                 No autonomous improvement cycles have been triggered yet.
               </p>
             ) : (
-              <div className="overflow-x-auto bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl">
+              <div className="overflow-x-auto bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl">
                 <table className="w-full text-left text-xs font-mono">
                   <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800">
                     <tr>
@@ -225,7 +225,7 @@ export const EvaluationsPage: React.FC = () => {
                   <tbody className="divide-y divide-slate-800/60">
                     {cycles.map((c) => (
                       <tr key={c.id} className="hover:bg-slate-800/40 transition-colors">
-                        <td className="py-3.5 px-4 font-bold text-cyan-400">Cycle #{c.cycle_number}</td>
+                        <td className="py-3.5 px-4 font-bold text-red-400">Cycle #{c.cycle_number}</td>
                         <td className="py-3.5 px-4">
                           <Badge variant={c.status === "completed" ? "success" : "info"} size="sm">
                             {c.status.toUpperCase()}

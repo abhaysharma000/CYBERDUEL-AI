@@ -40,13 +40,13 @@ export const Modal: React.FC<ModalProps> = ({
   const borderColors = {
     danger: "border-rose-900/60",
     warning: "border-amber-900/60",
-    info: "border-blue-900/60",
+    info: "border-red-900/60",
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200">
       <div
-        className={`w-full ${maxWidthClasses[maxWidth]} bg-[#111827] border ${borderColors[variant]} rounded-2xl shadow-2xl overflow-hidden`}
+        className={`w-full ${maxWidthClasses[maxWidth]} bg-[#131316] border ${borderColors[variant]} rounded-2xl shadow-2xl overflow-hidden`}
         role="dialog"
         aria-modal="true"
       >

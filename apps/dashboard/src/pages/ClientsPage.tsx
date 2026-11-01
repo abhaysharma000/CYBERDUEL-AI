@@ -62,7 +62,7 @@ export const ClientsPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
@@ -78,7 +78,7 @@ export const ClientsPage: React.FC = () => {
 
         <button
           onClick={fetchData}
-          className="flex items-center gap-2 px-3.5 py-2 bg-[#111827] hover:bg-slate-800 text-slate-200 border border-[#1f293d] rounded-lg text-xs font-mono font-medium transition-colors"
+          className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors"
         >
           <RefreshCw className="w-3.5 h-3.5 text-purple-400" />
           Refresh Fleet
@@ -120,7 +120,7 @@ export const ClientsPage: React.FC = () => {
       )}
 
       {/* Filters Bar */}
-      <div className="p-4 bg-[#111827] border border-[#1f293d] rounded-xl flex flex-wrap items-center justify-between gap-4">
+      <div className="p-4 bg-[#131316] border border-[#27181c] rounded-xl flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <SlidersHorizontal className="w-4 h-4 text-slate-400" />
           <span className="text-xs font-mono text-slate-400 uppercase">Filters:</span>
@@ -162,7 +162,7 @@ export const ClientsPage: React.FC = () => {
           description="No client endpoints have registered with the backend yet. Launch the browser extension or Android application to register edge devices."
         />
       ) : (
-        <div className="overflow-x-auto bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl">
+        <div className="overflow-x-auto bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl">
           <table className="w-full text-left text-xs font-mono">
             <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800">
               <tr>
@@ -195,7 +195,7 @@ export const ClientsPage: React.FC = () => {
                   <td className="py-3.5 px-4 font-bold text-emerald-400">
                     v{c.current_policy_version}
                   </td>
-                  <td className="py-3.5 px-4 text-cyan-400 font-bold">Bucket #{c.cohort_bucket}</td>
+                  <td className="py-3.5 px-4 text-red-400 font-bold">Bucket #{c.cohort_bucket}</td>
                   <td className="py-3.5 px-4 text-slate-400">
                     {new Date(c.last_seen_at).toLocaleTimeString()}
                   </td>

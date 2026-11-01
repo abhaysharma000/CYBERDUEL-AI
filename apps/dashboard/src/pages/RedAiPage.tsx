@@ -74,7 +74,7 @@ export const RedAiPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
@@ -91,7 +91,7 @@ export const RedAiPage: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={fetchData}
-            className="flex items-center gap-2 px-3.5 py-2 bg-[#111827] hover:bg-slate-800 text-slate-200 border border-[#1f293d] rounded-lg text-xs font-mono font-medium transition-colors"
+            className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors"
           >
             <RefreshCw className="w-3.5 h-3.5 text-rose-400" />
             Refresh
@@ -152,7 +152,7 @@ export const RedAiPage: React.FC = () => {
               <div
                 key={exp.experiment_id}
                 onClick={() => setSelectedExp(exp)}
-                className="p-5 bg-[#111827] border border-[#1f293d] hover:border-slate-700 rounded-xl cursor-pointer transition-all duration-200 shadow-md space-y-3"
+                className="p-5 bg-[#131316] border border-[#27181c] hover:border-slate-700 rounded-xl cursor-pointer transition-all duration-200 shadow-md space-y-3"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div className="flex items-center gap-3">
@@ -199,7 +199,7 @@ export const RedAiPage: React.FC = () => {
           </div>
         )
       ) : (
-        <div className="overflow-x-auto bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl">
+        <div className="overflow-x-auto bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl">
           <table className="w-full text-left text-xs font-mono">
             <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800">
               <tr>

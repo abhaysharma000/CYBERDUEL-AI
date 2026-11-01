@@ -27,7 +27,7 @@ export const PrivacyUrl: React.FC<PrivacyUrlProps> = ({
     <div className={`inline-flex items-center gap-1.5 max-w-full font-mono text-xs ${className}`}>
       {showIcon && (
         <span title="Privacy Redacted URL: Sensitive credentials removed">
-          <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+          <ShieldCheck className="w-3.5 h-3.5 text-red-400 shrink-0" />
         </span>
       )}
       <span

@@ -64,7 +64,7 @@ export const AuditPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
@@ -80,7 +80,7 @@ export const AuditPage: React.FC = () => {
 
         <button
           onClick={fetchEvents}
-          className="flex items-center gap-2 px-3.5 py-2 bg-[#111827] hover:bg-slate-800 text-slate-200 border border-[#1f293d] rounded-lg text-xs font-mono font-medium transition-colors"
+          className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors"
         >
           <RefreshCw className="w-3.5 h-3.5 text-amber-400" />
           Refresh Log
@@ -90,7 +90,7 @@ export const AuditPage: React.FC = () => {
       {/* Filter and Search Bar */}
       <form
         onSubmit={handleSearch}
-        className="p-4 bg-[#111827] border border-[#1f293d] rounded-xl flex flex-wrap items-center justify-between gap-4"
+        className="p-4 bg-[#131316] border border-[#27181c] rounded-xl flex flex-wrap items-center justify-between gap-4"
       >
         <div className="flex flex-wrap items-center gap-3">
           <input
@@ -148,7 +148,7 @@ export const AuditPage: React.FC = () => {
         />
       ) : (
         <div className="space-y-4">
-          <div className="overflow-x-auto bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl">
+          <div className="overflow-x-auto bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl">
             <table className="w-full text-left text-xs font-mono">
               <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800">
                 <tr>

@@ -81,7 +81,7 @@ export const SystemHealthPage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
@@ -97,7 +97,7 @@ export const SystemHealthPage: React.FC = () => {
 
         <button
           onClick={fetchHealth}
-          className="flex items-center gap-2 px-3.5 py-2 bg-[#111827] hover:bg-slate-800 text-slate-200 border border-[#1f293d] rounded-lg text-xs font-mono font-medium transition-colors"
+          className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors"
         >
           <RefreshCw className="w-3.5 h-3.5 text-emerald-400" />
           Probe Health
@@ -151,11 +151,11 @@ export const SystemHealthPage: React.FC = () => {
               {subsystems.map((sub) => (
                 <div
                   key={sub.name}
-                  className="p-5 bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl space-y-3"
+                  className="p-5 bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl space-y-3"
                 >
                   <div className="flex items-center justify-between">
                     <div className="p-2 bg-slate-900 border border-slate-800 rounded-lg text-slate-300">
-                      <sub.icon className="w-5 h-5 text-blue-400" />
+                      <sub.icon className="w-5 h-5 text-red-400" />
                     </div>
                     <Badge variant="success" size="sm">
                       {sub.status.toUpperCase()}

@@ -44,11 +44,11 @@ export const IntelligencePage: React.FC = () => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#1f293d]">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-[#27181c]">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h2 className="text-2xl font-bold tracking-tight text-white font-mono flex items-center gap-2">
-              <Eye className="w-6 h-6 text-cyan-400" />
+              <Eye className="w-6 h-6 text-red-400" />
               THREAT INTELLIGENCE & TELEMETRY
             </h2>
             <Badge variant="cyan" size="sm">PRIVACY PRESERVED</Badge>
@@ -60,9 +60,9 @@ export const IntelligencePage: React.FC = () => {
 
         <button
           onClick={fetchData}
-          className="flex items-center gap-2 px-3.5 py-2 bg-[#111827] hover:bg-slate-800 text-slate-200 border border-[#1f293d] rounded-lg text-xs font-mono font-medium transition-colors"
+          className="flex items-center gap-2 px-3.5 py-2 bg-[#131316] hover:bg-slate-800 text-slate-200 border border-[#27181c] rounded-lg text-xs font-mono font-medium transition-colors"
         >
-          <RefreshCw className="w-3.5 h-3.5 text-cyan-400" />
+          <RefreshCw className="w-3.5 h-3.5 text-red-400" />
           Refresh Intelligence
         </button>
       </div>
@@ -73,7 +73,7 @@ export const IntelligencePage: React.FC = () => {
           onClick={() => setActiveTab("indicators")}
           className={`pb-3 text-sm font-mono font-semibold transition-colors border-b-2 flex items-center gap-2 ${
             activeTab === "indicators"
-              ? "border-cyan-500 text-cyan-400"
+              ? "border-cyan-500 text-red-400"
               : "border-transparent text-slate-400 hover:text-slate-200"
           }`}
         >
@@ -84,7 +84,7 @@ export const IntelligencePage: React.FC = () => {
           onClick={() => setActiveTab("observations")}
           className={`pb-3 text-sm font-mono font-semibold transition-colors border-b-2 flex items-center gap-2 ${
             activeTab === "observations"
-              ? "border-cyan-500 text-cyan-400"
+              ? "border-cyan-500 text-red-400"
               : "border-transparent text-slate-400 hover:text-slate-200"
           }`}
         >
@@ -105,7 +105,7 @@ export const IntelligencePage: React.FC = () => {
             description="The intelligence repository has not cataloged any threat indicators yet."
           />
         ) : (
-          <div className="overflow-x-auto bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl">
+          <div className="overflow-x-auto bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl">
             <table className="w-full text-left text-xs font-mono">
               <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800">
                 <tr>
@@ -119,7 +119,7 @@ export const IntelligencePage: React.FC = () => {
               <tbody className="divide-y divide-slate-800/60">
                 {indicators.map((ind, idx) => (
                   <tr key={ind.id || idx} className="hover:bg-slate-800/40 transition-colors">
-                    <td className="py-3 px-4 text-cyan-400 font-bold uppercase">
+                    <td className="py-3 px-4 text-red-400 font-bold uppercase">
                       {ind.indicator_type || "URL_PATTERN"}
                     </td>
                     <td className="py-3 px-4 text-slate-200 max-w-md">
@@ -156,7 +156,7 @@ export const IntelligencePage: React.FC = () => {
           description="Edge telemetry observations pipeline has not recorded any threat events yet."
         />
       ) : (
-        <div className="overflow-x-auto bg-[#111827] border border-[#1f293d] rounded-2xl shadow-xl">
+        <div className="overflow-x-auto bg-[#131316] border border-[#27181c] rounded-2xl shadow-xl">
           <table className="w-full text-left text-xs font-mono">
             <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800">
               <tr>
