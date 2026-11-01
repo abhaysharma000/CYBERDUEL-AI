@@ -50,12 +50,12 @@ data class TrustAnchorSet(
 @Serializable
 data class UpdateCheckRequest(
     @SerialName("client_id") val clientId: String,
-    @SerialName("client_version") val clientVersion: String,
-    @SerialName("engine_version") val engineVersion: String,
+    @SerialName("client_type") val clientType: String = "mobile_app",
+    @SerialName("engine_version") val engineVersion: String = "1.0.0",
     @SerialName("current_policy_version") val currentPolicyVersion: String,
     @SerialName("current_sequence_number") val currentSequenceNumber: Long,
-    @SerialName("channel") val channel: ReleaseChannel,
-    @SerialName("platform") val platform: String = "mobile_app"
+    @SerialName("channel") val channel: ReleaseChannel = ReleaseChannel.STABLE,
+    @SerialName("platform") val platform: String = "Android-15"
 )
 
 @Serializable

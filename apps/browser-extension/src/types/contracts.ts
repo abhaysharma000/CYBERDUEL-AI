@@ -141,7 +141,7 @@ export interface TrustAnchorSet {
 
 export interface UpdateCheckRequest {
   client_id: string;
-  client_version: string;
+  client_type: 'browser_extension' | 'mobile_app' | 'agent_node';
   engine_version: string;
   current_policy_version: string;
   current_sequence_number: number;

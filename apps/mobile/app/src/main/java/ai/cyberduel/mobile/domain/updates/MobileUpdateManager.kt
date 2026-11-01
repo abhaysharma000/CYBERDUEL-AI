@@ -48,12 +48,12 @@ class MobileUpdateManager(
 
         val checkRequest = UpdateCheckRequest(
             clientId = settingsRepository.clientId,
-            clientVersion = clientVersion,
+            clientType = "mobile_app",
             engineVersion = engineVersion,
             currentPolicyVersion = activePolicy.policyVersion,
             currentSequenceNumber = activePolicy.sequenceNumber,
             channel = settingsRepository.releaseChannel,
-            platform = "mobile_app"
+            platform = "Android-15"
         )
 
         val checkResponse = try {

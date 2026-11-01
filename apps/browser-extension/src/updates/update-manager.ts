@@ -41,12 +41,12 @@ export class UpdateManager {
     try {
       checkResp = await this.client.checkForUpdates({
         client_id: settings.client_id,
-        client_version: '1.0.0',
+        client_type: 'browser_extension',
         engine_version: '1.0.0',
         current_policy_version: currentVersion,
         current_sequence_number: currentSeq,
         channel: settings.channel as ReleaseChannel,
-        platform: 'browser_extension',
+        platform: 'Chrome-130',
       });
     } catch (err) {
       const msg = `Cloud update check failed: ${err}`;
