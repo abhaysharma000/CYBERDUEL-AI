@@ -79,6 +79,38 @@ def create_app() -> FastAPI:
     # 5. Mount Core Routers
     app.include_router(api_router)
 
+    # 6. Mount Static Dashboard SPA (when built distribution exists)
+    from pathlib import Path
+    from fastapi.staticfiles import StaticFiles
+    from fastapi.responses import FileResponse
+    from fastapi import HTTPException
+
+    dist_candidates = [
+        Path(__file__).resolve().parent.parent.parent.parent / "apps" / "dashboard" / "dist",
+        Path(__file__).resolve().parent.parent.parent / "dashboard" / "dist",
+        Path("/app/apps/dashboard/dist"),
+        Path("apps/dashboard/dist"),
+    ]
+    dist_dir = None
+    for cand in dist_candidates:
+        if cand.is_dir() and (cand / "index.html").is_file():
+            dist_dir = cand
+            break
+
+    if dist_dir:
+        assets_dir = dist_dir / "assets"
+        if assets_dir.is_dir():
+            app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="assets")
+
+        @app.get("/{full_path:path}", include_in_schema=False)
+        async def serve_dashboard(full_path: str):
+            if full_path.startswith(("api", "docs", "redoc", "openapi.json", "health")):
+                raise HTTPException(status_code=404, detail="Not Found")
+            target = dist_dir / full_path
+            if target.is_file():
+                return FileResponse(target)
+            return FileResponse(dist_dir / "index.html")
+
     return app
 
 
